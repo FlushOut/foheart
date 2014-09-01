@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<merger version="2" >
+
+    <dataSet config="20.0.0" >
+        <source path="D:\Foheart\app\build\intermediates\exploded-aar\com.android.support\support-v4\20.0.0\assets" />
+    </dataSet>
+    <dataSet config="20.0.0" >
+        <source path="D:\Foheart\app\build\intermediates\exploded-aar\com.android.support\appcompat-v7\20.0.0\assets" />
+    </dataSet>
+    <dataSet config="main" >
+        <source path="D:\Foheart\app\src\main\assets" >
+            <file
+                name="fonts/Roboto-Black.ttf"
+                path="D:\Foheart\app\src\main\assets\fonts\Roboto-Black.ttf" />
+            <file
+                name="fonts/Roboto-BlackItalic.ttf"
+                path="D:\Foheart\app\src\main\assets\fonts\Roboto-BlackItalic.ttf" />
+            <file
+                name="fonts/Roboto-Bold.ttf"
+                path="D:\Foheart\app\src\main\assets\fonts\Roboto-Bold.ttf" />
+            <file
+                name="fonts/Roboto-BoldCondensed.ttf"
+                path="D:\Foheart\app\src\main\assets\fonts\Roboto-BoldCondensed.ttf" />
+            <file
+                name="fonts/Roboto-BoldCondensedItalic.ttf"
+                path="D:\Foheart\app\src\main\assets\fonts\Roboto-BoldCondensedItalic.ttf" />
+            <file
+                name="fonts/Roboto-BoldItalic.ttf"
+                path="D:\Foheart\app\src\main\assets\fonts\Roboto-BoldItalic.ttf" />
+            <file
+                name="fonts/Roboto-Condensed.ttf"
+                path="D:\Foheart\app\src\main\assets\fonts\Roboto-Condensed.ttf" />
+            <file
+                name="fonts/Roboto-CondensedItalic.ttf"
+                path="D:\Foheart\app\src\main\assets\fonts\Roboto-CondensedItalic.ttf" />
+            <file
+                name="fonts/Roboto-Italic.ttf"
+                path="D:\Foheart\app\src\main\assets\fonts\Roboto-Italic.ttf" />
+            <file
+                name="fonts/Roboto-Light.ttf"
+                path="D:\Foheart\app\src\main\assets\fonts\Roboto-Light.ttf" />
+            <file
+                name="fonts/Roboto-LightItalic.ttf"
+                path="D:\Foheart\app\src\main\assets\fonts\Roboto-LightItalic.ttf" />
+            <file
+                name="fonts/Roboto-Medium.ttf"
+                path="D:\Foheart\app\src\main\assets\fonts\Roboto-Medium.ttf" />
+            <file
+                name="fonts/Roboto-MediumItalic.ttf"
+                path="D:\Foheart\app\src\main\assets\fonts\Roboto-MediumItalic.ttf" />
+            <file
+                name="fonts/Roboto-Regular.ttf"
+                path="D:\Foheart\app\src\main\assets\fonts\Roboto-Regular.ttf" />
+            <file
+                name="fonts/Roboto-Thin.ttf"
+                path="D:\Foheart\app\src\main\assets\fonts\Roboto-Thin.ttf" />
+            <file
+                name="fonts/Roboto-ThinItalic.ttf"
+                path="D:\Foheart\app\src\main\assets\fonts\Roboto-ThinItalic.ttf" />
+        </source>
+    </dataSet>
+    <dataSet config="debug" >
+        <source path="D:\Foheart\app\src\debug\assets" />
+    </dataSet>
+
+</merger>

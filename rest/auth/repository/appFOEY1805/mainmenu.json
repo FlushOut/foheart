@@ -1,0 +1,30 @@
+[
+    {
+        "name": "menuTest1",
+        "color": "4396C0",
+        "icon": "rotas.png",
+        "title": "Test1App2",
+        "view": "vwTest1"
+    },
+    {
+        "name": "menuTest2",
+        "color": "4354C0",
+        "icon": "clientes.png",
+        "title": "Test2App2",
+        "view": "vwTest2"
+    },
+    {
+        "name": "menuTest3",
+        "color": "0112F6",
+        "icon": "tabela.png",
+        "title": "Test3App2",
+        "view": "vwTest3"
+    },
+    {
+        "name": "menuTest4",
+        "color": "0E156A",
+        "icon": "report.png",
+        "title": "Test4App2",
+        "view": "vwTest4"
+    }
+]

@@ -1,0 +1,30 @@
+[
+	{
+		"name":"openbButtonTest1",
+		"params":[],
+		"code":[
+			{"openScreen":{"screenName":"vwTest11", "variables":[]}}
+		]
+	},
+	{
+		"name":"openbButtonTest2",
+		"params":[],
+		"code":[
+			{"openScreen":{"screenName":"vwTest21", "variables":[]}}
+		]
+	},
+	{
+		"name":"openbButtonTest3",
+		"params":[],
+		"code":[
+			{"openScreen":{"screenName":"vwTest31", "variables":[]}}
+		]
+	},
+	{
+		"name":"openbButtonTest4",
+		"params":[],
+		"code":[
+			{"openScreen":{"screenName":"vwTest41", "variables":[]}}
+		]
+	}
+]

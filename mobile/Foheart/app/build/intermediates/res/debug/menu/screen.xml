@@ -1,0 +1,10 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".ScreenActivity" >
+    <item android:id="@+id/action_screen"
+        android:title="@string/action_settings"
+        android:orderInCategory="100"
+        app:showAsAction="always|withText" />
+</menu>
+<!-- From: file:/D:/Foheart/app/src/main/res/menu/screen.xml -->

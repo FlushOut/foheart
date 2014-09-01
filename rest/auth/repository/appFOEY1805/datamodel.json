@@ -1,0 +1,92 @@
+{
+    "modelVersion": 1,
+    "tables": [
+        {
+            "name": "foey_test1",
+            "autoSync": 0,
+            "fields": [
+                {
+                    "name": "ftest11",
+                    "type": "text",
+                    "size": 255,
+                    "default": "",
+                    "required": true
+                },
+                {
+                    "name": "ftest12",
+                    "type": "text",
+                    "size": 255,
+                    "default": "",
+                    "required": true
+                },
+                {
+                    "name": "ftest13",
+                    "type": "text",
+                    "size": 255,
+                    "default": "",
+                    "required": true
+                }
+            ],
+            "relations": [],
+            "key": "_id"
+        },
+        {
+            "name": "foey_test2",
+            "autoSync": 0,
+            "fields": [
+                {
+                    "name": "ftest21",
+                    "type": "text",
+                    "size": 255,
+                    "default": "",
+                    "required": true
+                },
+                {
+                    "name": "ftest22",
+                    "type": "text",
+                    "size": 255,
+                    "default": "",
+                    "required": true
+                },
+                {
+                    "name": "ftest23",
+                    "type": "text",
+                    "size": 255,
+                    "default": "",
+                    "required": true
+                }
+            ],
+            "relations": [],
+            "key": "_id"
+        },
+        {
+            "name": "foey_test3",
+            "autoSync": 0,
+            "fields": [
+                {
+                    "name": "ftest31",
+                    "type": "text",
+                    "size": 255,
+                    "default": "",
+                    "required": true
+                },
+                {
+                    "name": "ftest32",
+                    "type": "text",
+                    "size": 255,
+                    "default": "",
+                    "required": true
+                },
+                {
+                    "name": "ftest33",
+                    "type": "text",
+                    "size": 255,
+                    "default": "",
+                    "required": true
+                }
+            ],
+            "relations": [],
+            "key": "_id"
+        }
+    ]
+}

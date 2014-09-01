@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <attr name="number_cols_menu" value="2" />
+    <declare-styleable name="MenuButton">
+        <attr name="menuTitle" format="string" />
+        <attr name="menuColor" format="enum">
+            <enum name="green" value="0"/>
+            <enum name="blue" value="1"/>
+            <enum name="orange" value="2"/>
+            <enum name="purple" value="3"/>
+        </attr>
+        <attr name="notifications" format="integer" />
+        <attr name="iconFile" format="string" />
+    </declare-styleable>
+
+</resources>

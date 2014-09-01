@@ -1,0 +1,17 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".MenuActivity" >
+    <item android:id="@+id/action_menu"
+        android:icon="@drawable/ic_action_overflow"
+        android:title="@string/action_settings"
+        android:orderInCategory="1"
+        app:showAsAction="always">
+    <menu>
+        <item android:id="@+id/menu_about"
+            android:title="@string/menu_about" />
+        <item android:id="@+id/menu_logout"
+            android:title="@string/menu_logout" />
+    </menu>
+    </item>
+</menu>

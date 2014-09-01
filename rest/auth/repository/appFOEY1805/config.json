@@ -1,0 +1,12 @@
+{
+    "appVersion": "1.0.0",
+    "baseVersion": "1.0.0",
+    "description": "FOEatery",
+    "dbuser": "63a9f0ea7bb98050796b649e85481845",
+    "dbpass": "81c3b080dad537de7e10e0987a4bf52e",
+    "dbhost": "f528764d624db129b32c21fbca0cb8d6",
+    "dbname": "eabaf2594b773fc96f31aacba2a88309",
+    "dbport": "16fc18d787294ad5171100e33d05d4e2",
+    "debugMode": 1,
+    "updateInterval": 600
+}

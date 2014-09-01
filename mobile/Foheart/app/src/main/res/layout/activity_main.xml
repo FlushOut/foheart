@@ -1,0 +1,58 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    tools:context=".MainActivity">
+
+    <EditText
+        android:id="@+id/txt_user_email"
+        android:hint="@string/hint_user_email"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:singleLine="true"
+        android:autoText="true"
+        android:inputType="textAutoComplete"
+        />
+
+    <EditText
+        android:id="@+id/txt_user_pass"
+        android:hint="@string/hint_user_pass"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:singleLine="true"
+        android:layout_below="@id/txt_user_email"
+        android:layout_marginTop="20dp"
+        android:inputType="textPassword"
+        />
+
+    <CheckBox android:id="@+id/chk_keep_logged"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/chk_keep_login"
+        android:layout_below="@id/txt_user_pass"
+        android:layout_marginTop="20dp"
+        android:gravity="center_vertical"
+        android:onClick="onKeepLoggedClick"
+        />
+
+    <Button
+        android:id="@+id/btn_login"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:singleLine="true"
+        android:text="@string/btn_login"
+        android:layout_below="@id/chk_keep_logged"
+        android:layout_marginTop="20dp"
+        android:onClick="goLogin"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignRight="@+id/txt_user_pass"
+        android:layout_alignEnd="@+id/txt_user_pass" />
+
+
+
+</RelativeLayout>

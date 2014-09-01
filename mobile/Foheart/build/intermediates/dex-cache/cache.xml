@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pre-dex-items>
+
+    <item
+        dex="D:\Foheart\app\build\intermediates\pre-dexed\debug\raroscope-1.0-f8e8722a5da7bfb3cd9a31213ccc3cda66513811.jar"
+        jar="D:\Foheart\app\libs\raroscope-1.0.jar"
+        jumboMode="false"
+        revision="20.0.0"
+        sha1="e349d09402c8b060625053fe09a1062b8683abf9"/>
+    <item
+        dex="D:\Foheart\app\build\intermediates\pre-dexed\debug\classes-7961c53321af6d0d2c41e5a9468fab76961530af.jar"
+        jar="D:\Foheart\app\build\intermediates\exploded-aar\com.google.android.gms\play-services\4.0.30\classes.jar"
+        jumboMode="false"
+        revision="20.0.0"
+        sha1="cebe8e4a3a469c4623addcca1dc571407ff3a08e"/>
+    <item
+        dex="D:\Foheart\app\build\intermediates\pre-dexed\debug\support-annotations-20.0.0-79e42da7c2657068d681cf877be8b4cc06e3cb7a.jar"
+        jar="C:\Program Files (x86)\Android\android-studio\sdk\extras\android\m2repository\com\android\support\support-annotations\20.0.0\support-annotations-20.0.0.jar"
+        jumboMode="false"
+        revision="20.0.0"
+        sha1="9d9013e9ff35fc3756411e62873c363c70c638fa"/>
+    <item
+        dex="D:\Foheart\app\build\intermediates\pre-dexed\debug\internal_impl-20.0.0-5f46e503fc3864bf9961070e8579cee486214ecd.jar"
+        jar="D:\Foheart\app\build\intermediates\exploded-aar\com.android.support\support-v4\20.0.0\libs\internal_impl-20.0.0.jar"
+        jumboMode="false"
+        revision="20.0.0"
+        sha1="e40b3078e3fbd353c9f44da8df25a8fc0078209d"/>
+    <item
+        dex="D:\Foheart\app\build\intermediates\pre-dexed\debug\classes-fd24afd7238f03ca71f5102c06a1f191645f4beb.jar"
+        jar="D:\Foheart\app\build\intermediates\exploded-aar\com.android.support\appcompat-v7\20.0.0\classes.jar"
+        jumboMode="false"
+        revision="20.0.0"
+        sha1="f21927d22fe31889ecce94dd697a2e75b137e0ef"/>
+    <item
+        dex="D:\Foheart\app\build\intermediates\pre-dexed\debug\exp4j-0.3.10-c148fed3a0ecc4cba58daef8db9daa803fac3307.jar"
+        jar="D:\Foheart\app\libs\exp4j-0.3.10.jar"
+        jumboMode="false"
+        revision="20.0.0"
+        sha1="e883dd9228509720e0de5fa1f6840c3823f5d4ae"/>
+    <item
+        dex="D:\Foheart\app\build\intermediates\pre-dexed\debug\js-abe8b43518ff74185cd746d5720b6ab204a4eb09.jar"
+        jar="D:\Foheart\app\libs\js.jar"
+        jumboMode="false"
+        revision="20.0.0"
+        sha1="e982f2136574b9a423186fbaeaaa98dc3e5a5288"/>
+    <item
+        dex="D:\Foheart\app\build\intermediates\pre-dexed\debug\classes-4d7f47788c51082bc60e475baed0f9ac9fe2c3c1.jar"
+        jar="D:\Foheart\app\build\intermediates\exploded-aar\com.android.support\support-v4\20.0.0\classes.jar"
+        jumboMode="false"
+        revision="20.0.0"
+        sha1="8694693636ab36910c8100ce527c258ff3ebece0"/>
+
+</pre-dex-items>

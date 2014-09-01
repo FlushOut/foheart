@@ -1,0 +1,358 @@
+[
+    {
+        "name": "vwTest1",
+        "title": "Test1",
+        "layout": "linear",
+        "events": {
+            "onLoad": "loadTest1",
+            "onShow": "refreshTest1",
+            "onBack": ""
+        },
+        "actionButton": {},
+        "modules": [
+            {
+                "module": "label",
+                "name": "lblTest1",
+                "properties": {
+                    "text": "Label Test1",
+                    "transform": 0,
+                    "font-size": 21,
+                    "font-style": "regular"
+                },
+                "events": {}
+            },
+            {
+                "module": "textfield",
+                "name": "modules",
+                "properties": {
+                    "text": "",
+                    "lines": 1,
+                    "password": false,
+                    "font-size": 18,
+                    "font-style": "regular",
+                    "hint": "Test1",
+                    "keyboard": 3
+                },
+                "events": {}
+            },
+            {
+                "module": "button",
+                "name": "btnTest1",
+                "properties": {
+                    "text": "Button Test1",
+                    "enabled": true,
+                    "visible": true,
+                    "alignment": 1
+                },
+                "events": {
+                    "onClick": "openbButtonTest1"
+                }
+            }
+        ]
+    },
+    {
+        "name": "vwTest2",
+        "title": "Test2",
+        "layout": "linear",
+        "events": {
+            "onLoad": "loadTest2",
+            "onShow": "refreshTest2",
+            "onBack": ""
+        },
+        "actionButton": {},
+        "modules": [
+            {
+                "module": "label",
+                "name": "lblTest2",
+                "properties": {
+                    "text": "Label Test2",
+                    "transform": 0,
+                    "font-size": 21,
+                    "font-style": "regular"
+                },
+                "events": {}
+            },
+            {
+                "module": "textfield",
+                "name": "txtTest2",
+                "properties": {
+                    "text": "",
+                    "lines": 1,
+                    "password": false,
+                    "font-size": 18,
+                    "font-style": "regular",
+                    "hint": "Test2",
+                    "keyboard": 3
+                },
+                "events": {}
+            },
+            {
+                "module": "button",
+                "name": "btnTest2",
+                "properties": {
+                    "text": "Button Test2",
+                    "enabled": true,
+                    "visible": true,
+                    "alignment": 1
+                },
+                "events": {
+                    "onClick": "openbButtonTest2"
+                }
+            }
+        ]
+    },
+    {
+        "name": "vwTest3",
+        "title": "Test3",
+        "layout": "linear",
+        "events": {
+            "onLoad": "loadTest3",
+            "onShow": "refreshTest3",
+            "onBack": ""
+        },
+        "actionButton": {},
+        "modules": [
+            {
+                "module": "label",
+                "name": "lblTest3",
+                "properties": {
+                    "text": "Label Test3",
+                    "transform": 0,
+                    "font-size": 21,
+                    "font-style": "regular"
+                },
+                "events": {}
+            },
+            {
+                "module": "textfield",
+                "name": "txtTest3",
+                "properties": {
+                    "text": "",
+                    "lines": 1,
+                    "password": false,
+                    "font-size": 18,
+                    "font-style": "regular",
+                    "hint": "Test3",
+                    "keyboard": 3
+                },
+                "events": {}
+            },
+            {
+                "module": "button",
+                "name": "btnTest3",
+                "properties": {
+                    "text": "Button Test3",
+                    "enabled": true,
+                    "visible": true,
+                    "alignment": 1
+                },
+                "events": {
+                    "onClick": "openbButtonTest3"
+                }
+            }
+        ]
+    },
+    {
+        "name": "vwTest4",
+        "title": "Test4",
+        "layout": "linear",
+        "events": {
+            "onLoad": "loadTest4",
+            "onShow": "refreshTest4",
+            "onBack": ""
+        },
+        "actionButton": {},
+        "modules": [
+            {
+                "module": "label",
+                "name": "lblTest4",
+                "properties": {
+                    "text": "Label Test4",
+                    "transform": 0,
+                    "font-size": 21,
+                    "font-style": "regular"
+                },
+                "events": {}
+            },
+            {
+                "module": "textfield",
+                "name": "txtTest4",
+                "properties": {
+                    "text": "",
+                    "lines": 1,
+                    "password": false,
+                    "font-size": 18,
+                    "font-style": "regular",
+                    "hint": "Test4",
+                    "keyboard": 3
+                },
+                "events": {}
+            },
+            {
+                "module": "button",
+                "name": "btnTest4",
+                "properties": {
+                    "text": "Button Test4",
+                    "enabled": true,
+                    "visible": true,
+                    "alignment": 1
+                },
+                "events": {
+                    "onClick": "openbButtonTest4"
+                }
+            }
+        ]
+    },
+    {
+        "name": "vwTest11",
+        "title": "Test11",
+        "layout": "linear",
+        "events": {
+            "onLoad": "loadTest11",
+            "onShow": "refreshTest11",
+            "onBack": ""
+        },
+        "actionButton": {},
+        "modules": [
+            {
+                "module": "label",
+                "name": "lblTest11",
+                "properties": {
+                    "text": "Label Test11",
+                    "transform": 0,
+                    "font-size": 21,
+                    "font-style": "regular"
+                },
+                "events": {}
+            },
+            {
+                "module": "textfield",
+                "name": "txtTest11",
+                "properties": {
+                    "text": "",
+                    "lines": 1,
+                    "password": false,
+                    "font-size": 18,
+                    "font-style": "regular",
+                    "hint": "Test11",
+                    "keyboard": 3
+                },
+                "events": {}
+            }
+        ]
+    },
+    {
+        "name": "vwTest21",
+        "title": "Test21",
+        "layout": "linear",
+        "events": {
+            "onLoad": "loadTest21",
+            "onShow": "refreshTest21",
+            "onBack": ""
+        },
+        "actionButton": {},
+        "modules": [
+            {
+                "module": "label",
+                "name": "lblTest21",
+                "properties": {
+                    "text": "Label Test21",
+                    "transform": 0,
+                    "font-size": 21,
+                    "font-style": "regular"
+                },
+                "events": {}
+            },
+            {
+                "module": "textfield",
+                "name": "txtTest21",
+                "properties": {
+                    "text": "",
+                    "lines": 1,
+                    "password": false,
+                    "font-size": 18,
+                    "font-style": "regular",
+                    "hint": "Test21",
+                    "keyboard": 3
+                },
+                "events": {}
+            }
+        ]
+    },
+    {
+        "name": "vwTest31",
+        "title": "Test31",
+        "layout": "linear",
+        "events": {
+            "onLoad": "loadTest31",
+            "onShow": "refreshTest31",
+            "onBack": ""
+        },
+        "actionButton": {},
+        "modules": [
+            {
+                "module": "label",
+                "name": "lblTest31",
+                "properties": {
+                    "text": "Label Test31",
+                    "transform": 0,
+                    "font-size": 21,
+                    "font-style": "regular"
+                },
+                "events": {}
+            },
+            {
+                "module": "textfield",
+                "name": "txtTest31",
+                "properties": {
+                    "text": "",
+                    "lines": 1,
+                    "password": false,
+                    "font-size": 18,
+                    "font-style": "regular",
+                    "hint": "Test31",
+                    "keyboard": 3
+                },
+                "events": {}
+            }
+        ]
+    },
+    {
+        "name": "vwTest41",
+        "title": "Test1",
+        "layout": "linear",
+        "events": {
+            "onLoad": "loadTest41",
+            "onShow": "refreshTest41",
+            "onBack": ""
+        },
+        "actionButton": {},
+        "modules": [
+            {
+                "module": "label",
+                "name": "lblTest41",
+                "properties": {
+                    "text": "Label Test41",
+                    "transform": 0,
+                    "font-size": 21,
+                    "font-style": "regular"
+                },
+                "events": {}
+            },
+            {
+                "module": "textfield",
+                "name": "txtTest41",
+                "properties": {
+                    "text": "",
+                    "lines": 1,
+                    "password": false,
+                    "font-size": 18,
+                    "font-style": "regular",
+                    "hint": "Test41",
+                    "keyboard": 3
+                },
+                "events": {}
+            }
+        ]
+    }
+]
