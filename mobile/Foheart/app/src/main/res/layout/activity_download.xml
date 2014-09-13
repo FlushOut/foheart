@@ -11,8 +11,8 @@
 
     <ImageView
         android:id="@+id/spinner"
-        android:layout_width="200dp"
-        android:layout_height="191dp"
+        android:layout_width="161dp"
+        android:layout_height="152dp"
         android:layout_centerVertical="true"
         android:layout_centerHorizontal="true"
         android:contentDescription="@string/app_name"

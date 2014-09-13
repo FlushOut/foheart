@@ -47,7 +47,7 @@ public class Connection {
     public static boolean sync_locked = false;
     public static final String REST_AUTH = "http://r-auth-heart.flushoutsolutions.com/index.php?";
     public static final String REST_REP = "http://r-auth-heart.flushoutsolutions.com/repository/";
-    public static final String REST_APPS = "http://r-apps-heart.airclic.com.br/index.php?";
+    public static final String REST_APPS = "http://r-apps-heart.flushoutsolutions.com/index.php?";
 
 
     public static String post(String url, List<NameValuePair> values)

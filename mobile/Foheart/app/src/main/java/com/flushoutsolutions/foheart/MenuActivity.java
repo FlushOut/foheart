@@ -116,9 +116,6 @@ public class MenuActivity extends ActionBarActivity {
          3 - doOnShowMenuProcedure
           */
 
-        /*new MenuActivityAsyncTask().execute(0);
-        new MenuActivityAsyncTask().execute(1);*/
-
         mTitle = mDrawerTitle = getTitle();
 
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -169,7 +166,6 @@ public class MenuActivity extends ActionBarActivity {
             // on first time display view for first nav item
             ApplicationData applicationData = ApplicationModel.get_model().get_data(settings.getString("idApplication", ""));
             displayView(applicationData.description);
-            //displayView(0);
         }
     }
 
@@ -207,7 +203,6 @@ public class MenuActivity extends ActionBarActivity {
                                 long id) {
             NavDrawerItem navDrawerItem = (NavDrawerItem)mDrawerList.getItemAtPosition(position);
             displayView(navDrawerItem.getTitle());
-            //displayView(position);
         }
     }
 
@@ -293,37 +288,6 @@ public class MenuActivity extends ActionBarActivity {
         new MenuActivityAsyncTask().execute(0);
         new MenuActivityAsyncTask().execute(1);
     }
-
-    private void displayView(int position)
-    {
-        // update the main content by replacing fragments
-        Fragment fragment = null;
-        switch (position) {
-            case 0:
-                fragment = new MenuFragment();
-                break;
-            default:
-                break;
-        }
-
-        if (fragment != null) {
-            FragmentManager fragmentManager = getFragmentManager();
-            fragmentManager.beginTransaction()
-                    .replace(R.id.frame_container, fragment).commit();
-
-            // update selected item and title, then close the drawer
-            mDrawerList.setItemChecked(position, true);
-            mDrawerList.setSelection(position);
-            setTitle("Test");
-            mDrawerLayout.closeDrawer(mDrawerList);
-        } else {
-            // error in creating fragment
-            Log.e("MainActivity", "Error in creating fragment");
-        }
-
-    }
-
-
 
     @Override
     public void setTitle(CharSequence title) {

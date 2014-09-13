@@ -4,9 +4,11 @@ import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
 import android.content.ContentUris;
 import android.content.Context;
+import android.content.res.Resources;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.Build;
@@ -65,6 +67,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -91,6 +94,11 @@ public class ScreenActivity extends FragmentActivity {
 
     public FragmentManager fragmentManager;
 
+    File imgFile;
+    Bitmap bmpLogo;
+    Resources res;
+    BitmapDrawable icon;
+
     @SuppressLint("DefaultLocale")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -116,8 +124,14 @@ public class ScreenActivity extends FragmentActivity {
 
             if (viewData.back_locked == 1) this.back_locked = true;
 
+            //Icon Image
+            imgFile = new File(FoHeart.getAppContext().getApplicationInfo().dataDir + "/apps/app" + settings.getString("idApplication", "") + "/app/logo.png");
+            bmpLogo = BitmapFactory.decodeFile(imgFile.getAbsolutePath());
+            res = getResources();
+            icon = new BitmapDrawable(res, bmpLogo);
+            getActionBar().setIcon(icon);
+
             // Title
-            getActionBar().setIcon(new ColorDrawable(getResources().getColor(android.R.color.transparent)));
             getActionBar().setTitle(viewData.title.toUpperCase(Locale.getDefault()));
             getActionBar().setBackgroundDrawable(new ColorDrawable(Color.parse_color(Color.get_active_theme())));
             int titleId = getResources().getIdentifier("action_bar_title", "id", "android");
