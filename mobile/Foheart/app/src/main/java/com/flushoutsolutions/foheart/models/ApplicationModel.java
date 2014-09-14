@@ -50,12 +50,9 @@ public class ApplicationModel {
 
             String dbuser = curApp.getString(5);
             String dbpass = curApp.getString(6);
-            String dbhost = curApp.getString(7);
-            String dbname = curApp.getString(8);
-            String dbport = curApp.getString(9);
 
-            int updateInterval = curApp.getInt(10);
-            int debugMode = curApp.getInt(11);
+            int updateInterval = curApp.getInt(7);
+            int debugMode = curApp.getInt(8);
 
 
             appData = new ApplicationData(
