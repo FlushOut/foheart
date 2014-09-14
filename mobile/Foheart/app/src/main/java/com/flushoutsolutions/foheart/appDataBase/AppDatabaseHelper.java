@@ -71,9 +71,8 @@ public class AppDatabaseHelper extends SQLiteOpenHelper {
         }
         onCreate(db);
     }
-    public synchronized List<ContentValues> execQuery(String selectQuery)
+    public synchronized List<ContentValues> execQuery(SQLiteDatabase db,String selectQuery)
     {
-        SQLiteDatabase db = getWritableDatabase();
         List<ContentValues> list = new ArrayList<ContentValues>();
         try
         {

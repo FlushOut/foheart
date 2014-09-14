@@ -25,7 +25,7 @@ public class AppDBModel {
 
     private static AppDBModel instance = null;
     private AppDatabaseHelper dbHelper = null;
-    SQLiteDatabase db = null;
+    public SQLiteDatabase db = null;
 
     private String appTableName;
     public List<TableFieldData> fieldDatas;
@@ -39,6 +39,18 @@ public class AppDBModel {
     {
         return instance;
     }
+
+    public AppDBModel(Context context, String appCode, int versionDB)
+    {
+        dbHelper = new AppDatabaseHelper(context, appCode, versionDB).getHelper();
+        db = dbHelper.getWritableDatabase();
+
+        idApp = ApplicationModel.get_model().get_data(appCode)._id;
+
+        instance = this;
+
+    }
+
     public AppDBModel(Context context, String appCode, int versionDB, String tableName)
     {
         dbHelper = new AppDatabaseHelper(context, appCode, versionDB).getHelper();

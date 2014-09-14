@@ -43,6 +43,7 @@ public class Sync {
     private String dbUser = ApplicationModel.get_model().get_data(idApp).db_user;
     private String dbPass = ApplicationModel.get_model().get_data(idApp).db_pass;
     private int versionDB = TableModel.get_model().get_model_version(idApp);
+    AppDBModel appDBModel = new AppDBModel(appContext, codeApp, versionDB).get_model();
 
     private AppDatabaseHelper dbHelper = new AppDatabaseHelper(appContext,codeApp,versionDB).getHelper();
 
@@ -62,7 +63,7 @@ public class Sync {
                 for (int tt=0; tt<listTables.size(); tt++)
                 {
                     TableData thisTable = listTables.get(tt);
-                    List<ContentValues> result = dbHelper.execQuery("select * from " + thisTable.name + " where _sync='' OR _sync=0 OR _sync is null limit 5");
+                    List<ContentValues> result = dbHelper.execQuery(appDBModel.db,"select * from " + thisTable.name + " where _sync='' OR _sync=0 OR _sync is null limit 5");
                     for (int x=0; x< result.size(); x++)
                     {
                         JSONObject jsonObject = new JSONObject();
@@ -128,6 +129,7 @@ public class Sync {
                         nameValuePairs.add(new BasicNameValuePair("dbUser", dbUser));
                         nameValuePairs.add(new BasicNameValuePair("dbPass", dbPass));
 
+
                         if (InternetStatus.isOnline())
                         {
                             String responseString = Connection.post(url, nameValuePairs);
@@ -144,7 +146,7 @@ public class Sync {
                                         if (dataCurrent!=null) dataMod.delete(dataCurrent);
 
                                         /* Update record sync ok*/
-                                        AppDBModel appDBModel = new AppDBModel(appContext, codeApp, versionDB, thisTable.name).get_model();
+                                        appDBModel.setAppTableName(thisTable.name);
                                         ContentValues value = appDBModel.get_data(_id);
                                         value.put("_sync", "1");
                                         appDBModel.save(value);

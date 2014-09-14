@@ -200,7 +200,7 @@ public class Connection {
                                             {
                                                 appDBModel.setAppTableName(tablename);
                                                 int _id = rows.getJSONObject(w).getInt("_id");
-                                                int count = GetData.getInstance().getNumRows(tablename, _id);
+                                                int count = GetData.getInstance().getNumRows(appDBModel.db,tablename, _id);
 
                                                 ContentValues values = new ContentValues();
 

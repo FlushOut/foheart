@@ -6,6 +6,7 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.SharedPreferences;
+import android.database.sqlite.SQLiteDatabase;
 import android.telephony.TelephonyManager;
 
 import com.flushoutsolutions.foheart.appDataBase.AppDatabaseHelper;
@@ -98,9 +99,9 @@ public class PostData {
         return this.block_success;
     }
 
-    public int getNumRows(String table, int id)
+    public int getNumRows(SQLiteDatabase db,String table, int id)
     {
-        List<ContentValues> list = dbHelper.execQuery("select * from " + table + " WHERE _id=" + id);
+        List<ContentValues> list = dbHelper.execQuery(db,"select * from " + table + " WHERE _id=" + id);
         return list.size();
     }
 

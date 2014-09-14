@@ -48,12 +48,11 @@ public class ApplicationModel {
             String appVersion = curApp.getString(3);
             String baseVersion = curApp.getString(4);
 
-            String dbuser = curApp.getString(5);
-            String dbpass = curApp.getString(6);
+            String db_user = curApp.getString(5);
+            String db_pass = curApp.getString(6);
 
             int updateInterval = curApp.getInt(7);
             int debugMode = curApp.getInt(8);
-
 
             appData = new ApplicationData(
                     _id,
@@ -61,8 +60,8 @@ public class ApplicationModel {
                     description,
                     appVersion,
                     baseVersion,
-                    dbuser,
-                    dbpass,
+                    db_user,
+                    db_pass,
                     updateInterval,
                     debugMode
             );

@@ -35,7 +35,7 @@ public class TableHandler {
     static int model_version = TableModel.get_model().get_model_version(idApp);
 
     private AppDatabaseHelper dbHelper = new AppDatabaseHelper(appContext, codeApp, model_version).getHelper();
-
+    AppDBModel appDBModel = new AppDBModel(appContext, codeApp, model_version).get_model();
     public TableHandler()
     {
 
@@ -61,7 +61,7 @@ public class TableHandler {
                     contentValues.put(fieldName, record.trim());
                 }
             }
-            AppDBModel appDBModel = new AppDBModel(appContext, codeApp, model_version, tableName).get_model();
+            appDBModel.setAppTableName(tableName);
             appDBModel.add(contentValues);
         } catch (JSONException e) {
             e.printStackTrace();
@@ -91,7 +91,7 @@ public class TableHandler {
 
                 }
                 contentValues.put("_id", id);
-                AppDBModel appDBModel = new AppDBModel(appContext, codeApp, model_version, tableName).get_model();
+                appDBModel.setAppTableName(tableName);
                 appDBModel.save(contentValues);
             }
         } catch (JSONException e) {
@@ -123,7 +123,7 @@ public class TableHandler {
     {
         statement = Variables.parse_vars(statement, false);
         JSONArray arrReturn = new JSONArray();
-        List<ContentValues> result = dbHelper.execQuery(statement);
+        List<ContentValues> result = dbHelper.execQuery(appDBModel.db ,statement);
 
         for (int x=0; x< result.size(); x++)
         {
