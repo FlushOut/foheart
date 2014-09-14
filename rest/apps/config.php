@@ -2,7 +2,7 @@
 $config['debug'] = FALSE;
 
 //$config['urls']['base'] = 'http://r-heart.flushoutsolutions.com'; //Produção
-$config['urls']['base'] = 'http://d-r-heart.flushoutsolutions.com'; //Local
+//$config['urls']['base'] = 'http://d-r-heart.flushoutsolutions.com'; //Local
 $config['urls']['docs'] = $config['urls']['base']; 
 
 

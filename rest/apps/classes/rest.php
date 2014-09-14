@@ -88,7 +88,7 @@ class rest extends superRest {
 				$this->retorno["message"] = "Invalid user";
 			
 			} else {
-			
+
 				// ok, é um usuário logado!
 		
 				// vamos verificar se os parâmetros estão de acordo
@@ -97,6 +97,7 @@ class rest extends superRest {
 				if (!$erro) 
 				{
 					$superModel = new superModel();
+
 					// desserializa o json
 					$rawJson = urldecode(utf8_decode($this->vars['record']));
 					$jsonRecord = json_decode($rawJson, true);
@@ -321,7 +322,6 @@ class rest extends superRest {
 	
 	}
 
-	
 	public function get_data() {
 		// valida se foram enviados todos os dados obrigatórios para a função
 		if (!$this->vars['coduser']
@@ -338,18 +338,15 @@ class rest extends superRest {
 			$this->retorno["error"] = "106";
 			$this->retorno["message"] = "Please send all the 6 parameters to execute this function.";
 		} else {
-			
 			// ok, os dados foram enviados via get... posso tentar logar
 			$logado = $this->doLogin($this->vars['coduser'],$this->vars['password'],$this->vars['imei']);
 			if(!$logado) {
-				
 				// se não conseguiu logar, pare por aqui
 				$this->retorno['status'] = false;
 				$this->retorno["error"] = "116";
 				$this->retorno["message"] = "Invalid user";
 			
 			} else {
-			
 				// ok, é um usuário logado!
 		
 				// vamos verificar se os parâmetros estão de acordo
@@ -358,8 +355,9 @@ class rest extends superRest {
 				if (!$erro) 
 				{
 					//$request_param_san  = str_replace($request_param_san, "]", "");
-
+					
 					$superModel = new superModel();
+					$superModel->changedBd($this->vars['user'], $this->vars['pass'], $this->vars['appName']);
 
 					if (strtolower($this->vars["requesttype"])=="s")
 					{
@@ -383,7 +381,7 @@ class rest extends superRest {
 
 								$sql .="AND ". $request_param_san;
 							}
-//echo $sql;
+//echo "  ".$sql."   ";
 						$res = $superModel->genericQuery($sql);
 
 						$this->retorno['results'][$counter][$tablename] = $res;
@@ -1312,7 +1310,11 @@ class rest extends superRest {
 	 */			
 	private function doLogin($puser,$pwd,$imei,$lat=0,$long=0,$app=null,$log=false) {
 
-		// carrega a model de usuários
+		$user = new user();
+		//$userId = $user->getIdByEmail($puser);
+		return $user->login($puser,$pwd);
+
+/*		// carrega a model de usuários
 		$user = new user();
 		
 		// pega no BD o password do usuário
@@ -1354,7 +1356,7 @@ class rest extends superRest {
 			
 		} else {
 			return false;
-		}
+		}*/
 	}	
 }
 ?>

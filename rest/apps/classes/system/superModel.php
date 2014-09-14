@@ -32,6 +32,16 @@ class superModel {
 		$this->db = new MySQLi($this->config['bd']['host'],$this->config['bd']['user'],$this->config['bd']['password'],$this->config['bd']['base'],$this->config['bd']['port']);
 	}
 	
+	public function changedBd($user, $pass, $base){
+
+	    $this->config['bd']['user'] = $user;
+	    $this->config['bd']['password'] = $pass;
+	    $this->config['bd']['base'] = str_replace("fo","db",strtolower($base));
+
+		// conecta ao banco de dados
+		$this->db = new MySQLi($this->config['bd']['host'],$this->config['bd']['user'],$this->config['bd']['password'],$this->config['bd']['base'],$this->config['bd']['port']);
+	}
+
 	/**
 	 * Método genérico para fazer SELECTs nas tabelas
 	 * 
