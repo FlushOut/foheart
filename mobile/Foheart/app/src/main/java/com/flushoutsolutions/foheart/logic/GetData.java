@@ -10,6 +10,7 @@ import android.content.SharedPreferences;
 import com.flushoutsolutions.foheart.appDataBase.AppDatabaseHelper;
 import com.flushoutsolutions.foheart.application.FoHeart;
 import com.flushoutsolutions.foheart.communication.Connection;
+import com.flushoutsolutions.foheart.data.ApplicationData;
 import com.flushoutsolutions.foheart.data.InternetStatus;
 import com.flushoutsolutions.foheart.globals.Screens;
 import com.flushoutsolutions.foheart.globals.Variables;
@@ -118,7 +119,9 @@ public class GetData {
         String request_params_64 = URLEncoder.encode(this.request_params);
 
         SharedPreferences settings = FoHeart.getAppContext().getSharedPreferences("userconfigs", 0);
-        String stringUrl = rest_url+"get_data/coduser/"+settings.getInt("user_id", 0)+"/password/"+settings.getInt("user_pass", 0)+"/codapp/"+settings.getString("idApplication", "")+"/tablename/"+this.table_name+"/captureversion/1.0.1/appversion/1.0.0/requesttype/"+this.request_type+"/requestparam/"+request_params_64+"/userexclusive/"+String.valueOf(this.getUserExclusive());
+        ApplicationData applicationData = ApplicationModel.get_model().get_data(settings.getString("idApplication", ""));
+
+        String stringUrl = rest_url+"get_data/coduser/"+settings.getInt("user_id", 0)+"/password/"+settings.getString("user_pass", "")+"/codapp/"+settings.getString("idApplication", "")+"/tablename/"+this.table_name+"/captureversion/1.0.1/appversion/1.0.0/requesttype/"+this.request_type+"/requestparam/"+request_params_64+"/userexclusive/"+String.valueOf(this.getUserExclusive())+"/appName/" + applicationData.description + "/user/" + applicationData.db_user + "/pass/" + applicationData.db_pass;
 
         String update_set_64 = URLEncoder.encode(this.update_set);
 

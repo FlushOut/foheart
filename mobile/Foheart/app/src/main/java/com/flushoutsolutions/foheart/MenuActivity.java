@@ -36,6 +36,7 @@ import com.flushoutsolutions.foheart.globals.Config;
 import com.flushoutsolutions.foheart.globals.Screens;
 import com.flushoutsolutions.foheart.globals.Variables;
 import com.flushoutsolutions.foheart.json.JSONParser;
+import com.flushoutsolutions.foheart.logic.Procedures;
 import com.flushoutsolutions.foheart.models.ApplicationModel;
 import com.flushoutsolutions.foheart.models.ViewModel;
 import com.flushoutsolutions.foheart.slidingmenu.adapter.NavDrawerListAdapter;
@@ -166,6 +167,20 @@ public class MenuActivity extends ActionBarActivity {
             // on first time display view for first nav item
             ApplicationData applicationData = ApplicationModel.get_model().get_data(settings.getString("idApplication", ""));
             displayView(applicationData.description);
+        }
+    }
+
+    public synchronized void doMainProcedure()
+    {
+        try
+        {
+            Procedures mainProcedure = new Procedures();
+            mainProcedure.initialize("main", null);
+            mainProcedure.execute();
+        }
+        catch (JSONException e1)
+        {
+            e1.printStackTrace();
         }
     }
 
@@ -337,7 +352,7 @@ public class MenuActivity extends ActionBarActivity {
             }
             else if (result == 2)
             {
-                //doMainProcedure();
+                doMainProcedure();
                 new MenuActivityAsyncTask().execute(3);
             }
             else if (result == 3)

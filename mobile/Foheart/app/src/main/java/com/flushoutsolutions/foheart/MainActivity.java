@@ -119,8 +119,8 @@ public class MainActivity extends ActionBarActivity {
                             {
                                 SharedPreferences.Editor editor = settings.edit();
                                 editor.putInt("user_id",Integer.valueOf(responseJSON.getString("userId")));
-                                editor.putString("user_email", strEmail);
-                                editor.putString("user_pass", strPass);
+                                editor.putString("user_email", strEmail.trim());
+                                editor.putString("user_pass", FoHeart.getMD5(strPass.trim()));
                                 editor.commit();
                                 Config.user_id = Integer.valueOf(responseJSON.getString("userId"));
 

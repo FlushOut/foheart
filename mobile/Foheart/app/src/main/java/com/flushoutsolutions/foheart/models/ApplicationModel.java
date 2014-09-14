@@ -66,9 +66,6 @@ public class ApplicationModel {
                     baseVersion,
                     dbuser,
                     dbpass,
-                    dbhost,
-                    dbname,
-                    dbport,
                     updateInterval,
                     debugMode
             );
@@ -94,9 +91,6 @@ public class ApplicationModel {
 
             values.put(DatabaseContract.ApplicationSchema.COLUMN_NAME_DB_USER, data.db_user);
             values.put(DatabaseContract.ApplicationSchema.COLUMN_NAME_DB_PASS, data.db_pass);
-            values.put(DatabaseContract.ApplicationSchema.COLUMN_NAME_DB_HOST, data.db_host);
-            values.put(DatabaseContract.ApplicationSchema.COLUMN_NAME_DB_NAME, data.db_name);
-            values.put(DatabaseContract.ApplicationSchema.COLUMN_NAME_DB_PORT, data.db_port);
 
             values.put(DatabaseContract.ApplicationSchema.COLUMN_NAME_UPDATE_INTERVAL, data.update_interval);
             values.put(DatabaseContract.ApplicationSchema.COLUMN_NAME_DEBUG_MODE, data.debug_mode);
@@ -122,9 +116,6 @@ public class ApplicationModel {
 
             values.put(DatabaseContract.ApplicationSchema.COLUMN_NAME_DB_USER, data.db_user);
             values.put(DatabaseContract.ApplicationSchema.COLUMN_NAME_DB_PASS, data.db_pass);
-            values.put(DatabaseContract.ApplicationSchema.COLUMN_NAME_DB_HOST, data.db_host);
-            values.put(DatabaseContract.ApplicationSchema.COLUMN_NAME_DB_NAME, data.db_name);
-            values.put(DatabaseContract.ApplicationSchema.COLUMN_NAME_DB_PORT, data.db_port);
 
             values.put(DatabaseContract.ApplicationSchema.COLUMN_NAME_UPDATE_INTERVAL, data.update_interval);
             values.put(DatabaseContract.ApplicationSchema.COLUMN_NAME_DEBUG_MODE, data.debug_mode);
@@ -214,12 +205,9 @@ public class ApplicationModel {
 
             String db_user = curApp.getString(5);
             String db_pass = curApp.getString(6);
-            String db_host = curApp.getString(7);
-            String db_name = curApp.getString(8);
-            String db_port = curApp.getString(9);
 
-            int update_interval = curApp.getInt(10);
-            int debug_mode = curApp.getInt(11);
+            int update_interval = curApp.getInt(7);
+            int debug_mode = curApp.getInt(8);
 
             appData = new ApplicationData(
                     _id,
@@ -229,9 +217,6 @@ public class ApplicationModel {
                     base_version,
                     db_user,
                     db_pass,
-                    db_host,
-                    db_name,
-                    db_port,
                     update_interval,
                     debug_mode
             );
@@ -258,12 +243,9 @@ public class ApplicationModel {
 
             String db_user = curApp.getString(5);
             String db_pass = curApp.getString(6);
-            String db_host = curApp.getString(7);
-            String db_name = curApp.getString(8);
-            String db_port = curApp.getString(9);
 
-            int update_interval = curApp.getInt(10);
-            int debug_mode = curApp.getInt(11);
+            int update_interval = curApp.getInt(7);
+            int debug_mode = curApp.getInt(8);
 
             appData = new ApplicationData(
                     _id,
@@ -273,9 +255,6 @@ public class ApplicationModel {
                     base_version,
                     db_user,
                     db_pass,
-                    db_host,
-                    db_name,
-                    db_port,
                     update_interval,
                     debug_mode
             );

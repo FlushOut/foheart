@@ -42,9 +42,6 @@ public class Sync {
 
     private String dbUser = ApplicationModel.get_model().get_data(idApp).db_user;
     private String dbPass = ApplicationModel.get_model().get_data(idApp).db_pass;
-    private String dbHost = ApplicationModel.get_model().get_data(idApp).db_host;
-    private String dbName = ApplicationModel.get_model().get_data(idApp).db_name;
-    private String dbPort = ApplicationModel.get_model().get_data(idApp).db_port;
     private int versionDB = TableModel.get_model().get_model_version(idApp);
 
     private AppDatabaseHelper dbHelper = new AppDatabaseHelper(appContext,codeApp,versionDB).getHelper();
@@ -130,9 +127,6 @@ public class Sync {
                         /* DB parameters */
                         nameValuePairs.add(new BasicNameValuePair("dbUser", dbUser));
                         nameValuePairs.add(new BasicNameValuePair("dbPass", dbPass));
-                        nameValuePairs.add(new BasicNameValuePair("dbHost", dbHost));
-                        nameValuePairs.add(new BasicNameValuePair("dbName", dbName));
-                        nameValuePairs.add(new BasicNameValuePair("dbPort", dbPort));
 
                         if (InternetStatus.isOnline())
                         {

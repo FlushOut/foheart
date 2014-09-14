@@ -19,9 +19,6 @@ public class DatabaseContract {
 
         public static final String COLUMN_NAME_DB_USER = "db_user";
         public static final String COLUMN_NAME_DB_PASS = "db_pass";
-        public static final String COLUMN_NAME_DB_HOST = "db_host";
-        public static final String COLUMN_NAME_DB_NAME = "db_name";
-        public static final String COLUMN_NAME_DB_PORT = "db_port";
 
         public static final String COLUMN_NAME_UPDATE_INTERVAL = "update_interval";
         public static final String COLUMN_NAME_DEBUG_MODE = "debug_mode";

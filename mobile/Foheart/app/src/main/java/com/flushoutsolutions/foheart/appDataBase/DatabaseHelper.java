@@ -36,9 +36,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                     DatabaseContract.ApplicationSchema.COLUMN_NAME_BASE_VERSION + TEXT_TYPE + COMMA_SEP +
                     DatabaseContract.ApplicationSchema.COLUMN_NAME_DB_USER + TEXT_TYPE + COMMA_SEP +
                     DatabaseContract.ApplicationSchema.COLUMN_NAME_DB_PASS + TEXT_TYPE + COMMA_SEP +
-                    DatabaseContract.ApplicationSchema.COLUMN_NAME_DB_HOST + TEXT_TYPE + COMMA_SEP +
-                    DatabaseContract.ApplicationSchema.COLUMN_NAME_DB_NAME + TEXT_TYPE + COMMA_SEP +
-                    DatabaseContract.ApplicationSchema.COLUMN_NAME_DB_PORT + TEXT_TYPE + COMMA_SEP +
                     DatabaseContract.ApplicationSchema.COLUMN_NAME_UPDATE_INTERVAL + INT_TYPE + COMMA_SEP +
                     DatabaseContract.ApplicationSchema.COLUMN_NAME_DEBUG_MODE + INT_TYPE +
                     " )";
