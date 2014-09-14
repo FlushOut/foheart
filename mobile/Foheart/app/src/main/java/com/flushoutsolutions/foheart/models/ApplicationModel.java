@@ -241,6 +241,7 @@ public class ApplicationModel {
             String app_version = curApp.getString(3);
             String base_version = curApp.getString(4);
 
+            
             String db_user = curApp.getString(5);
             String db_pass = curApp.getString(6);
 
