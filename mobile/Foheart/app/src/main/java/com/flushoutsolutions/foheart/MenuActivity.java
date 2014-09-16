@@ -1,9 +1,11 @@
 package com.flushoutsolutions.foheart;
 
 import android.app.ActionBar;
+import android.app.AlertDialog;
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.ProgressDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
@@ -16,12 +18,14 @@ import android.support.v4.app.ActionBarDrawerToggle;
 import android.support.v4.widget.DrawerLayout;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
+import android.text.Editable;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
 import android.widget.AdapterView;
+import android.widget.EditText;
 import android.widget.GridView;
 import android.widget.ListView;
 
@@ -42,7 +46,15 @@ import com.flushoutsolutions.foheart.models.ViewModel;
 import com.flushoutsolutions.foheart.slidingmenu.adapter.NavDrawerListAdapter;
 import com.flushoutsolutions.foheart.slidingmenu.fragment.MenuFragment;
 import com.flushoutsolutions.foheart.slidingmenu.model.NavDrawerItem;
+import com.flushoutsolutions.foheart.track.Tracker;
 
+import org.apache.http.HttpEntity;
+import org.apache.http.HttpResponse;
+import org.apache.http.client.ClientProtocolException;
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.methods.HttpGet;
+import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.util.EntityUtils;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -238,8 +250,132 @@ public class MenuActivity extends ActionBarActivity {
         switch (item.getItemId()) {
             case R.id.action_menu:
                 return true;
+            case R.id.menu_logout:
+                doLogout();
+                return true;
             default:
                 return super.onOptionsItemSelected(item);
+        }
+    }
+
+    public void doLogout()
+    {
+        final SharedPreferences settings = FoHeart.getAppContext().getSharedPreferences("userconfigs", 0);
+
+        if (settings.getBoolean("locked_logout", false))
+        {
+            AlertDialog.Builder alert = new AlertDialog.Builder(this);
+
+            alert.setTitle("Logout do aplicativo");
+            alert.setMessage("Digite o código de desbloqueio");
+
+            // Set an EditText view to get user input
+            final EditText input = new EditText(this);
+            alert.setView(input);
+
+            alert.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialog, int whichButton) {
+                    Editable value = input.getText();
+                    // Do something with value!
+
+
+                    HttpClient httpclient = new DefaultHttpClient();
+                    HttpGet httpget = new HttpGet(settings.getString("restURL", "http://rest.airclic.net.br/")+
+                            "get_hash/coduser/"+settings.getInt("id_user", 0)+
+                            "/codapp/"+settings.getString("idApplication", "")+
+                            "/hash/"+value);
+
+
+                    try
+                    {
+                        HttpResponse response = httpclient.execute(httpget);
+                        HttpEntity entity = response.getEntity();
+
+                        String responseString = EntityUtils.toString(entity, "UTF-8");
+
+                        JSONObject responseJSON = new JSONObject(responseString);
+                        System.out.println(responseJSON);
+                        if (responseJSON.getBoolean("status"))
+                        {
+                            proceedLogout();
+                        }
+                        else
+                        {
+
+                        }
+
+                    }
+                    catch (ClientProtocolException e)
+                    {
+                        e.printStackTrace();
+                    }
+                    catch (IOException e)
+                    {
+                        e.printStackTrace();
+                    } catch (JSONException e) {
+                        // TODO Auto-generated catch block
+                        e.printStackTrace();
+                    }
+
+                }
+            });
+
+            alert.setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialog, int whichButton) {
+                    // Canceled.
+                }
+            });
+
+            alert.show();
+        }
+        else
+        {
+            new AlertDialog.Builder(this)
+                    .setTitle("Logout")
+                    .setMessage("Are you sure you want to exit the application?")
+                    .setPositiveButton("Yes", new DialogInterface.OnClickListener()
+                    {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which)
+                        {
+                            proceedLogout();
+                        }
+                    })
+                    .setNegativeButton("No", null).show();
+        }
+    }
+
+    private void proceedLogout()
+    {
+        SharedPreferences settings = FoHeart.getAppContext().getSharedPreferences("userconfigs", 0);
+        SharedPreferences.Editor editor = settings.edit();
+
+        String stringUrl = settings.getString("REST_AUTH", Connection.REST_AUTH)+"logout/email/"+settings.getString("user_email", "");
+        String responseString = Connection.get("logout", stringUrl);
+        try
+        {
+            if (null != responseString)
+            {
+                JSONObject responseJSON = new JSONObject(responseString);
+                if (null!=responseJSON)
+                {
+                    if (responseJSON.getBoolean("status"))
+                    {
+                        editor.putBoolean("keepLogged", false);
+                        editor.putInt("id_user", 0);
+                        editor.putString("idApplication", "");
+                        editor.commit();
+
+                        if (DownloadActivity.instance!=null) DownloadActivity.instance.finish();
+                        //if (LicenceActivity.getInstance()!=null) LicenceActivity.getInstance().finish();
+                        finish();
+                    }
+                }
+            }
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+            System.out.println("error");
         }
     }
 
