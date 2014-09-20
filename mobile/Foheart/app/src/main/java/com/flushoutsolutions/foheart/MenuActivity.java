@@ -28,7 +28,9 @@ import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.GridView;
 import android.widget.ListView;
+import android.widget.Toast;
 
+import com.flushoutsolutions.foheart.appDataBase.DataBaseDebug;
 import com.flushoutsolutions.foheart.application.FoHeart;
 import com.flushoutsolutions.foheart.communication.Connection;
 import com.flushoutsolutions.foheart.communication.Sync;
@@ -196,13 +198,39 @@ public class MenuActivity extends ActionBarActivity {
         }
     }
 
+    public synchronized void doShowMenuProcedure()
+    {
+        try
+        {
+            Procedures mainProcedure = new Procedures();
+            mainProcedure.initialize("_onShowMenu", null);
+            mainProcedure.execute();
+
+        }
+        catch (JSONException e1)
+        {
+            e1.printStackTrace();
+        }
+    }
+
     private void initVars() {
+        clearVars();
+        SharedPreferences settings = FoHeart.getAppContext().getSharedPreferences("userconfigs", 0);
+
+        if (Variables.get("__user_id") == null)
+            Variables.add("__user_id", "int", settings.getInt("user_id", 0));
         if (Variables.get("__gps_lat") == null)
             Variables.add("__gps_lat", "float", 0);
         if (Variables.get("__gps_lon") == null)
             Variables.add("__gps_lon", "float", 0);
         if (Variables.get("__gps_speed") == null)
             Variables.add("__gps_speed", "float", 0);
+        if (Variables.get("__gps_accuracy") == null)
+            Variables.add("__gps_accuracy", "int", 0);
+    }
+
+    private void clearVars() {
+        Variables.removeAll();
     }
 
     private void syncInformation() {
@@ -252,6 +280,9 @@ public class MenuActivity extends ActionBarActivity {
                 return true;
             case R.id.menu_logout:
                 doLogout();
+                return true;
+            case R.id.menu_backup:
+                backupDB();
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
@@ -379,6 +410,19 @@ public class MenuActivity extends ActionBarActivity {
         }
     }
 
+    public void backupDB()
+    {
+        System.out.println("inicando backup");
+        SharedPreferences settings = FoHeart.getAppContext().getSharedPreferences("userconfigs", 0);
+        String dbname = "db"+ settings.getString("idApplication","")+".db";
+
+        if (DataBaseDebug.exportDatabase(dbname))
+            Toast.makeText(getBaseContext(), "Saved on the Memory Card", Toast.LENGTH_LONG).show();
+        else
+            System.out.println("Unsaved");
+
+    }
+
     /* *
      * Called when invalidateOptionsMenu() is triggered
      */
@@ -391,11 +435,18 @@ public class MenuActivity extends ActionBarActivity {
     }
 
     @Override
+    public void onBackPressed()
+    {
+    }
+
+
+    @Override
     public void onResume() {
         super.onResume();
         if (Config.user_id == 0)
             Config.user_id = 1;
 
+        initVars();
         Screens.currentCtx = MenuActivity.this;
         Screens.current = "__mainmenu";
         if (firstLoad)
@@ -493,7 +544,7 @@ public class MenuActivity extends ActionBarActivity {
             }
             else if (result == 3)
             {
-                //doShowMenuProcedure();
+                doShowMenuProcedure();
                 if (null != progressDialog) progressDialog.dismiss();
             }
         }
@@ -510,8 +561,6 @@ public class MenuActivity extends ActionBarActivity {
     }
     public void createMenu()
     {
-        SharedPreferences settings = FoHeart.getAppContext().getSharedPreferences("userconfigs", 0);
-        Variables.add("__user_id", "int", settings.getInt("user_id", 0));
         GridView grdView = (GridView) findViewById(R.id.menuGridView);
         getSupportActionBar().setIcon(icon);
 

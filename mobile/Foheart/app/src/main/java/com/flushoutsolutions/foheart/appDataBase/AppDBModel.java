@@ -11,6 +11,7 @@ import android.database.sqlite.SQLiteStatement;
 import com.flushoutsolutions.foheart.application.FoHeart;
 import com.flushoutsolutions.foheart.data.ApplicationData;
 import com.flushoutsolutions.foheart.data.TableFieldData;
+import com.flushoutsolutions.foheart.globals.Variables;
 import com.flushoutsolutions.foheart.models.ApplicationModel;
 import com.flushoutsolutions.foheart.models.TableFieldModel;
 import com.flushoutsolutions.foheart.models.TableModel;
@@ -43,18 +44,14 @@ public class AppDBModel {
     public AppDBModel(Context context, String appCode, int versionDB)
     {
         dbHelper = new AppDatabaseHelper(context, appCode, versionDB).getHelper();
-        db = dbHelper.getWritableDatabase();
 
         idApp = ApplicationModel.get_model().get_data(appCode)._id;
-
         instance = this;
-
     }
 
     public AppDBModel(Context context, String appCode, int versionDB, String tableName)
     {
         dbHelper = new AppDatabaseHelper(context, appCode, versionDB).getHelper();
-        db = dbHelper.getWritableDatabase();
 
         this.appTableName = tableName;
         idApp = ApplicationModel.get_model().get_data(appCode)._id;
@@ -69,7 +66,34 @@ public class AppDBModel {
         ContentValues values = new ContentValues();
         try
         {
+            db = dbHelper.getWritableDatabase();
             Cursor cursor = db.rawQuery("SELECT * FROM "+ appTableName+" WHERE _ID="+id, null);
+            if (cursor.moveToFirst())
+            {
+                do
+                {
+                    for (int i=0; i<cursor.getColumnCount(); i++)
+                    {
+                        values.put(cursor.getColumnName(i), cursor.getString(i));
+                    }
+
+                } while (cursor.moveToNext());
+            }
+            cursor.close();
+            db.close();
+        }
+        catch (SQLiteException e)
+        {
+            e.printStackTrace();
+        }
+        return values;
+    }
+    public synchronized ContentValues get_data_transaction(int id)
+    {
+        ContentValues values = new ContentValues();
+        try
+        {
+            Cursor cursor = db.rawQuery("SELECT * FROM "+ this.appTableName+" WHERE _ID="+id, null);
             if (cursor.moveToFirst())
             {
                 do
@@ -89,6 +113,7 @@ public class AppDBModel {
         }
         return values;
     }
+
     public synchronized void beginTransaction()
     {
         db  = dbHelper.getWritableDatabase();
@@ -113,8 +138,9 @@ public class AppDBModel {
     }
     public synchronized void endTransaction()
     {
-        db.setTransactionSuccessful();
-        db.endTransaction();
+            db.setTransactionSuccessful();
+            db.endTransaction();
+            db.close();
     }
     public synchronized void add(ContentValues values)
     {
@@ -122,8 +148,9 @@ public class AppDBModel {
         {
             values.put("_date_time_created", FoHeart.dateTime());
             values.put("_date_time_updated", FoHeart.dateTime());
-
+            db = dbHelper.getWritableDatabase();
             db.insert(this.appTableName, null, values);
+            db.close();
         }
     }
     public synchronized void update(ContentValues values)
@@ -133,8 +160,9 @@ public class AppDBModel {
         if (null!=values && id > 0)
         {
             values.put("_date_time_updated", FoHeart.dateTime());
-
+            db = dbHelper.getWritableDatabase();
             db.update(this.appTableName, values, "_id=" + id, null);
+            db.close();
         }
     }
     public synchronized void save(ContentValues values)
@@ -248,7 +276,7 @@ public class AppDBModel {
     }
     public synchronized void saveTransaction(ContentValues values)
     {
-        ContentValues value = get_data(values.getAsInteger("_id"));
+        ContentValues value = get_data_transaction(values.getAsInteger("_id"));
 
         if (value.size()==0)
             addTransaction(values);
@@ -257,6 +285,7 @@ public class AppDBModel {
     }
     public synchronized List<ContentValues> list()
     {
+        db = dbHelper.getWritableDatabase();
         List<ContentValues> list = new ArrayList<ContentValues>();
         String selectQuery = "SELECT  * FROM " + appTableName;
 
@@ -273,6 +302,7 @@ public class AppDBModel {
         }
 
         curApp.close();
+        db.close();
 
         return list;
     }
@@ -280,7 +310,22 @@ public class AppDBModel {
     {
         try
         {
+            db = dbHelper.getWritableDatabase();
             db.delete(this.appTableName, "_id="+_id, null);
+            db.close();
+        }
+        catch (Exception e)
+        {
+            e.printStackTrace();
+        }
+    }
+    public synchronized void delete(String condition)
+    {
+        try
+        {
+            db = dbHelper.getWritableDatabase();
+            db.delete(this.appTableName, condition, null);
+            db.close();
         }
         catch (Exception e)
         {
@@ -291,13 +336,84 @@ public class AppDBModel {
     {
         try
         {
+            db = dbHelper.getWritableDatabase();
             db.delete(this.appTableName, null, null);
+            db.close();
         }
         catch (Exception e)
         {
             e.printStackTrace();
         }
     }
+
+    public synchronized List<ContentValues> execQuery(String selectQuery)
+    {
+        List<ContentValues> list = new ArrayList<ContentValues>();
+        try
+        {
+            db = dbHelper.getWritableDatabase();
+            Cursor cursor = db.rawQuery(selectQuery, null);
+            if (cursor.moveToFirst())
+            {
+                do
+                {
+                    ContentValues values = new ContentValues();
+                    for (int i=0; i<cursor.getColumnCount(); i++)
+                    {
+                        values.put(cursor.getColumnName(i), cursor.getString(i));
+                    }
+
+                    list.add(values);
+                } while (cursor.moveToNext());
+            }
+            cursor.close();
+            db.close();
+        }
+        catch (SQLiteException e)
+        {
+            e.printStackTrace();
+        }
+        return list;
+    }
+    public synchronized List<ContentValues> execQueryTrans(String selectQuery)
+    {
+        List<ContentValues> list = new ArrayList<ContentValues>();
+        try
+        {
+            Cursor cursor = db.rawQuery(selectQuery, null);
+            if (cursor.moveToFirst())
+            {
+                do
+                {
+                    ContentValues values = new ContentValues();
+                    for (int i=0; i<cursor.getColumnCount(); i++)
+                    {
+                        values.put(cursor.getColumnName(i), cursor.getString(i));
+                    }
+
+                    list.add(values);
+                } while (cursor.moveToNext());
+            }
+            cursor.close();
+        }
+        catch (SQLiteException e)
+        {
+            e.printStackTrace();
+        }
+        return list;
+    }
+
+    public synchronized int getNumRows(String table, int id)
+    {
+        List<ContentValues> list = this.execQuery("SELECT * FROM " + table + " WHERE _id=" + id);
+        return list.size();
+    }
+    public synchronized int getNumRowsTrans(String table, int id)
+    {
+        List<ContentValues> list = this.execQueryTrans("SELECT * FROM " + table + " WHERE _id=" + id);
+        return list.size();
+    }
+
     public void setAppTableName(String tb)
     {
         this.appTableName = tb;

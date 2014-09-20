@@ -87,6 +87,11 @@ public class Variables {
         variables.remove(name);
         type_variables.remove(name);
     }
+    public static void removeAll(){
+        variables.clear();
+        type_variables.clear();
+        System.out.println("clear vars");
+    }
 
     public static Object get(String name)
     {

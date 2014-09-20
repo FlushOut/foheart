@@ -68,6 +68,7 @@ public class LocationModel {
             );
         }
         curApp.close();
+        db.close();
 
         return appData;
     }
@@ -92,6 +93,7 @@ public class LocationModel {
             values.put(DatabaseContract.LocationSchema.COLUMN_NAME_DATETIME, data.date_time);
 
             lastRowId = db.insert(DatabaseContract.LocationSchema.TABLE_NAME, null, values);
+            db.close();
         }
         return lastRowId;
     }
@@ -117,6 +119,7 @@ public class LocationModel {
             values.put(DatabaseContract.LocationSchema.COLUMN_NAME_DATETIME, data.date_time);
 
             rowsAffected = db.update(DatabaseContract.LocationSchema.TABLE_NAME, values, DatabaseContract.LocationSchema._ID + "=" + data._id, null);
+            db.close();
         }
         return rowsAffected;
     }
@@ -155,6 +158,7 @@ public class LocationModel {
         }
 
         curApp.close();
+        db.close();
 
         return list;
     }
@@ -166,6 +170,7 @@ public class LocationModel {
         try
         {
             db.delete(DatabaseContract.LocationSchema.TABLE_NAME, DatabaseContract.LocationSchema._ID +"="+data._id, null);
+            db.close();
         }
         catch (Exception e)
         {

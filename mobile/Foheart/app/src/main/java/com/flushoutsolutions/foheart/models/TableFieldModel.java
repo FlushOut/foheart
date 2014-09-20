@@ -66,6 +66,7 @@ public class TableFieldModel {
             );
         }
         curApp.close();
+        db.close();
 
         return appData;
     }
@@ -102,6 +103,7 @@ public class TableFieldModel {
             );
         }
         curApp.close();
+        db.close();
 
         return appData;
     }
@@ -124,6 +126,7 @@ public class TableFieldModel {
             values.put(DatabaseContract.TableFieldSchema.COLUMN_NAME_PRIMARY_KEY, data.primary_key);
 
             lastRowId = db.insert(DatabaseContract.TableFieldSchema.TABLE_NAME, null, values);
+            db.close();
         }
         return lastRowId;
     }
@@ -145,6 +148,7 @@ public class TableFieldModel {
             values.put(DatabaseContract.TableFieldSchema.COLUMN_NAME_PRIMARY_KEY, data.primary_key);
 
             rowsAffected = db.update(DatabaseContract.TableFieldSchema.TABLE_NAME, values, DatabaseContract.TableFieldSchema._ID + "=" + data._id, null);
+            db.close();
         }
         return rowsAffected;
     }
@@ -182,6 +186,7 @@ public class TableFieldModel {
         }
 
         curApp.close();
+        db.close();
 
         return list;
     }
@@ -206,6 +211,7 @@ public class TableFieldModel {
         }
 
         curApp.close();
+        db.close();
 
         return list;
     }
@@ -217,6 +223,7 @@ public class TableFieldModel {
         try
         {
             db.delete(DatabaseContract.TableFieldSchema.TABLE_NAME, DatabaseContract.TableFieldSchema._ID +"="+data._id, null);
+            db.close();
         }
         catch (Exception e)
         {
@@ -227,6 +234,11 @@ public class TableFieldModel {
     public synchronized void delete_all()
     {
         SQLiteDatabase db = dbHelper.getWritableDatabase();
-        db.delete(DatabaseContract.TableFieldSchema.TABLE_NAME, null, null);
+        try{
+            db.delete(DatabaseContract.TableFieldSchema.TABLE_NAME, null, null);
+            db.close();
+        }catch (Exception e){
+            e.printStackTrace();
+        }
     }
 }

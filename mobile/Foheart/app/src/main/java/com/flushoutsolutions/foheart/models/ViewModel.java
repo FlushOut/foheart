@@ -66,6 +66,7 @@ public class ViewModel {
             );
         }
         curApp.close();
+        db.close();
 
         return appData;
     }
@@ -104,6 +105,7 @@ public class ViewModel {
             );
         }
         curApp.close();
+        db.close();
 
         return appData;
     }
@@ -126,6 +128,7 @@ public class ViewModel {
             values.put(DatabaseContract.ViewSchema.COLUMN_NAME_EVENTS, data.events);
 
             lastRowId = db.insert(DatabaseContract.ViewSchema.TABLE_NAME, null, values);
+            db.close();
         }
         return lastRowId;
     }
@@ -148,6 +151,7 @@ public class ViewModel {
             values.put(DatabaseContract.ViewSchema.COLUMN_NAME_EVENTS, data.events);
 
             rowsAffected = db.update(DatabaseContract.ViewSchema.TABLE_NAME, values, DatabaseContract.ViewSchema._ID + "=" + data._id, null);
+            db.close();
         }
         return rowsAffected;
     }
@@ -185,6 +189,7 @@ public class ViewModel {
         }
 
         curApp.close();
+        db.close();
 
         return list;
     }
@@ -196,6 +201,7 @@ public class ViewModel {
         try
         {
             db.delete(DatabaseContract.ViewSchema.TABLE_NAME, DatabaseContract.ViewSchema._ID +"="+data._id, null);
+            db.close();
         }
         catch (Exception e)
         {
@@ -210,6 +216,7 @@ public class ViewModel {
         try
         {
             db.delete(DatabaseContract.ViewSchema.TABLE_NAME, null, null);
+            db.close();
         }
         catch (Exception e)
         {

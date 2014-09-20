@@ -101,7 +101,6 @@ public class TableHandler {
 
     public synchronized void tableDelete(String tableName, String field, String value)
     {
-        SQLiteDatabase db = dbHelper.getWritableDatabase();
         String[] fields = field.split(";");
         String[] values = value.split(";");
         String[] conditions = new String[fields.length];
@@ -110,7 +109,13 @@ public class TableHandler {
             conditions[v] = fields[v]+"='"+Variables.parse_vars(values[v], false)+"'";
         }
         String condition = FoHeart.combine(conditions, " and ");
-        db.delete(tableName, condition, null);
+        appDBModel.setAppTableName(tableName);
+        appDBModel.delete(condition);
+    }
+    public synchronized void tableDelete(String tableName)
+    {
+        appDBModel.setAppTableName(tableName);
+        appDBModel.deleteAll();
     }
 
     public synchronized void query(String statement, String returnVar)
@@ -123,7 +128,8 @@ public class TableHandler {
     {
         statement = Variables.parse_vars(statement, false);
         JSONArray arrReturn = new JSONArray();
-        List<ContentValues> result = dbHelper.execQuery(appDBModel.db ,statement);
+        //List<ContentValues> result = dbHelper.execQuery(appDBModel.db ,statement);
+        List<ContentValues> result = appDBModel.execQuery(statement);
 
         for (int x=0; x< result.size(); x++)
         {

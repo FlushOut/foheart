@@ -228,7 +228,8 @@ public class ListCheckScreen
 			if (listOptions.get(x).get_state())
             {
 				jsonSelectedValues += "{\"value\":\""+listOptions.get(x).get_value()+"\"}, ";
-                valueString = valueString + listOptions.get(x).get_value()+";";
+                //valueString = valueString + listOptions.get(x).get_value()+";";
+                valueString = valueString + listOptions.get(x).get_value()+",";
             }
 
 		}

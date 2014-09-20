@@ -59,6 +59,7 @@ public class ProcedureModel {
             );
         }
         curApp.close();
+        db.close();
 
         return appData;
     }
@@ -91,6 +92,7 @@ public class ProcedureModel {
             );
         }
         curApp.close();
+        db.close();
 
         return appData;
     }
@@ -110,6 +112,7 @@ public class ProcedureModel {
             values.put(DatabaseContract.ProcedureSchema.COLUMN_NAME_RETURN, data.retur);
 
             lastRowId = db.insert(DatabaseContract.ProcedureSchema.TABLE_NAME, null, values);
+            db.close();
         }
         return lastRowId;
     }
@@ -129,6 +132,7 @@ public class ProcedureModel {
             values.put(DatabaseContract.ProcedureSchema.COLUMN_NAME_RETURN, data.retur);
 
             rowsAffected = db.update(DatabaseContract.ProcedureSchema.TABLE_NAME, values, DatabaseContract.ProcedureSchema._ID + "=" + data._id, null);
+            db.close();
         }
         return rowsAffected;
     }
@@ -166,6 +170,7 @@ public class ProcedureModel {
         }
 
         curApp.close();
+        db.close();
 
         return list;
     }
@@ -177,6 +182,7 @@ public class ProcedureModel {
         try
         {
             db.delete(DatabaseContract.ProcedureSchema.TABLE_NAME, DatabaseContract.ProcedureSchema._ID +"="+data._id, null);
+            db.close();
         }
         catch (Exception e)
         {
@@ -191,6 +197,7 @@ public class ProcedureModel {
         try
         {
             db.delete(DatabaseContract.ProcedureSchema.TABLE_NAME, null, null);
+            db.close();
         }
         catch (Exception e)
         {

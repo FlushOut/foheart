@@ -24,7 +24,8 @@
         <activity
             android:name=".MainActivity"
             android:theme="@style/MainTheme"
-            android:label="@string/app_name" >
+            android:label="@string/app_name"
+            android:screenOrientation="portrait" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -34,17 +35,20 @@
         <activity
             android:name=".MenuActivity"
             android:theme="@style/AppTheme"
-            android:label="@string/app_name" >
+            android:label="@string/app_name"
+            android:screenOrientation="portrait" >
         </activity>
         <activity
             android:name=".ScreenActivity"
             android:theme="@style/AppTheme"
-            android:label="@string/title_activity_screen" >
+            android:label="@string/title_activity_screen"
+            android:screenOrientation="portrait" >
         </activity>
         <activity
             android:name=".DownloadActivity"
             android:theme="@style/AppTheme"
-            android:label="@string/title_activity_download" >
+            android:label="@string/title_activity_download"
+            android:screenOrientation="portrait" >
         </activity>
     </application>
 

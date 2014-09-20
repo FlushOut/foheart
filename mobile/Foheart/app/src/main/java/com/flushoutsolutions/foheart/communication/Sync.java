@@ -63,7 +63,8 @@ public class Sync {
                 for (int tt=0; tt<listTables.size(); tt++)
                 {
                     TableData thisTable = listTables.get(tt);
-                    List<ContentValues> result = dbHelper.execQuery(appDBModel.db,"select * from " + thisTable.name + " where _sync='' OR _sync=0 OR _sync is null limit 5");
+                    //List<ContentValues> result = dbHelper.execQuery(appDBModel.db,"select * from " + thisTable.name + " where _sync='' OR _sync=0 OR _sync is null limit 5");
+                    List<ContentValues> result = appDBModel.execQuery("select * from " + thisTable.name + " where _sync='' OR _sync=0 OR _sync is null limit 5");
                     for (int x=0; x< result.size(); x++)
                     {
                         JSONObject jsonObject = new JSONObject();

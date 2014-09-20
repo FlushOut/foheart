@@ -466,6 +466,10 @@ public class Procedures {
                 String property = method.getString("property");
 
                 String parsedValue = Variables.parse_vars(method.getString("value"), false);
+                if (!method.isNull("transform"))
+                    if(method.getInt("transform") == 1)
+                        parsedValue = parsedValue.toUpperCase();
+
                 String type = Components.get_type(component);
 
                 if (type.equals("label"))
@@ -674,8 +678,12 @@ public class Procedures {
 
             else if (!code_line.isNull("tableDelete"))
             {
+
                 JSONObject method = new JSONObject(code_line.getString("tableDelete"));
-                tHandler.tableDelete(method.getString("tableName"), method.getString("field"), method.getString("value"));
+                if(!method.isNull("field") && !method.isNull("value"))
+                    tHandler.tableDelete(method.getString("tableName"), method.getString("field"), method.getString("value"));
+                else
+                    tHandler.tableDelete(method.getString("tableName"));
             }
 
             else if (!code_line.isNull("query"))

@@ -64,6 +64,7 @@ public class SendDataModel {
             );
         }
         curApp.close();
+        db.close();
 
         return appData;
     }
@@ -98,6 +99,7 @@ public class SendDataModel {
             );
         }
         curApp.close();
+        db.close();
 
         return appData;
     }
@@ -119,6 +121,7 @@ public class SendDataModel {
             values.put(DatabaseContract.SendDataSchema.COLUMN_NAME_DATETIME, data.datetime);
 
             lastRowId = db.insert(DatabaseContract.SendDataSchema.TABLE_NAME, null, values);
+            db.close();
         }
         return lastRowId;
     }
@@ -141,6 +144,7 @@ public class SendDataModel {
             values.put(DatabaseContract.SendDataSchema.COLUMN_NAME_DATETIME, data.datetime);
 
             rowsAffected = db.update(DatabaseContract.SendDataSchema.TABLE_NAME, values, DatabaseContract.SendDataSchema._ID + "=" + data._id, null);
+            db.close();
         }
         return rowsAffected;
     }
@@ -179,6 +183,7 @@ public class SendDataModel {
         }
 
         curApp.close();
+        db.close();
 
         return list;
     }
@@ -203,6 +208,7 @@ public class SendDataModel {
         }
 
         curApp.close();
+        db.close();
 
         return list;
     }
@@ -214,6 +220,7 @@ public class SendDataModel {
         try
         {
             db.delete(DatabaseContract.SendDataSchema.TABLE_NAME, DatabaseContract.SendDataSchema._ID +"="+data._id, null);
+            db.close();
         }
         catch (Exception e)
         {

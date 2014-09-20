@@ -60,6 +60,7 @@ public class TableModel {
             );
         }
         curApp.close();
+        db.close();
 
         return appData;
     }
@@ -93,6 +94,7 @@ public class TableModel {
             );
         }
         curApp.close();
+        db.close();
 
         return appData;
     }
@@ -123,6 +125,7 @@ public class TableModel {
             );
         }
         curApp.close();
+        db.close();
 
         return appData.model_version;
     }
@@ -142,6 +145,7 @@ public class TableModel {
             values.put(DatabaseContract.TableSchema.COLUMN_NAME_KEY, data.key);
 
             lastRowId = db.insert(DatabaseContract.TableSchema.TABLE_NAME, null, values);
+            db.close();
         }
         return lastRowId;
     }
@@ -161,6 +165,7 @@ public class TableModel {
             values.put(DatabaseContract.TableSchema.COLUMN_NAME_KEY, data.key);
 
             rowsAffected = db.update(DatabaseContract.TableSchema.TABLE_NAME, values, DatabaseContract.TableSchema._ID + "=" + data._id, null);
+            db.close();
         }
         return rowsAffected;
     }
@@ -198,6 +203,7 @@ public class TableModel {
         }
 
         curApp.close();
+        db.close();
 
         return list;
     }
@@ -222,6 +228,7 @@ public class TableModel {
         }
 
         curApp.close();
+        db.close();
 
         return list;
     }
@@ -233,6 +240,7 @@ public class TableModel {
         try
         {
             db.delete(DatabaseContract.TableSchema.TABLE_NAME, DatabaseContract.TableSchema._ID +"="+data._id, null);
+            db.close();
         }
         catch (Exception e)
         {
@@ -247,6 +255,7 @@ public class TableModel {
         try
         {
             db.delete(DatabaseContract.TableSchema.TABLE_NAME, null, null);
+            db.close();
         }
         catch (Exception e)
         {

@@ -67,6 +67,7 @@ public class ApplicationModel {
             );
         }
         curApp.close();
+        db.close();
 
         return appData;
     }
@@ -92,8 +93,9 @@ public class ApplicationModel {
             values.put(DatabaseContract.ApplicationSchema.COLUMN_NAME_DEBUG_MODE, data.debug_mode);
 
             lastRowId = db.insert(DatabaseContract.ApplicationSchema.TABLE_NAME, null, values);
-
+            db.close();
         }
+
         return lastRowId;
     }
 
@@ -117,6 +119,7 @@ public class ApplicationModel {
             values.put(DatabaseContract.ApplicationSchema.COLUMN_NAME_DEBUG_MODE, data.debug_mode);
 
             rowsAffected = db.update(DatabaseContract.ApplicationSchema.TABLE_NAME, values, DatabaseContract.ApplicationSchema._ID + "=" + data._id, null);
+            db.close();
         }
         return rowsAffected;
     }
@@ -153,6 +156,7 @@ public class ApplicationModel {
         }
 
         curApp.close();
+        db.close();
 
         return list;
     }
@@ -164,6 +168,7 @@ public class ApplicationModel {
         try
         {
             db.delete(DatabaseContract.ApplicationSchema.TABLE_NAME, DatabaseContract.ApplicationSchema._ID +"="+data._id, null);
+            db.close();
         }
         catch (Exception e)
         {
@@ -177,6 +182,7 @@ public class ApplicationModel {
         try
         {
             db.delete(DatabaseContract.ApplicationSchema.TABLE_NAME, null, null);
+            db.close();
         }
         catch (Exception e)
         {
@@ -218,6 +224,7 @@ public class ApplicationModel {
             );
         }
         curApp.close();
+        db.close();
 
         return appData;
     }
@@ -256,6 +263,7 @@ public class ApplicationModel {
             );
         }
         curApp.close();
+        db.close();
 
         return appData;
     }

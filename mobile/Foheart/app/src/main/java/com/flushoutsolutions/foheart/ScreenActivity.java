@@ -25,6 +25,7 @@ import android.support.v4.app.FragmentTransaction;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewConfiguration;
 import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.LinearLayout;
@@ -69,6 +70,7 @@ import org.json.JSONObject;
 
 import java.io.File;
 import java.io.IOException;
+import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
@@ -94,10 +96,10 @@ public class ScreenActivity extends FragmentActivity {
 
     public FragmentManager fragmentManager;
 
-    File imgFile;
+    /*File imgFile;
     Bitmap bmpLogo;
     Resources res;
-    BitmapDrawable icon;
+    BitmapDrawable icon;*/
 
     @SuppressLint("DefaultLocale")
     @Override
@@ -118,6 +120,18 @@ public class ScreenActivity extends FragmentActivity {
         this.parent_screen  =  intent.getStringExtra("parent_screen");
         this.name = intent.getStringExtra("viewName");
 
+        //Action Button Top
+        try {
+            ViewConfiguration config = ViewConfiguration.get(this);
+            Field menuKeyField = ViewConfiguration.class.getDeclaredField("sHasPermanentMenuKey");
+            if(menuKeyField != null) {
+                menuKeyField.setAccessible(true);
+                menuKeyField.setBoolean(config, false);
+            }
+        } catch (Exception ex) {
+            // Ignore
+        }
+
         if (null!=viewData)
         {
             fragmentManager = getSupportFragmentManager();
@@ -125,14 +139,26 @@ public class ScreenActivity extends FragmentActivity {
             if (viewData.back_locked == 1) this.back_locked = true;
 
             //Icon Image
-            imgFile = new File(FoHeart.getAppContext().getApplicationInfo().dataDir + "/apps/app" + settings.getString("idApplication", "") + "/app/logo.png");
-            bmpLogo = BitmapFactory.decodeFile(imgFile.getAbsolutePath());
+            /*imgFile = new File(FoHeart.getAppContext().getApplicationInfo().dataDir + "/apps/app" + settings.getString("idApplication", "") + "/app/logo.png");
+
+            BitmapFactory.Options opts=new BitmapFactory.Options();
+            opts.inDither=false;
+            opts.inPurgeable=true;
+            opts.inInputShareable=true;
+            opts.inTempStorage=new byte[32 * 1024];
             res = getResources();
+
+            bmpLogo = BitmapFactory.decodeFile(imgFile.getAbsolutePath(),opts);
             icon = new BitmapDrawable(res, bmpLogo);
-            getActionBar().setIcon(icon);
+            if (bmpLogo != null) {
+                bmpLogo = null;
+            }
+            getActionBar().setIcon(icon);*/
+            getActionBar().setIcon(
+                    new ColorDrawable(getResources().getColor(android.R.color.transparent)));
 
             // Title
-            getActionBar().setTitle(viewData.title.toUpperCase(Locale.getDefault()));
+            getActionBar().setTitle(" "+ viewData.title.toUpperCase(Locale.getDefault()));
             getActionBar().setBackgroundDrawable(new ColorDrawable(Color.parse_color(Color.get_active_theme())));
             int titleId = getResources().getIdentifier("action_bar_title", "id", "android");
             TextView abTitle = (TextView) findViewById(titleId);
@@ -232,6 +258,27 @@ public class ScreenActivity extends FragmentActivity {
         }
     }
 
+    /*
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+
+        unbindDrawables(findViewById(R.id.RootView));
+        System.gc();
+    }
+
+    private void unbindDrawables(View view) {
+        if (view.getBackground() != null) {
+            view.getBackground().setCallback(null);
+        }
+        if (view instanceof ViewGroup) {
+            for (int i = 0; i < ((ViewGroup) view).getChildCount(); i++) {
+                unbindDrawables(((ViewGroup) view).getChildAt(i));
+            }
+            ((ViewGroup) view).removeAllViews();
+        }
+    }
+    */
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.

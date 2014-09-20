@@ -107,11 +107,11 @@ public class GetData {
         return this.block_success;
     }
 
-    public int getNumRows(SQLiteDatabase db,String table, int id)
+    /*public int getNumRows(SQLiteDatabase db,String table, int id)
     {
         List<ContentValues> list = dbHelper.execQuery(db,"select * from " + table + " WHERE _id=" + id);
         return list.size();
-    }
+    }*/
 
 
 

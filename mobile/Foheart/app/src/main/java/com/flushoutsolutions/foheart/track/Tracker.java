@@ -65,10 +65,14 @@ public class Tracker extends Service implements LocationListener {
 
     public void setVariables()
     {
-        Variables.add("__gps_lat", "float", Tracker.latitude);
-        Variables.add("__gps_lon", "float", Tracker.longitude);
-        Variables.add("__gps_speed", "float", Tracker.speed);
-        Variables.add("__gps_accuracy", "int", Tracker.accuracy);
+        if (Variables.get("__gps_lat") == null)
+            Variables.add("__gps_lat", "float", Tracker.latitude);
+        if (Variables.get("__gps_lon") == null)
+            Variables.add("__gps_lon", "float", Tracker.longitude);
+        if (Variables.get("__gps_speed") == null)
+            Variables.add("__gps_speed", "float", Tracker.speed);
+        if (Variables.get("__gps_accuracy") == null)
+            Variables.add("__gps_accuracy", "int", Tracker.accuracy);
     }
 
     public void onGPSUpdate()

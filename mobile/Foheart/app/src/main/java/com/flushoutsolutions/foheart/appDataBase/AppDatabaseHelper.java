@@ -71,7 +71,7 @@ public class AppDatabaseHelper extends SQLiteOpenHelper {
         }
         onCreate(db);
     }
-    public synchronized List<ContentValues> execQuery(SQLiteDatabase db,String selectQuery)
+    /*public synchronized List<ContentValues> execQuery(SQLiteDatabase db,String selectQuery)
     {
         List<ContentValues> list = new ArrayList<ContentValues>();
         try
@@ -98,5 +98,5 @@ public class AppDatabaseHelper extends SQLiteOpenHelper {
             e.printStackTrace();
         }
         return list;
-    }
+    }*/
 }
