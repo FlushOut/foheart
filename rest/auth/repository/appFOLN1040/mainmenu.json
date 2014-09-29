@@ -1,0 +1,30 @@
+[
+    {
+        "name": "menuSchedule",
+        "color": "4396C0",
+        "icon": "schedule.png",
+        "title": "Schedule",
+        "view": "vwDisciplineTypes"
+    },
+    {
+        "name": "menuMyLessons",
+        "color": "327FA5",
+        "icon": "mylessons.png",
+        "title": "My Lessons",
+        "view": "vwLessonStatuses"
+    },
+    {
+        "name": "menuFavorites",
+        "color": "28607C",
+        "icon": "favorites.png",
+        "title": "Favorites",
+        "view": "vwFavoriteTeachers"
+    },
+    {
+        "name": "menuDiscounts",
+        "color": "064261",
+        "icon": "discounts.png",
+        "title": "Discounts",
+        "view": "vwCompanyDiscounts"
+    }
+]

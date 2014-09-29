@@ -11,7 +11,7 @@ class rest extends superRest {
    /**
     * @var array os métodos que podem ser chamados por URL
     */		
-	protected $permitidos = array('login','logout','applicence','getapp','location','location_imei','location_track','location_user','submit_apps', 'reset_apps','get_apps', 'send_data', 'get_data','post_data','is_logged','add_hash','get_hash','is_hash_used','send_pessoa','list_pessoas','v2_send_data');
+	protected $permitidos = array('login','logout','applicence','getapp','location','location_imei','location_track','location_user','submit_apps', 'reset_apps','get_apps', 'send_data', 'get_data','post_data','is_logged','add_hash','get_hash','is_hash_used','send_pessoa','list_pessoas','v2_send_data','check_version');
 	
 
 	// Teste para o lucas
@@ -202,18 +202,19 @@ class rest extends superRest {
 	public function v2_send_data() {
 		// valida se foram enviados todos os dados obrigatórios para a função
 		{
-			
+			$sql_insert = "";
+			//echo "-->1 \n";
 			// ok, os dados foram enviados via get... posso tentar logar
-			$logado = $this->doLogin($this->vars['coduser'],$this->vars['password'],$this->vars['imei']);
+			$logado = $this->doLogin($this->vars['coduser'],$this->vars['password']);
 			if(!$logado) {
-				
+				//echo "---->1.0 \n";
 				// se não conseguiu logar, pare por aqui
 				$this->retorno['status'] = false;
 				$this->retorno["error"] = "116";
 				$this->retorno["message"] = "Invalid user";
 			
 			} else {
-			
+				//echo "-->1.1 \n";
 				// ok, é um usuário logado!
 		
 				// vamos verificar se os parâmetros estão de acordo
@@ -222,8 +223,12 @@ class rest extends superRest {
 				if (!$erro) 
 				{
 					$superModel = new superModel();
+
+					$superModel->changedBd($this->vars['user'], $this->vars['pass'], $this->vars['appName']);
 					// desserializa o json
-					$rawJson = utf8_decode($this->vars['record']);
+
+					$rawJson = urldecode(utf8_decode($this->vars['record']));
+					//echo $rawJson."\n";
 					$jsonRecord = json_decode($rawJson, true);
 					if (!$this->vars['thekey']) $thekey = "_id"; 
 					else
@@ -231,15 +236,16 @@ class rest extends superRest {
 						unset($jsonRecord['_id']);
 						$thekey = $this->vars['thekey'];
 					}
-					
+					//echo "-->1.2 \n";
 					//unset($jsonRecord['_id']);
 					unset($jsonRecord['_sync']);
-
+					//echo $jsonRecord." \n";
 					// pega o nome da table
 					$table = $this->vars['tablename'];
 					$sql_init = "insert ignore into ".$table. " set ";
 					$sql_end = "";
-
+					
+					echo "--> ".$jsonRecord." \n";
 					// monta a string sql
 					foreach ($jsonRecord as $key => $value) 
 					{
@@ -253,24 +259,27 @@ class rest extends superRest {
 								$sql_end = " WHERE ".$thekey."=".$value;
 							}
 						}
+						//echo "-->1.3 ".$key."='".$value."', "."\n";
 						$sql_insert.=$key."='".$value."', ";
 					}
-
+					//echo "-->1.4 \n";
 					$user = $this->vars['coduser'];
-					$sql_insert .= "fk_user='$user', ";
+					$sql_insert .= "mobile_date='$user', ";
 
 					$dt = $this->vars['datetime'];
 					$date = addslashes(substr($dt,0,4)."-".substr($dt,4,2)."-".substr($dt,6,2)." ".substr($dt,8,2).":".substr($dt,10,2).":".substr($dt,12,2));
 
-					$sql_insert .= "date_time='$date'";
+					$sql_insert .= "sync_date='$date'";
 
 //echo $sql_init.$sql_insert.$sql_end;					
-					
+					echo "-->1.5 ".$sql_init.$sql_insert.$sql_end."\n";
+
 					$res = $superModel->genericQuery($sql_init.$sql_insert.$sql_end);
 					// se deu certo, retorna true com o id
 					// senão, retorna false com o id
 					if ($res===false)
 					{
+						//echo "-->1.5.0 \n";
 						//printf("Erro: %s\n", $superModel->db->error);
 						$this->retorno['status'] = false;
 						$this->retorno['rowid'] = $this->vars['rowid'];
@@ -281,11 +290,16 @@ class rest extends superRest {
 					}
 					else
 					{
+						//echo "-->1.5.1 \n";
 						$this->retorno['status'] = true;
 						$this->retorno['rowid'] = $this->vars['rowid'];
 						$this->retorno['table'] = $this->vars['tablename'];
+						$this->retorno['json'] = $jsonRecord;
+						$this->retorno['rawJson'] = $rawJson;
+						
 
-					
+
+						//echo "-->1.5.2 \n";
 						// Inclui nas tabelas do integrador
 						$sql_app = "SELECT * FROM application WHERE lk ='".$this->vars['codapp']."'";
 						$res_app = $superModel->genericQuery($sql_app);
@@ -293,14 +307,14 @@ class rest extends superRest {
 						$_fk_application = $res_app[0]['_id'];
 						$_fk_user = $this->vars['coduser'];
 						$_table_name = $this->vars['tablename'];
-						$_app_version = $this->vars['appversion'];
-						$_capture_version = $this->vars['baseversion'];
+						$_app_version ="1.1";// $this->vars['appversion'];
+						$_capture_version = "1.1";// $this->vars['baseversion'];
 						$_app_version = "1";
 						$_capture_version = "2.52";
 						$_datetime = $date;
 						$_record = $rawJson;
 						$_record_index = $this->vars['rowid'];
-
+						//echo "-->1.5.3 \n";
 						$res = $superModel->genericQuery("insert ignore into inserts set fk_application='$_fk_application', 
 							fk_user='$_fk_user', 
 							table_name='$_table_name', 
@@ -309,6 +323,7 @@ class rest extends superRest {
 							datetime='$_datetime', 
 							record='$_record', 
 							record_index='$_record_index'");
+						//echo "-->1.5.4 \n";
 					}
 					
 				} else {
@@ -339,7 +354,7 @@ class rest extends superRest {
 			$this->retorno["message"] = "Please send all the 6 parameters to execute this function.";
 		} else {
 			// ok, os dados foram enviados via get... posso tentar logar
-			$logado = $this->doLogin($this->vars['coduser'],$this->vars['password'],$this->vars['imei']);
+			$logado = $this->doLogin($this->vars['coduser'],$this->vars['password']);
 			if(!$logado) {
 				// se não conseguiu logar, pare por aqui
 				$this->retorno['status'] = false;
@@ -1308,7 +1323,7 @@ class rest extends superRest {
 	 * 
 	 * @return bool
 	 */			
-	private function doLogin($puser,$pwd,$imei,$lat=0,$long=0,$app=null,$log=false) {
+	private function doLogin($puser,$pwd,$imei="",$lat=0,$long=0,$app=null,$log=false) {
 
 		$user = new user();
 		//$userId = $user->getIdByEmail($puser);
@@ -1357,6 +1372,49 @@ class rest extends superRest {
 		} else {
 			return false;
 		}*/
-	}	
+	}
+
+
+	public function check_version(){
+
+		if (!$this->vars['coduser']
+			 or !$this->vars['password']
+			 or !$this->vars['tablename']
+			 or !$this->vars['version']
+			 or !$this->vars['user']
+			 or !$this->vars['pass']
+			 or !$this->vars['appName']) {
+			// se os dados não foram passados, informe o erro
+			$this->retorno["status"] = false;
+			$this->retorno["error"] = "106";
+			$this->retorno["message"] = "Please send all the 5 parameters to execute this function.";
+		} else {
+			$logado = $this->doLogin($this->vars['coduser'],$this->vars['password']);
+			if(!$logado) {
+				// se não conseguiu logar, pare por aqui
+				$this->retorno['status'] = false;
+				$this->retorno["error"] = "116";
+				$this->retorno["message"] = "Invalid user";
+			
+			} else {
+
+				$versionMaster = new versionMaster();
+
+				$superModel = new superModel();
+				$superModel->changedBd($this->vars['user'], $this->vars['pass'], $this->vars['appName']);
+
+				$newVersion = $superModel->genericQuery("select version from version_masters where table_name = '".$this->vars['tablename']."' and version > ".$this->vars['version']);
+				
+				if (!$newVersion) {
+					$this->retorno['status'] = false;
+				} else {
+					$this->retorno['status'] = true;
+					$this->retorno['version'] = $newVersion[0]['version'];
+				}
+			}
+		}
+	}
+
+
 }
 ?>

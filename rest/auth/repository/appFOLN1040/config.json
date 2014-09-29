@@ -1,0 +1,9 @@
+{
+    "appVersion": "1.0.0",
+    "baseVersion": "1.0.0",
+    "description": "FOLearn",
+    "dbuser": "learnuser",
+    "dbpass": "Le@Rn2205",
+    "debugMode": 1,
+    "updateInterval": 600
+}

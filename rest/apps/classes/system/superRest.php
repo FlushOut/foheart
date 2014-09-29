@@ -48,10 +48,20 @@ class superRest {
 		//MMOYANO modificado para test
 		//$this->method = $temp[0];
 		$this->method = str_replace('index.php?','',$temp[0]);
-		
-		for($i=1;$i<count($temp); $i+=2) {
-			if (trim($temp[$i]) != '') {
-			$this->vars[$temp[$i]] = $temp[$i+1];
+
+		if (isset($_POST) && count($_POST)>0) 
+		{
+			foreach ($_POST as $key => $value) 
+			{
+				$this->vars[$key] = $value;
+			}
+		}
+		else
+		{
+			for($i=1;$i<count($temp); $i+=2) {
+				if (trim($temp[$i]) != '') {
+				$this->vars[$temp[$i]] = $temp[$i+1];
+				}
 			}
 		}
 	}

@@ -1,0 +1,717 @@
+{
+    "modelVersion": 1,
+    "tables": [
+        {
+            "name": "discipline_types",
+            "autoSync": 0,
+            "fields": [
+                {
+                    "name": "description",
+                    "type": "text",
+                    "size": 200,
+                    "default": "",
+                    "required": true
+                }
+            ],
+            "relations": [],
+            "key": "_id",
+            "requestParams": ""
+        },
+        {
+            "name": "disciplines",
+            "autoSync": 0,
+            "fields": [
+                {
+                    "name": "fk_disc_type",
+                    "type": "int",
+                    "size": 11,
+                    "default": "",
+                    "required": true
+                },
+                {
+                    "name": "description",
+                    "type": "text",
+                    "size": 200,
+                    "default": "",
+                    "required": true
+                }
+            ],
+            "relations": [],
+            "key": "_id",
+            "requestParams": ""
+        },
+        {
+            "name": "discounts",
+            "autoSync": 0,
+            "fields": [
+                {
+                    "name": "fk_company",
+                    "type": "int",
+                    "size": 11,
+                    "default": "",
+                    "required": true
+                },
+                {
+                    "name": "code",
+                    "type": "text",
+                    "size": 20,
+                    "default": "",
+                    "required": true
+                },
+                {
+                    "name": "percent",
+                    "type": "real",
+                    "size": 11,
+                    "default": "",
+                    "required": true
+                },
+                {
+                    "name": "condition_start",
+                    "type": "real",
+                    "size": 11,
+                    "default": "",
+                    "required": true
+                },
+                {
+                    "name": "condition_end",
+                    "type": "real",
+                    "size": 11,
+                    "default": "",
+                    "required": true
+                }
+            ],
+            "relations": [],
+            "key": "_id",
+            "requestParams": ""
+        },
+        {
+            "name": "lessons",
+            "autoSync": 1,
+            "fields": [
+                {
+                    "name": "fk_company",
+                    "type": "int",
+                    "size": 11,
+                    "default": "",
+                    "required": true
+                },
+                {
+                    "name": "fk_client",
+                    "type": "int",
+                    "size": 11,
+                    "default": "",
+                    "required": true
+                },
+                {
+                    "name": "fk_schedule",
+                    "type": "int",
+                    "size": 11,
+                    "default": "",
+                    "required": true
+                },
+                {
+                    "name": "fk_disc_type",
+                    "type": "int",
+                    "size": 11,
+                    "default": "",
+                    "required": true
+                },
+                {
+                    "name": "fk_discipline",
+                    "type": "int",
+                    "size": 11,
+                    "default": "",
+                    "required": true
+                },
+                {
+                    "name": "fk_less_stat",
+                    "type": "int",
+                    "size": 11,
+                    "default": "",
+                    "required": true
+                },
+                {
+                    "name": "hours",
+                    "type": "int",
+                    "size": 11,
+                    "default": "",
+                    "required": true
+                },
+                {
+                    "name": "price_hour",
+                    "type": "real",
+                    "size": 11,
+                    "default": "",
+                    "required": true
+                },
+                {
+                    "name": "discount",
+                    "type": "int",
+                    "size": 1,
+                    "default": "",
+                    "required": true
+                },
+                {
+                    "name": "fk_discount",
+                    "type": "int",
+                    "size": 11,
+                    "default": "",
+                    "required": true
+                },
+                {
+                    "name": "currency",
+                    "type": "text",
+                    "size": 3,
+                    "default": "",
+                    "required": true
+                },
+                {
+                    "name": "value_discount",
+                    "type": "real",
+                    "size": 11,
+                    "default": "",
+                    "required": true
+                },
+                {
+                    "name": "value_wo_discount",
+                    "type": "real",
+                    "size": 11,
+                    "default": "",
+                    "required": true
+                },
+                {
+                    "name": "value_total",
+                    "type": "real",
+                    "size": 11,
+                    "default": "",
+                    "required": true
+                }
+            ],
+            "relations": [],
+            "key": "_id",
+            "requestParams": ""
+        },
+        {
+            "name": "lessons_tmp",
+            "autoSync": 0,
+            "fields": [
+                {
+                    "name": "fk_company",
+                    "type": "int",
+                    "size": 11,
+                    "default": "",
+                    "required": true
+                },
+                {
+                    "name": "fk_client",
+                    "type": "int",
+                    "size": 11,
+                    "default": "",
+                    "required": true
+                },
+                {
+                    "name": "fk_schedule",
+                    "type": "int",
+                    "size": 11,
+                    "default": "",
+                    "required": true
+                },
+                {
+                    "name": "fk_disc_type",
+                    "type": "int",
+                    "size": 11,
+                    "default": "",
+                    "required": true
+                },
+                {
+                    "name": "fk_discipline",
+                    "type": "int",
+                    "size": 11,
+                    "default": "",
+                    "required": true
+                },
+                {
+                    "name": "fk_less_stat",
+                    "type": "int",
+                    "size": 11,
+                    "default": "",
+                    "required": true
+                },
+                {
+                    "name": "hours",
+                    "type": "int",
+                    "size": 11,
+                    "default": "",
+                    "required": true
+                },
+                {
+                    "name": "price_hour",
+                    "type": "real",
+                    "size": 11,
+                    "default": "",
+                    "required": true
+                },
+                {
+                    "name": "discount",
+                    "type": "int",
+                    "size": 1,
+                    "default": "",
+                    "required": true
+                },
+                {
+                    "name": "fk_discount",
+                    "type": "int",
+                    "size": 11,
+                    "default": "",
+                    "required": true
+                },
+                {
+                    "name": "currency",
+                    "type": "text",
+                    "size": 3,
+                    "default": "",
+                    "required": true
+                },
+                {
+                    "name": "value_discount",
+                    "type": "real",
+                    "size": 11,
+                    "default": "",
+                    "required": true
+                },
+                {
+                    "name": "value_wo_discount",
+                    "type": "real",
+                    "size": 11,
+                    "default": "",
+                    "required": true
+                },
+                {
+                    "name": "value_total",
+                    "type": "real",
+                    "size": 11,
+                    "default": "",
+                    "required": true
+                }
+            ],
+            "relations": [],
+            "key": "_id",
+            "requestParams": ""
+        },
+        {
+            "name": "lesson_details",
+            "autoSync": 1,
+            "fields": [
+                {
+                    "name": "fk_lesson",
+                    "type": "int",
+                    "size": 11,
+                    "default": "",
+                    "required": true
+                },
+                {
+                    "name": "fk_sche_det",
+                    "type": "int",
+                    "size": 11,
+                    "default": "",
+                    "required": true
+                }
+            ],
+            "relations": [],
+            "key": "_id",
+            "requestParams": ""
+        },
+        {
+            "name": "lesson_details_tmp",
+            "autoSync": 0,
+            "fields": [
+                {
+                    "name": "fk_lesson",
+                    "type": "int",
+                    "size": 11,
+                    "default": "",
+                    "required": true
+                },
+                {
+                    "name": "fk_sche_det",
+                    "type": "int",
+                    "size": 11,
+                    "default": "",
+                    "required": true
+                }
+            ],
+            "relations": [],
+            "key": "_id",
+            "requestParams": ""
+        },
+        {
+            "name": "lesson_evaluations",
+            "autoSync": 1,
+            "fields": [
+                {
+                    "name": "fk_lesson",
+                    "type": "int",
+                    "size": 11,
+                    "default": "",
+                    "required": true
+                },
+                {
+                    "name": "fk_client",
+                    "type": "int",
+                    "size": 11,
+                    "default": "",
+                    "required": true
+                },
+                {
+                    "name": "fk_user",
+                    "type": "int",
+                    "size": 11,
+                    "default": "",
+                    "required": true
+                },
+                {
+                    "name": "fk_rating",
+                    "type": "int",
+                    "size": 11,
+                    "default": "",
+                    "required": true
+                },
+                {
+                    "name": "fk_reason",
+                    "type": "int",
+                    "size": 11,
+                    "default": "",
+                    "required": true
+                },
+                {
+                    "name": "observations",
+                    "type": "text",
+                    "size": 400,
+                    "default": "",
+                    "required": true
+                }
+            ],
+            "relations": [],
+            "key": "_id",
+            "requestParams": ""
+        },
+        {
+            "name": "lesson_ratings",
+            "autoSync": 0,
+            "fields": [
+                {
+                    "name": "description",
+                    "type": "text",
+                    "size": 200,
+                    "default": "",
+                    "required": true
+                }
+            ],
+            "relations": [],
+            "key": "_id",
+            "requestParams": ""
+        },
+        {
+            "name": "lesson_reasons",
+            "autoSync": 0,
+            "fields": [
+                {
+                    "name": "description",
+                    "type": "text",
+                    "size": 200,
+                    "default": "",
+                    "required": true
+                }
+            ],
+            "relations": [],
+            "key": "_id",
+            "requestParams": ""
+        },
+        {
+            "name": "lesson_statuses",
+            "autoSync": 0,
+            "fields": [
+                {
+                    "name": "description",
+                    "type": "text",
+                    "size": 200,
+                    "default": "",
+                    "required": true
+                }
+            ],
+            "relations": [],
+            "key": "_id",
+            "requestParams": ""
+        },
+        {
+            "name": "schedules",
+            "autoSync": 0,
+            "fields": [
+                {
+                    "name": "fk_company",
+                    "type": "int",
+                    "size": 11,
+                    "default": "",
+                    "required": true
+                },
+                {
+                    "name": "fk_user",
+                    "type": "int",
+                    "size": 11,
+                    "default": "",
+                    "required": true
+                },
+                {
+                    "name": "date",
+                    "type": "text",
+                    "size": 10,
+                    "default": "",
+                    "required": true
+                },
+                {
+                    "name": "status",
+                    "type": "int",
+                    "size": 1,
+                    "default": "",
+                    "required": true
+                }
+            ],
+            "relations": [],
+            "key": "_id",
+            "requestParams": ""
+        },
+        {
+            "name": "schedule_details",
+            "autoSync": 0,
+            "fields": [
+                {
+                    "name": "fk_schedule",
+                    "type": "int",
+                    "size": 11,
+                    "default": "",
+                    "required": true
+                },
+                {
+                    "name": "start",
+                    "type": "text",
+                    "size": 5,
+                    "default": "",
+                    "required": true
+                },
+                {
+                    "name": "end",
+                    "type": "text",
+                    "size": 5,
+                    "default": "",
+                    "required": true
+                },
+                {
+                    "name": "status",
+                    "type": "int",
+                    "size": 1,
+                    "default": "",
+                    "required": true
+                }
+            ],
+            "relations": [],
+            "key": "_id",
+            "requestParams": ""
+        },
+        {
+            "name": "users",
+            "autoSync": 0,
+            "fields": [
+                {
+                    "name": "fk_company",
+                    "type": "int",
+                    "size": 11,
+                    "default": "",
+                    "required": true
+                },
+                {
+                    "name": "name",
+                    "type": "text",
+                    "size": 200,
+                    "default": "",
+                    "required": true
+                },
+                {
+                    "name": "email",
+                    "type": "text",
+                    "size": 200,
+                    "default": "",
+                    "required": true
+                },
+                {
+                    "name": "phone",
+                    "type": "text",
+                    "size": 20,
+                    "default": "",
+                    "required": true
+                }
+            ],
+            "relations": [],
+            "key": "_id",
+            "requestParams": ""
+        },
+        {
+            "name": "clients",
+            "autoSync": 0,
+            "fields": [
+                {
+                    "name": "fk_country",
+                    "type": "int",
+                    "size": 11,
+                    "default": "",
+                    "required": true
+                },
+                {
+                    "name": "name",
+                    "type": "text",
+                    "size": 200,
+                    "default": "",
+                    "required": true
+                },
+                {
+                    "name": "email",
+                    "type": "text",
+                    "size": 200,
+                    "default": "",
+                    "required": true
+                },
+                {
+                    "name": "phone",
+                    "type": "text",
+                    "size": 20,
+                    "default": "",
+                    "required": true
+                }
+            ],
+            "relations": [],
+            "key": "_id",
+            "requestParams": ""
+        },
+        {
+            "name": "client_favorites",
+            "autoSync": 1,
+            "fields": [
+                {
+                    "name": "fk_client",
+                    "type": "int",
+                    "size": 11,
+                    "default": "",
+                    "required": true
+                },
+                {
+                    "name": "fk_user",
+                    "type": "int",
+                    "size": 11,
+                    "default": "",
+                    "required": true
+                }
+            ],
+            "relations": [],
+            "key": "_id",
+            "requestParams": ""
+        },
+        {
+            "name": "user_disciplines",
+            "autoSync": 0,
+            "fields": [
+                {
+                    "name": "fk_user",
+                    "type": "int",
+                    "size": 11,
+                    "default": "",
+                    "required": true
+                },
+                {
+                    "name": "fk_discipline",
+                    "type": "int",
+                    "size": 11,
+                    "default": "",
+                    "required": true
+                },
+                {
+                    "name": "price",
+                    "type": "real",
+                    "size": 11,
+                    "default": "",
+                    "required": true
+                }
+            ],
+            "relations": [],
+            "key": "_id",
+            "requestParams": ""
+        },
+        {
+            "name": "companies",
+            "autoSync": 0,
+            "fields": [
+                {
+                    "name": "fk_country",
+                    "type": "int",
+                    "size": 11,
+                    "default": "",
+                    "required": true
+                },
+                {
+                    "name": "name",
+                    "type": "text",
+                    "size": 200,
+                    "default": "",
+                    "required": true
+                }
+            ],
+            "relations": [],
+            "key": "_id",
+            "requestParams": ""
+        },
+        {
+            "name": "countries",
+            "autoSync": 0,
+            "fields": [
+                {
+                    "name": "fk_language",
+                    "type": "int",
+                    "size": 11,
+                    "default": "",
+                    "required": true
+                },
+                {
+                    "name": "currency",
+                    "type": "text",
+                    "size": 3,
+                    "default": "",
+                    "required": true
+                },
+                {
+                    "name": "name",
+                    "type": "text",
+                    "size": 200,
+                    "default": "",
+                    "required": true
+                }
+            ],
+            "relations": [],
+            "key": "_id",
+            "requestParams": ""
+        },
+        {
+            "name": "languages",
+            "autoSync": 0,
+            "fields": [
+                {
+                    "name": "name",
+                    "type": "text",
+                    "size": 200,
+                    "default": "",
+                    "required": true
+                }
+            ],
+            "relations": [],
+            "key": "_id",
+            "requestParams": ""
+        }
+    ]
+}
