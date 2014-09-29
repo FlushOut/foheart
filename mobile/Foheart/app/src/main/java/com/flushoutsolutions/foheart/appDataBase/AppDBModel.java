@@ -93,7 +93,7 @@ public class AppDBModel {
         ContentValues values = new ContentValues();
         try
         {
-            Cursor cursor = db.rawQuery("SELECT * FROM "+ this.appTableName+" WHERE _ID="+id, null);
+            Cursor cursor = db.rawQuery("SELECT * FROM "+ this.appTableName+" WHERE _id="+id, null);
             if (cursor.moveToFirst())
             {
                 do
@@ -146,8 +146,8 @@ public class AppDBModel {
     {
         if (null!=values)
         {
-            values.put("_date_time_created", FoHeart.dateTime());
-            values.put("_date_time_updated", FoHeart.dateTime());
+/*            values.put("_date_time_created", FoHeart.dateTime());
+            values.put("_date_time_updated", FoHeart.dateTime());*/
             db = dbHelper.getWritableDatabase();
             db.insert(this.appTableName, null, values);
             db.close();
@@ -200,8 +200,8 @@ public class AppDBModel {
             String fieldName = this.fieldDatas.get(c).name;
             String fieldType = this.fieldDatas.get(c).type.toLowerCase();
             Object value = values.get(fieldName);
-            if (c==2 || c==3)
-                value = FoHeart.dateTime();
+/*            if (c==2 || c==3)
+                value = FoHeart.dateTime();*/
 
             if (fieldType.equals("int") || fieldType.equals("integer"))
             {

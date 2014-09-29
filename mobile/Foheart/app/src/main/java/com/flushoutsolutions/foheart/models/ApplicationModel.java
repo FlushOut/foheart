@@ -53,6 +53,8 @@ public class ApplicationModel {
 
             int updateInterval = curApp.getInt(7);
             int debugMode = curApp.getInt(8);
+            int syncMaster = curApp.getInt(9);
+            int syncTransaction = curApp.getInt(10);
 
             appData = new ApplicationData(
                     _id,
@@ -63,7 +65,9 @@ public class ApplicationModel {
                     db_user,
                     db_pass,
                     updateInterval,
-                    debugMode
+                    debugMode,
+                    syncMaster,
+                    syncTransaction
             );
         }
         curApp.close();
@@ -92,6 +96,9 @@ public class ApplicationModel {
             values.put(DatabaseContract.ApplicationSchema.COLUMN_NAME_UPDATE_INTERVAL, data.update_interval);
             values.put(DatabaseContract.ApplicationSchema.COLUMN_NAME_DEBUG_MODE, data.debug_mode);
 
+            values.put(DatabaseContract.ApplicationSchema.COLUMN_NAME_SYNC_MASTER, data.sync_master);
+            values.put(DatabaseContract.ApplicationSchema.COLUMN_NAME_SYNC_TRANSACTION, data.sync_transaction);
+
             lastRowId = db.insert(DatabaseContract.ApplicationSchema.TABLE_NAME, null, values);
             db.close();
         }
@@ -117,6 +124,9 @@ public class ApplicationModel {
 
             values.put(DatabaseContract.ApplicationSchema.COLUMN_NAME_UPDATE_INTERVAL, data.update_interval);
             values.put(DatabaseContract.ApplicationSchema.COLUMN_NAME_DEBUG_MODE, data.debug_mode);
+
+            values.put(DatabaseContract.ApplicationSchema.COLUMN_NAME_SYNC_MASTER, data.sync_master);
+            values.put(DatabaseContract.ApplicationSchema.COLUMN_NAME_SYNC_TRANSACTION, data.sync_transaction);
 
             rowsAffected = db.update(DatabaseContract.ApplicationSchema.TABLE_NAME, values, DatabaseContract.ApplicationSchema._ID + "=" + data._id, null);
             db.close();
@@ -210,6 +220,8 @@ public class ApplicationModel {
 
             int update_interval = curApp.getInt(7);
             int debug_mode = curApp.getInt(8);
+            int syncMaster = curApp.getInt(9);
+            int syncTransaction = curApp.getInt(10);
 
             appData = new ApplicationData(
                     _id,
@@ -220,7 +232,9 @@ public class ApplicationModel {
                     db_user,
                     db_pass,
                     update_interval,
-                    debug_mode
+                    debug_mode,
+                    syncMaster,
+                    syncTransaction
             );
         }
         curApp.close();
@@ -249,6 +263,8 @@ public class ApplicationModel {
 
             int update_interval = curApp.getInt(7);
             int debug_mode = curApp.getInt(8);
+            int syncMaster = curApp.getInt(9);
+            int syncTransaction = curApp.getInt(10);
 
             appData = new ApplicationData(
                     _id,
@@ -259,7 +275,9 @@ public class ApplicationModel {
                     db_user,
                     db_pass,
                     update_interval,
-                    debug_mode
+                    debug_mode,
+                    syncMaster,
+                    syncTransaction
             );
         }
         curApp.close();

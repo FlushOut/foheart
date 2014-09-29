@@ -85,6 +85,8 @@ public class Install {
         TableModel entityModel = TableModel.get_model();
 
         int model_version = datamodelJson.version();
+        int version_local = 1;
+        int version_server = 1;
 
         for (int x=0; x<tablesJsonArray.length(); x++)
         {
@@ -92,10 +94,11 @@ public class Install {
 
             String name = jsonObject.getString("name");
             int auto_sync = jsonObject.getInt("autoSync");
+            String requestParams = jsonObject.getString("requestParams");
             String key = "_id";
             if (!jsonObject.isNull("key")) key = jsonObject.getString("key");
 
-            TableData entityData = new TableData(idApp,model_version,name,auto_sync, key);
+            TableData entityData = new TableData(idApp,model_version,name,auto_sync, key,version_local,version_server,requestParams);
             entityModel.save(entityData);
 
             int id_table = entityModel.get_data(idApp, name)._id;
@@ -106,14 +109,23 @@ public class Install {
             TableFieldData entityFieldData_id = new TableFieldData (id_table, "_id", "INTEGER", 11, "", 1, 1, 1);
             entityFieldModel.save(entityFieldData_id);
 
-            TableFieldData entityFieldData_sync = new TableFieldData (id_table, "_sync", "INTEGER", 11, "", 1, 0, 0);
-            entityFieldModel.save(entityFieldData_sync);
+            if(auto_sync == 1){
 
-            TableFieldData entityFieldData_create = new TableFieldData (id_table, "_date_time_created", "text", 255, "", 1, 0, 0);
-            entityFieldModel.save(entityFieldData_create);
+                TableFieldData entityFieldData_versionLocal = new TableFieldData (id_table, "_version_local", "INTEGER", 11, "", 1, 0, 0);
+                entityFieldModel.save(entityFieldData_versionLocal);
 
-            TableFieldData entityFieldData_updated = new TableFieldData (id_table, "_date_time_updated", "text", 255, "", 1, 0, 0);
-            entityFieldModel.save(entityFieldData_updated);
+                TableFieldData entityFieldData_versionServer = new TableFieldData (id_table, "_version_server", "INTEGER", 11, "", 1, 0, 0);
+                entityFieldModel.save(entityFieldData_versionServer);
+
+                TableFieldData entityFieldData_sync = new TableFieldData (id_table, "_sync", "INTEGER", 11, "", 1, 0, 0);
+                entityFieldModel.save(entityFieldData_sync);
+
+                TableFieldData entityFieldData_create = new TableFieldData (id_table, "_date_sync", "text", 255, "", 1, 0, 0);
+                entityFieldModel.save(entityFieldData_create);
+
+                TableFieldData entityFieldData_updated = new TableFieldData (id_table, "_date_mobile", "text", 255, "", 1, 0, 0);
+                entityFieldModel.save(entityFieldData_updated);
+            }
 
             for (int y=0; y<jsonArrayFields.length(); y++)
             {

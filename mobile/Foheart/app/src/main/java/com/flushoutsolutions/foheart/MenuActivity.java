@@ -1,6 +1,5 @@
 package com.flushoutsolutions.foheart;
 
-import android.app.ActionBar;
 import android.app.AlertDialog;
 import android.app.Fragment;
 import android.app.FragmentManager;
@@ -23,7 +22,6 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.Window;
 import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.GridView;
@@ -34,6 +32,7 @@ import com.flushoutsolutions.foheart.appDataBase.DataBaseDebug;
 import com.flushoutsolutions.foheart.application.FoHeart;
 import com.flushoutsolutions.foheart.communication.Connection;
 import com.flushoutsolutions.foheart.communication.Sync;
+import com.flushoutsolutions.foheart.communication.SyncMaster;
 import com.flushoutsolutions.foheart.data.ApplicationData;
 import com.flushoutsolutions.foheart.data.ViewData;
 import com.flushoutsolutions.foheart.design.ButtonMenuAdapter;
@@ -48,7 +47,6 @@ import com.flushoutsolutions.foheart.models.ViewModel;
 import com.flushoutsolutions.foheart.slidingmenu.adapter.NavDrawerListAdapter;
 import com.flushoutsolutions.foheart.slidingmenu.fragment.MenuFragment;
 import com.flushoutsolutions.foheart.slidingmenu.model.NavDrawerItem;
-import com.flushoutsolutions.foheart.track.Tracker;
 
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
@@ -123,7 +121,7 @@ public class MenuActivity extends ActionBarActivity {
 
         //Sync Information
         //syncInformation();
-
+        syncInformationBase();
         /*
          0 - Initialize database
          1 - Create menu
@@ -245,6 +243,24 @@ public class MenuActivity extends ActionBarActivity {
                         }
                     }
                 }, 5, 5, TimeUnit.SECONDS
+        );
+    }
+
+    private void syncInformationBase() {
+        final SharedPreferences settings = FoHeart.getAppContext().getSharedPreferences("userconfigs", 0);
+        ApplicationData applicationData = ApplicationModel.get_model().get_data(settings.getString("idApplication", ""));
+
+        scheduledExecutorService = Executors.newScheduledThreadPool(5);
+        final SyncMaster sync = new SyncMaster();
+        scheduledFuture = scheduledExecutorService.scheduleWithFixedDelay(
+                new Runnable() {
+                    @Override
+                    public void run() {
+                        if (Connection.sync_locked == false) {
+                            sync.run();
+                        }
+                    }
+                }, 60, 60, TimeUnit.SECONDS
         );
     }
 

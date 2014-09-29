@@ -264,7 +264,125 @@ public class Connection {
                 {
                     e.printStackTrace();
                 }
+            }else if (this.type.equals("sync_master")) {
+                try
+                {
+                    Context appContext = FoHeart.getAppContext();
+                    SharedPreferences settings = appContext.getSharedPreferences("userconfigs", 0);
+                    String codeApp = settings.getString("idApplication", "");
+                    int idApp = ApplicationModel.get_model().get_data(codeApp)._id;
+
+                    if (null!=result)
+                    {
+                        JSONObject responseJSON = new JSONObject(result);
+
+                        if (responseJSON!=null)
+                        {
+                            if (responseJSON.getBoolean("status"))
+                            {
+                                if (!responseJSON.isNull("results"))
+                                {
+                                    Connection.sync_locked = true;
+                                    JSONArray resultArray = responseJSON.getJSONArray("results");
+
+                                    int num_results = resultArray.length();
+
+                                    String[] clearAll = GetData.getInstance().getClearAll().split(";;");
+
+                                    if (num_results>0)
+                                    {
+                                        for (int y=0; y<num_results; y++)
+                                        {
+                                            JSONObject obj = resultArray.getJSONObject(y);
+                                            Iterator<Object> keys = (Iterator)obj.keys();
+
+                                            String tablename = String.valueOf(keys.next());
+
+                                            JSONArray rows = obj.getJSONArray(tablename);
+                                            TableData tbData = TableModel.get_model().get_data(idApp, tablename);
+
+                                            AppDBModel appDBModel = new AppDBModel(appContext, codeApp, tbData.model_version,tablename).get_model();
+
+                                            ArrayList<String> arrLocalFieldsFinal = new ArrayList<String>();
+
+                                            List<TableFieldData> tbFieldData = TableFieldModel.get_model().list(tbData._id);
+
+                                            for (int v = 0; v<tbFieldData.size(); v++)
+                                            {
+                                                arrLocalFieldsFinal.add(tbFieldData.get(v).name);
+                                            }
+
+                                            if (clearAll[y].equals("true"))
+                                            {
+                                                appDBModel.deleteAll();
+                                            }
+
+                                            appDBModel.beginTransaction();
+                                            for (int w=0; w<rows.length(); w++)
+                                            {
+                                                appDBModel.setAppTableName(tablename);
+                                                int _id = rows.getJSONObject(w).getInt("_id");
+                                                //int count = GetData.getInstance().getNumRows(appDBModel.db,tablename, _id);
+                                                int count = appDBModel.getNumRowsTrans(tablename, _id);
+
+                                                ContentValues values = new ContentValues();
+
+                                                Iterator<String> fields= rows.getJSONObject(w).keys();
+                                                values.put("_id", rows.getJSONObject(w).getInt("_id"));
+
+                                                String ifRepeats = GetData.getInstance().getIfRepeats();
+
+                                                while (fields.hasNext())
+                                                {
+                                                    String fieldName = fields.next().toString();
+
+                                                    if (arrLocalFieldsFinal.contains(fieldName))
+                                                    {
+                                                        String record = rows.getJSONObject(w).getString(fieldName);
+                                                        if (record == null || record.equals("null")) record = "";
+                                                        values.put(fieldName, record);
+                                                    }
+                                                }
+
+                                                if ("ignore".equals(ifRepeats) && count > 0)
+                                                {
+                                                    System.out.println("ignore in "+tablename+" at "+_id);
+                                                }
+                                                else
+                                                {
+                                                    appDBModel.saveTransaction(values);
+                                                }
+                                            }
+                                            appDBModel.endTransaction();
+                                        }
+                                    }
+
+                                    ProgressDialog progressDialog = GetData.getInstance().get_alert();
+                                    if (!GetData.getInstance().getBlockSuccess().equals(""))
+                                    {
+                                        Procedures proc = new Procedures();
+                                        proc.exec(GetData.getInstance().getBlockSuccess());
+
+                                    }
+                                    if (null != progressDialog) {
+                                        progressDialog.dismiss();
+                                    }
+                                    Connection.sync_locked = false;
+                                }
+                            }
+                        }
+                        else
+                            GetData.getInstance().onTimeOutEvent();
+                    }
+                    else
+                        GetData.getInstance().onRestError();
+                }
+                catch (JSONException e)
+                {
+                    e.printStackTrace();
+                }
             }
+
         }
     }
 

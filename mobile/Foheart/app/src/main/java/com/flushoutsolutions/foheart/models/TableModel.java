@@ -49,6 +49,9 @@ public class TableModel {
             String name = curApp.getString(3);
             int auto_sync = curApp.getInt(4);
             String key = curApp.getString(5);
+            int version_local = curApp.getInt(6);
+            int version_server = curApp.getInt(7);
+            String requestParams = curApp.getString(8);
 
             appData = new TableData(
                     _id,
@@ -56,7 +59,10 @@ public class TableModel {
                     model_version,
                     name,
                     auto_sync,
-                    key
+                    key,
+                    version_local,
+                    version_server,
+                    requestParams
             );
         }
         curApp.close();
@@ -83,6 +89,9 @@ public class TableModel {
             String name_ = curApp.getString(3);
             int auto_sync = curApp.getInt(4);
             String key = curApp.getString(5);
+            int version_local = curApp.getInt(6);
+            int version_server = curApp.getInt(7);
+            String requestParams = curApp.getString(8);
 
             appData = new TableData(
                     _id,
@@ -90,7 +99,10 @@ public class TableModel {
                     model_version,
                     name_,
                     auto_sync,
-                    key
+                    key,
+                    version_local,
+                    version_server,
+                    requestParams
             );
         }
         curApp.close();
@@ -114,6 +126,9 @@ public class TableModel {
             String name = curApp.getString(3);
             int auto_sync = curApp.getInt(4);
             String key = curApp.getString(5);
+            int version_local = curApp.getInt(6);
+            int version_server = curApp.getInt(7);
+            String requestParams = curApp.getString(8);
 
             appData = new TableData(
                     _id,
@@ -121,7 +136,10 @@ public class TableModel {
                     model_version,
                     name,
                     auto_sync,
-                    key
+                    key,
+                    version_local,
+                    version_server,
+                    requestParams
             );
         }
         curApp.close();
@@ -143,6 +161,9 @@ public class TableModel {
             values.put(DatabaseContract.TableSchema.COLUMN_NAME_NAME, data.name);
             values.put(DatabaseContract.TableSchema.COLUMN_NAME_AUTO_SYNC, String.valueOf(data.auto_sync));
             values.put(DatabaseContract.TableSchema.COLUMN_NAME_KEY, data.key);
+            values.put(DatabaseContract.TableSchema.COLUMN_NAME_VERSION_LOCAL, data.version_local);
+            values.put(DatabaseContract.TableSchema.COLUMN_NAME_VERSION_SERVER, data.version_server);
+            values.put(DatabaseContract.TableSchema.COLUMN_NAME_REQUESTPARAMS, data.requestParams);
 
             lastRowId = db.insert(DatabaseContract.TableSchema.TABLE_NAME, null, values);
             db.close();
@@ -163,6 +184,9 @@ public class TableModel {
             values.put(DatabaseContract.TableSchema.COLUMN_NAME_NAME, data.name);
             values.put(DatabaseContract.TableSchema.COLUMN_NAME_AUTO_SYNC, String.valueOf(data.auto_sync));
             values.put(DatabaseContract.TableSchema.COLUMN_NAME_KEY, data.key);
+            values.put(DatabaseContract.TableSchema.COLUMN_NAME_VERSION_LOCAL, data.version_local);
+            values.put(DatabaseContract.TableSchema.COLUMN_NAME_VERSION_SERVER, data.version_server);
+            values.put(DatabaseContract.TableSchema.COLUMN_NAME_REQUESTPARAMS, data.requestParams);
 
             rowsAffected = db.update(DatabaseContract.TableSchema.TABLE_NAME, values, DatabaseContract.TableSchema._ID + "=" + data._id, null);
             db.close();

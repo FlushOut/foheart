@@ -19,9 +19,10 @@ public class ApplicationData {
 
     public int update_interval;
     public int debug_mode;
+    public int sync_master;
+    public int sync_transaction;
 
-
-    public ApplicationData(String code, String description, String app_version, String base_version, String db_user, String db_pass, int update_interval, int debug_mode)
+    public ApplicationData(String code, String description, String app_version, String base_version, String db_user, String db_pass, int update_interval, int debug_mode,int sync_master,int sync_transaction)
     {
         this.code = code;
         this.description = description;
@@ -33,9 +34,11 @@ public class ApplicationData {
 
         this.update_interval = update_interval;
         this.debug_mode = debug_mode;
+        this.sync_master = sync_master;
+        this.sync_transaction = sync_transaction;
     }
 
-    public ApplicationData(int _id, String code, String description, String app_version, String base_version, String db_user, String db_pass, int update_interval, int debug_mode)
+    public ApplicationData(int _id, String code, String description, String app_version, String base_version, String db_user, String db_pass, int update_interval, int debug_mode,int sync_master,int sync_transaction)
     {
         this._id = _id;
         this.code = code;
@@ -48,6 +51,8 @@ public class ApplicationData {
 
         this.update_interval = update_interval;
         this.debug_mode = debug_mode;
+        this.sync_master = sync_master;
+        this.sync_transaction = sync_transaction;
     }
 
     public ApplicationData(JSONObject jsonObj,String appCode) throws JSONException
@@ -61,6 +66,8 @@ public class ApplicationData {
         this.db_pass = jsonObj.get("dbpass").toString();
 
         this.update_interval = jsonObj.getInt("updateInterval");
+        this.sync_master = jsonObj.getInt("syncMaster");
+        this.sync_transaction = jsonObj.getInt("syncTransaction");
         this.debug_mode = jsonObj.getInt("debugMode");
     }
 }

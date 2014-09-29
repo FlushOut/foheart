@@ -11,6 +11,7 @@ import android.util.Base64;
 import com.flushoutsolutions.foheart.appDataBase.AppDBModel;
 import com.flushoutsolutions.foheart.appDataBase.AppDatabaseHelper;
 import com.flushoutsolutions.foheart.application.FoHeart;
+import com.flushoutsolutions.foheart.data.ApplicationData;
 import com.flushoutsolutions.foheart.data.InternetStatus;
 import com.flushoutsolutions.foheart.data.SendDataData;
 import com.flushoutsolutions.foheart.data.TableData;
@@ -23,6 +24,7 @@ import org.apache.http.message.BasicNameValuePair;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -42,6 +44,8 @@ public class Sync {
 
     private String dbUser = ApplicationModel.get_model().get_data(idApp).db_user;
     private String dbPass = ApplicationModel.get_model().get_data(idApp).db_pass;
+    private String dbAppName = ApplicationModel.get_model().get_data(idApp).description;
+
     private int versionDB = TableModel.get_model().get_model_version(idApp);
     AppDBModel appDBModel = new AppDBModel(appContext, codeApp, versionDB).get_model();
 
@@ -127,9 +131,10 @@ public class Sync {
                         nameValuePairs.add(new BasicNameValuePair("record", sendData.record));
 
                         /* DB parameters */
-                        nameValuePairs.add(new BasicNameValuePair("dbUser", dbUser));
-                        nameValuePairs.add(new BasicNameValuePair("dbPass", dbPass));
-
+                        ApplicationData applicationData = ApplicationModel.get_model().get_data(settings.getString("idApplication", ""));
+                        nameValuePairs.add(new BasicNameValuePair("appName", dbAppName));
+                        nameValuePairs.add(new BasicNameValuePair("user", dbUser));
+                        nameValuePairs.add(new BasicNameValuePair("pass", dbPass));
 
                         if (InternetStatus.isOnline())
                         {

@@ -37,7 +37,9 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                     DatabaseContract.ApplicationSchema.COLUMN_NAME_DB_USER + TEXT_TYPE + COMMA_SEP +
                     DatabaseContract.ApplicationSchema.COLUMN_NAME_DB_PASS + TEXT_TYPE + COMMA_SEP +
                     DatabaseContract.ApplicationSchema.COLUMN_NAME_UPDATE_INTERVAL + INT_TYPE + COMMA_SEP +
-                    DatabaseContract.ApplicationSchema.COLUMN_NAME_DEBUG_MODE + INT_TYPE +
+                    DatabaseContract.ApplicationSchema.COLUMN_NAME_DEBUG_MODE + INT_TYPE + COMMA_SEP +
+                    DatabaseContract.ApplicationSchema.COLUMN_NAME_SYNC_MASTER + INT_TYPE + COMMA_SEP +
+                    DatabaseContract.ApplicationSchema.COLUMN_NAME_SYNC_TRANSACTION + INT_TYPE +
                     " )";
 
     private static final String SQL_CREATE_ENTRIES_STRUCTURE =
@@ -89,7 +91,10 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                     DatabaseContract.TableSchema.COLUMN_NAME_MODEL_VERSION + INT_TYPE + COMMA_SEP +
                     DatabaseContract.TableSchema.COLUMN_NAME_NAME + TEXT_TYPE + COMMA_SEP +
                     DatabaseContract.TableSchema.COLUMN_NAME_KEY + TEXT_TYPE + COMMA_SEP +
-                    DatabaseContract.TableSchema.COLUMN_NAME_AUTO_SYNC + INT_TYPE +
+                    DatabaseContract.TableSchema.COLUMN_NAME_AUTO_SYNC + INT_TYPE + COMMA_SEP +
+                    DatabaseContract.TableSchema.COLUMN_NAME_VERSION_LOCAL + INT_TYPE + COMMA_SEP +
+                    DatabaseContract.TableSchema.COLUMN_NAME_VERSION_SERVER + INT_TYPE + COMMA_SEP +
+                    DatabaseContract.TableSchema.COLUMN_NAME_REQUESTPARAMS + TEXT_TYPE +
                     " )";
 
     private static final String SQL_CREATE_ENTRIES_TABLE_FIELD =

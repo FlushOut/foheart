@@ -22,6 +22,8 @@ public class DatabaseContract {
 
         public static final String COLUMN_NAME_UPDATE_INTERVAL = "update_interval";
         public static final String COLUMN_NAME_DEBUG_MODE = "debug_mode";
+        public static final String COLUMN_NAME_SYNC_MASTER = "syncMaster";
+        public static final String COLUMN_NAME_SYNC_TRANSACTION = "syncTransaction";
 
 
     }
@@ -77,6 +79,9 @@ public class DatabaseContract {
         public static final String COLUMN_NAME_NAME= "name";
         public static final String COLUMN_NAME_AUTO_SYNC = "auto_sync";
         public static final String COLUMN_NAME_KEY = "key";
+        public static final String COLUMN_NAME_VERSION_LOCAL = "version_local";
+        public static final String COLUMN_NAME_VERSION_SERVER = "version__server";
+        public static final String COLUMN_NAME_REQUESTPARAMS = "requestParams";
     }
 
     public static abstract class TableFieldSchema implements BaseColumns
