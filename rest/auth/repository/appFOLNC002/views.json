@@ -1,0 +1,3188 @@
+[
+    {
+        "name": "vwDisciplineTypes",
+        "title": "Discipline Types",
+        "layout": "linear",
+        "events": {
+            "onLoad": "loadDisciplineTypes"
+        },
+        "actionButton": {},
+        "modules": [
+            {
+                "module": "label",
+                "name": "lblDisciplineTypes",
+                "properties": {
+                    "text": "Choose The Discipline Type",
+                    "transform": 1,
+                    "font-size": 24,
+                    "font-style": "bold condensed"
+                },
+                "events": {}
+            },
+            {
+                "module": "spacer",
+                "name": "spacer1",
+                "properties": {
+                    "height": 10
+                },
+                "events": {}
+            },
+            {
+                "module": "listscreen",
+                "name": "listDisciplineTypes",
+                "disclosured": true,
+                "properties": {
+                    "style": 0,
+                    "list": {
+                        "objectList": "qryLstDiscTypes",
+                        "index": "_id",
+                        "title": "description",
+                        "subtitle": ""
+                    }
+                },
+                "events": {
+                    "onSelectCell": "openDisciplines"
+                }
+            }
+        ]
+    },
+    {
+        "name": "vwDisciplines",
+        "title": "Disciplines",
+        "layout": "linear",
+        "events": {
+            "onLoad": "loadDisciplines"
+        },
+        "actionButton": {},
+        "modules": [
+            {
+                "module": "label",
+                "name": "lblDisciplines",
+                "properties": {
+                    "text": "Choose The Discipline",
+                    "transform": 1,
+                    "font-size": 24,
+                    "font-style": "bold condensed"
+                },
+                "events": {}
+            },
+            {
+                "module": "spacer",
+                "name": "spacer1",
+                "properties": {
+                    "height": 10
+                },
+                "events": {}
+            },
+            {
+                "module": "listscreen",
+                "name": "listDisciplines",
+                "disclosured": true,
+                "properties": {
+                    "style": 0,
+                    "list": {
+                        "objectList": "qryLstDiscs",
+                        "index": "_id",
+                        "title": "description",
+                        "subtitle": ""
+                    }
+                },
+                "events": {
+                    "onSelectCell": "openScheduleDateRange"
+                }
+            }
+        ]
+    },
+    {
+        "name": "vwScheduleDateRange",
+        "title": "Date Range",
+        "layout": "linear",
+        "events": {},
+        "actionButton": {
+            "title": "Search",
+            "action": "doSearchTeacherSchedules"
+        },
+        "modules": [
+            {
+                "module": "label",
+                "name": "lblScheduleDateRange",
+                "properties": {
+                    "text": "Select The Date Range",
+                    "transform": 1,
+                    "font-size": 24,
+                    "font-style": "bold condensed"
+                },
+                "events": {}
+            },
+            {
+                "module": "spacer",
+                "name": "spacer1",
+                "properties": {
+                    "height": 10
+                },
+                "events": {}
+            },
+            {
+                "module": "label",
+                "name": "lblFrom",
+                "properties": {
+                    "text": "From",
+                    "transform": 1,
+                    "font-size": 18,
+                    "font-style": "bold condensed"
+                },
+                "events": {}
+            },
+            {
+                "module": "spacer",
+                "name": "spacer1",
+                "properties": {
+                    "height": 5
+                },
+                "events": {}
+            },
+            {
+                "module": "datetimepicker",
+                "name": "dateFrom",
+                "properties": {
+                    "hint": "Select date",
+                    "mode": 0,
+                    "day": -1,
+                    "month": -1,
+                    "year": -1
+                },
+                "events": {}
+            },
+            {
+                "module": "spacer",
+                "name": "spacer1",
+                "properties": {
+                    "height": 20
+                },
+                "events": {}
+            },
+            {
+                "module": "label",
+                "name": "lblTo",
+                "properties": {
+                    "text": "To",
+                    "transform": 1,
+                    "font-size": 18,
+                    "font-style": "bold condensed"
+                },
+                "events": {}
+            },
+            {
+                "module": "spacer",
+                "name": "spacer1",
+                "properties": {
+                    "height": 5
+                },
+                "events": {}
+            },
+            {
+                "module": "datetimepicker",
+                "name": "dateTo",
+                "properties": {
+                    "hint": "Select date",
+                    "mode": 0,
+                    "day": -1,
+                    "month": -1,
+                    "year": -1
+                },
+                "events": {}
+            }
+        ]
+    },
+    {
+        "name": "vwTeacherSchedules",
+        "title": "Teachers",
+        "layout": "linear",
+        "events": {
+            "onLoad": "qryLstTeacSche"
+        },
+        "actionButton": {},
+        "modules": [
+            {
+                "module": "label",
+                "name": "lblTeacherSchedules",
+                "properties": {
+                    "text": "Choose The Teacher",
+                    "transform": 1,
+                    "font-size": 24,
+                    "font-style": "bold condensed"
+                },
+                "events": {}
+            },
+            {
+                "module": "spacer",
+                "name": "spacer1",
+                "properties": {
+                    "height": 10
+                },
+                "events": {}
+            },
+            {
+                "module": "listscreen",
+                "name": "listTeacherSchedules",
+                "disclosured": true,
+                "properties": {
+                    "style": 1,
+                    "list": {
+                        "objectList": "qryLstTeacSche",
+                        "index": "_id",
+                        "title": "teacher_company",
+                        "subtitle": "date_price"
+                    }
+                },
+                "events": {
+                    "onSelectCell": "openTeacherScheduleDet"
+                }
+            }
+        ]
+    },
+    {
+        "name": "vwTeacherScheduleDet",
+        "title": "Hours",
+        "layout": "linear",
+        "events": {
+            "onLoad": "qryLstTeacScheDet"
+        },
+        "actionButton": {
+            "title": "Done",
+            "action": "doLessonSummary"
+        },
+        "modules": [
+            {
+                "module": "label",
+                "name": "lblTeacherScheduleDet",
+                "properties": {
+                    "text": "Select The Hours",
+                    "transform": 1,
+                    "font-size": 24,
+                    "font-style": "bold condensed"
+                },
+                "events": {}
+            },
+            {
+                "module": "spacer",
+                "name": "spacer1",
+                "properties": {
+                    "height": 10
+                },
+                "events": {}
+            },
+            {
+                "module": "listcheckscreen",
+                "name": "listTeacherScheduleDet",
+                "properties": {
+                    "style": 0,
+                    "multiselect": true,
+                    "list": {
+                        "objectList": "qryLstTeacScheDet",
+                        "index": "_id",
+                        "title": "hours"
+                    }
+                },
+                "events": {}
+            }
+        ]
+    },
+    {
+        "name": "vwLessonSummary",
+        "title": "Lesson Summary",
+        "layout": "linear",
+        "events": {
+            "onLoad": "loadLessonSummary",
+            "onShow": "showLessonSummary"
+        },
+        "actionButton": {
+            "title": "Save",
+            "action": "doDiscountQuestion"
+        },
+        "modules": [
+            {
+                "module": "label",
+                "name": "lblSSDisciplineType",
+                "properties": {
+                    "text": "DISCIPLINE TYPE:",
+                    "transform": 1,
+                    "font-size": 30,
+                    "font-style": "bold condensed"
+                },
+                "events": {}
+            },
+            {
+                "module": "label",
+                "name": "lblSDisciplineType",
+                "properties": {
+                    "text": "",
+                    "transform": 1,
+                    "font-size": 30,
+                    "font-style": "regular"
+                },
+                "events": {}
+            },
+            {
+                "module": "spacer",
+                "name": "spacer1",
+                "properties": {
+                    "height": 5
+                },
+                "events": {}
+            },
+            {
+                "module": "label",
+                "name": "lblSSDiscipline",
+                "properties": {
+                    "text": "DISCIPLINE:",
+                    "transform": 1,
+                    "font-size": 30,
+                    "font-style": "bold condensed"
+                },
+                "events": {}
+            },
+            {
+                "module": "label",
+                "name": "lblSDiscipline",
+                "properties": {
+                    "text": "",
+                    "transform": 1,
+                    "font-size": 30,
+                    "font-style": "regular"
+                },
+                "events": {}
+            },
+            {
+                "module": "spacer",
+                "name": "spacer1",
+                "properties": {
+                    "height": 5
+                },
+                "events": {}
+            },
+            {
+                "module": "label",
+                "name": "lblSSDate",
+                "properties": {
+                    "text": "DATE:",
+                    "transform": 1,
+                    "font-size": 30,
+                    "font-style": "bold condensed"
+                },
+                "events": {}
+            },
+            {
+                "module": "label",
+                "name": "lblSDate",
+                "properties": {
+                    "text": "",
+                    "transform": 1,
+                    "font-size": 30,
+                    "font-style": "regular"
+                },
+                "events": {}
+            },
+            {
+                "module": "spacer",
+                "name": "spacer1",
+                "properties": {
+                    "height": 5
+                },
+                "events": {}
+            },
+            {
+                "module": "label",
+                "name": "lblSSTeacher",
+                "properties": {
+                    "text": "TEACHER:",
+                    "transform": 1,
+                    "font-size": 30,
+                    "font-style": "bold condensed"
+                },
+                "events": {}
+            },
+            {
+                "module": "label",
+                "name": "lblSTeacher",
+                "properties": {
+                    "text": "",
+                    "transform": 1,
+                    "font-size": 30,
+                    "font-style": "regular"
+                },
+                "events": {}
+            },
+            {
+                "module": "spacer",
+                "name": "spacer1",
+                "properties": {
+                    "height": 15
+                },
+                "events": {}
+            },
+            {
+                "module": "label",
+                "name": "lblSHours",
+                "properties": {
+                    "text": "HOURS:",
+                    "transform": 1,
+                    "font-size": 30,
+                    "font-style": "bold condensed"
+                },
+                "events": {}
+            },
+            {
+                "module": "spacer",
+                "name": "spacer1",
+                "properties": {
+                    "height": 5
+                },
+                "events": {}
+            },
+            {
+                "module": "groupedViews",
+                "name": "grpSHours",
+                "properties": {
+                    "listSource": "vwTeacherScheduleDet__listTeacherScheduleDet__selectedTitles",
+                    "modules": [
+                        {
+                            "module": "label",
+                            "name": "lblSHoursLst",
+                            "properties": {
+                                "text": "• {{title}}",
+                                "transform": 0,
+                                "font-size": 30,
+                                "font-style": "regular"
+                            },
+                            "events": {}
+                        }
+                    ]
+                },
+                "events": {}
+            },
+            {
+                "module": "spacer",
+                "name": "spacer1",
+                "properties": {
+                    "height": 15
+                },
+                "events": {}
+            },
+            {
+                "module": "label",
+                "name": "lblSQtdHours",
+                "properties": {
+                    "text": "",
+                    "transform": 1,
+                    "font-size": 24,
+                    "font-style": "bold condensed"
+                },
+                "events": {}
+            },
+            {
+                "module": "spacer",
+                "name": "spacer1",
+                "properties": {
+                    "height": 5
+                },
+                "events": {}
+            },
+            {
+                "module": "label",
+                "name": "lblSPriceHour",
+                "properties": {
+                    "text": "",
+                    "transform": 1,
+                    "font-size": 24,
+                    "font-style": "bold condensed"
+                },
+                "events": {}
+            },
+            {
+                "module": "spacer",
+                "name": "spacer1",
+                "properties": {
+                    "height": 5
+                },
+                "events": {}
+            },
+            {
+                "module": "label",
+                "name": "lblSTotalValue",
+                "properties": {
+                    "text": "",
+                    "transform": 1,
+                    "font-size": 24,
+                    "font-style": "bold condensed"
+                },
+                "events": {}
+            }
+        ]
+    },
+    {
+        "name": "vwDiscountQuestion",
+        "title": "Discount",
+        "layout": "linear",
+        "events": {},
+        "actionButton": {},
+        "modules": [
+            {
+                "module": "label",
+                "name": "lblHaveDisc",
+                "properties": {
+                    "text": "Do you have any discount code?",
+                    "transform": 1,
+                    "font-size": 24,
+                    "font-style": "bold condensed"
+                },
+                "events": {}
+            },
+            {
+                "module": "spacer",
+                "name": "spacer1",
+                "properties": {
+                    "height": 10
+                },
+                "events": {}
+            },
+            {
+                "module": "button",
+                "name": "btnYes",
+                "properties": {
+                    "text": "Yes",
+                    "enabled": true,
+                    "visible": true,
+                    "alignment": 1
+                },
+                "events": {
+                    "onClick": "openDiscountCode"
+                }
+            },
+            {
+                "module": "spacer",
+                "name": "spacer1",
+                "properties": {
+                    "height": 5
+                },
+                "events": {}
+            },
+            {
+                "module": "button",
+                "name": "btnNo",
+                "properties": {
+                    "text": "No",
+                    "enabled": true,
+                    "visible": true,
+                    "alignment": 1
+                },
+                "events": {
+                    "onClick": "doLesson"
+                }
+            },
+            {
+                "module": "spacer",
+                "name": "spacer1",
+                "properties": {
+                    "height": 5
+                },
+                "events": {}
+            },
+            {
+                "module": "button",
+                "name": "btnCancel",
+                "properties": {
+                    "text": "Cancel",
+                    "enabled": true,
+                    "visible": true,
+                    "alignment": 1
+                },
+                "events": {
+                    "onClick": "doCloseCurrentScreen"
+                }
+            }
+        ]
+    },
+    {
+        "name": "vwDiscountCode",
+        "title": "Discount Code",
+        "layout": "linear",
+        "events": {
+            "onShow": "showDiscountCode"
+        },
+        "actionButton": {
+            "title": "Finish",
+            "action": "doLesson"
+        },
+        "modules": [
+            {
+                "module": "label",
+                "name": "lblDiscountCode",
+                "properties": {
+                    "text": "Insert The Discount Code",
+                    "transform": 1,
+                    "font-size": 24,
+                    "font-style": "bold condensed"
+                },
+                "events": {}
+            },
+            {
+                "module": "spacer",
+                "name": "spacer1",
+                "properties": {
+                    "height": 10
+                },
+                "events": {}
+            },
+            {
+                "module": "textfield",
+                "name": "txtCode",
+                "properties": {
+                    "text": "",
+                    "lines": 1,
+                    "password": false,
+                    "font-size": 18,
+                    "font-style": "regular",
+                    "hint": "Discount Code",
+                    "keyboard": 2
+                },
+                "events": {}
+            },
+            {
+                "module": "button",
+                "name": "btnDeduct",
+                "properties": {
+                    "text": "Deduct",
+                    "enabled": true,
+                    "visible": true,
+                    "alignment": 1
+                },
+                "events": {
+                    "onClick": "doDeduct"
+                }
+            },
+            {
+                "module": "spacer",
+                "name": "spacer1",
+                "properties": {
+                    "height": 20
+                },
+                "events": {}
+            },
+            {
+                "module": "label",
+                "name": "lblTitleValwoDiscount",
+                "properties": {
+                    "text": "Value Without Discount",
+                    "transform": 1,
+                    "font-size": 22,
+                    "font-style": "bold condensed"
+                },
+                "events": {}
+            },
+            {
+                "module": "label",
+                "name": "lblValwoDiscount",
+                "properties": {
+                    "text": "",
+                    "transform": 1,
+                    "font-size": 26,
+                    "font-style": "regular"
+                },
+                "events": {}
+            },
+            {
+                "module": "spacer",
+                "name": "spacer1",
+                "properties": {
+                    "height": 5
+                },
+                "events": {}
+            },
+            {
+                "module": "label",
+                "name": "lblTitleValDiscount",
+                "properties": {
+                    "text": "Discount Value",
+                    "transform": 1,
+                    "font-size": 22,
+                    "font-style": "bold condensed"
+                },
+                "events": {}
+            },
+            {
+                "module": "label",
+                "name": "lblValDiscount",
+                "properties": {
+                    "text": "",
+                    "transform": 1,
+                    "font-size": 26,
+                    "font-style": "regular"
+                },
+                "events": {}
+            },
+            {
+                "module": "spacer",
+                "name": "spacer1",
+                "properties": {
+                    "height": 5
+                },
+                "events": {}
+            },
+            {
+                "module": "label",
+                "name": "lblTitleValTotal",
+                "properties": {
+                    "text": "Total Value",
+                    "transform": 1,
+                    "font-size": 22,
+                    "font-style": "bold condensed"
+                },
+                "events": {}
+            },
+            {
+                "module": "label",
+                "name": "lblValTotal",
+                "properties": {
+                    "text": "",
+                    "transform": 1,
+                    "font-size": 26,
+                    "font-style": "regular"
+                },
+                "events": {}
+            }
+        ]
+    },
+    {
+        "name": "vwLessonStatuses",
+        "title": "Lesson Statuses",
+        "layout": "linear",
+        "events": {
+            "onLoad": "loadLessonStatuses"
+        },
+        "actionButton": {},
+        "modules": [
+            {
+                "module": "label",
+                "name": "lblLessonStatuses",
+                "properties": {
+                    "text": "Choose The Lesson Status",
+                    "transform": 1,
+                    "font-size": 24,
+                    "font-style": "bold condensed"
+                },
+                "events": {}
+            },
+            {
+                "module": "spacer",
+                "name": "spacer1",
+                "properties": {
+                    "height": 10
+                },
+                "events": {}
+            },
+            {
+                "module": "listscreen",
+                "name": "listLessonStatuses",
+                "disclosured": true,
+                "properties": {
+                    "style": 0,
+                    "list": {
+                        "objectList": "qryLstLessStat",
+                        "index": "_id",
+                        "title": "description",
+                        "subtitle": ""
+                    }
+                },
+                "events": {
+                    "onSelectCell": "openLessons"
+                }
+            }
+        ]
+    },
+    {
+        "name": "vwLessons",
+        "title": "Lessons",
+        "layout": "linear",
+        "events": {},
+        "actionButton": {},
+        "modules": [
+            {
+                "module": "label",
+                "name": "lblLessonStatuses",
+                "properties": {
+                    "text": "Choose The Lesson",
+                    "transform": 1,
+                    "font-size": 24,
+                    "font-style": "bold condensed"
+                },
+                "events": {}
+            },
+            {
+                "module": "spacer",
+                "name": "spacer1",
+                "properties": {
+                    "height": 10
+                },
+                "events": {}
+            },
+            {
+                "module": "listscreen",
+                "name": "listLessons",
+                "disclosured": true,
+                "properties": {
+                    "style": 1,
+                    "list": {
+                        "objectList": "qryLstLess",
+                        "index": "_id",
+                        "title": "teacher_company",
+                        "subtitle": "date"
+                    }
+                },
+                "events": {
+                    "onSelectCell": "openLessonDet"
+                }
+            }
+        ]
+    },
+    {
+        "name": "vwLessonDetails",
+        "title": "Lesson Details",
+        "layout": "linear",
+        "events": {
+            "onLoad": "loadLessonDetails",
+            "onShow": "showLessonDetails"
+        },
+        "actionButton": {},
+        "modules": [
+            {
+                "module": "label",
+                "name": "lblDDDisciplineType",
+                "properties": {
+                    "text": "DISCIPLINE TYPE:",
+                    "transform": 1,
+                    "font-size": 30,
+                    "font-style": "bold condensed"
+                },
+                "events": {}
+            },
+            {
+                "module": "label",
+                "name": "lblDDisciplineType",
+                "properties": {
+                    "text": "",
+                    "transform": 1,
+                    "font-size": 30,
+                    "font-style": "regular"
+                },
+                "events": {}
+            },
+            {
+                "module": "spacer",
+                "name": "spacer1",
+                "properties": {
+                    "height": 5
+                },
+                "events": {}
+            },
+            {
+                "module": "label",
+                "name": "lblDDDiscipline",
+                "properties": {
+                    "text": "DISCIPLINE:",
+                    "transform": 1,
+                    "font-size": 30,
+                    "font-style": "bold condensed"
+                },
+                "events": {}
+            },
+            {
+                "module": "label",
+                "name": "lblDDiscipline",
+                "properties": {
+                    "text": "",
+                    "transform": 1,
+                    "font-size": 30,
+                    "font-style": "regular"
+                },
+                "events": {}
+            },
+            {
+                "module": "spacer",
+                "name": "spacer1",
+                "properties": {
+                    "height": 5
+                },
+                "events": {}
+            },
+            {
+                "module": "label",
+                "name": "lblDDDate",
+                "properties": {
+                    "text": "DATE:",
+                    "transform": 1,
+                    "font-size": 30,
+                    "font-style": "bold condensed"
+                },
+                "events": {}
+            },
+            {
+                "module": "label",
+                "name": "lblDDate",
+                "properties": {
+                    "text": "",
+                    "transform": 1,
+                    "font-size": 30,
+                    "font-style": "regular"
+                },
+                "events": {}
+            },
+            {
+                "module": "spacer",
+                "name": "spacer1",
+                "properties": {
+                    "height": 5
+                },
+                "events": {}
+            },
+            {
+                "module": "label",
+                "name": "lblDDTeacher",
+                "properties": {
+                    "text": "TEACHER:",
+                    "transform": 1,
+                    "font-size": 30,
+                    "font-style": "bold condensed"
+                },
+                "events": {}
+            },
+            {
+                "module": "label",
+                "name": "lblDTeacher",
+                "properties": {
+                    "text": "",
+                    "transform": 1,
+                    "font-size": 30,
+                    "font-style": "regular"
+                },
+                "events": {}
+            },
+            {
+                "module": "spacer",
+                "name": "spacer1",
+                "properties": {
+                    "height": 15
+                },
+                "events": {}
+            },
+            {
+                "module": "label",
+                "name": "lblDHours",
+                "properties": {
+                    "text": "HOURS:",
+                    "transform": 1,
+                    "font-size": 30,
+                    "font-style": "bold condensed"
+                },
+                "events": {}
+            },
+            {
+                "module": "spacer",
+                "name": "spacer1",
+                "properties": {
+                    "height": 5
+                },
+                "events": {}
+            },
+            {
+                "module": "groupedViews",
+                "name": "grpDHours",
+                "properties": {
+                    "listSource": "qryInfoLessonDet",
+                    "modules": [
+                        {
+                            "module": "label",
+                            "name": "lblDHoursLst",
+                            "properties": {
+                                "text": "• {{hours}}",
+                                "transform": 0,
+                                "font-size": 30,
+                                "font-style": "regular"
+                            },
+                            "events": {}
+                        }
+                    ]
+                },
+                "events": {}
+            },
+            {
+                "module": "spacer",
+                "name": "spacer1",
+                "properties": {
+                    "height": 15
+                },
+                "events": {}
+            },
+            {
+                "module": "label",
+                "name": "lblDQtdHours",
+                "properties": {
+                    "text": "",
+                    "transform": 1,
+                    "font-size": 24,
+                    "font-style": "bold condensed"
+                },
+                "events": {}
+            },
+            {
+                "module": "spacer",
+                "name": "spacer1",
+                "properties": {
+                    "height": 5
+                },
+                "events": {}
+            },
+            {
+                "module": "label",
+                "name": "lblDPriceHour",
+                "properties": {
+                    "text": "",
+                    "transform": 1,
+                    "font-size": 24,
+                    "font-style": "bold condensed"
+                },
+                "events": {}
+            },
+            {
+                "module": "spacer",
+                "name": "spacer1",
+                "properties": {
+                    "height": 5
+                },
+                "events": {}
+            },
+            {
+                "module": "label",
+                "name": "lblDDiscountValue",
+                "properties": {
+                    "text": "",
+                    "transform": 1,
+                    "font-size": 24,
+                    "font-style": "bold condensed"
+                },
+                "events": {}
+            },
+            {
+                "module": "spacer",
+                "name": "spacer1",
+                "properties": {
+                    "height": 5
+                },
+                "events": {}
+            },
+            {
+                "module": "label",
+                "name": "lblDValuewoDiscount",
+                "properties": {
+                    "text": "",
+                    "transform": 1,
+                    "font-size": 24,
+                    "font-style": "bold condensed"
+                },
+                "events": {}
+            },
+            {
+                "module": "spacer",
+                "name": "spacer1",
+                "properties": {
+                    "height": 5
+                },
+                "events": {}
+            },
+            {
+                "module": "label",
+                "name": "lblDTotalValue",
+                "properties": {
+                    "text": "",
+                    "transform": 1,
+                    "font-size": 24,
+                    "font-style": "bold condensed"
+                },
+                "events": {}
+            }
+        ]
+    },
+    {
+        "name": "vwLessonDetailsAppr",
+        "title": "Lesson Details",
+        "layout": "linear",
+        "events": {
+            "onLoad": "loadLessonDetails",
+            "onShow": "showLessonDetailsAppr"
+        },
+        "actionButton": {
+            "title": "Evaluate",
+            "action": "doEvaluation"
+        },
+        "modules": [
+            {
+                "module": "label",
+                "name": "lblDDDisciplineType",
+                "properties": {
+                    "text": "DISCIPLINE TYPE:",
+                    "transform": 1,
+                    "font-size": 30,
+                    "font-style": "bold condensed"
+                },
+                "events": {}
+            },
+            {
+                "module": "label",
+                "name": "lblDDisciplineType",
+                "properties": {
+                    "text": "",
+                    "transform": 1,
+                    "font-size": 30,
+                    "font-style": "regular"
+                },
+                "events": {}
+            },
+            {
+                "module": "spacer",
+                "name": "spacer1",
+                "properties": {
+                    "height": 5
+                },
+                "events": {}
+            },
+            {
+                "module": "label",
+                "name": "lblDDDiscipline",
+                "properties": {
+                    "text": "DISCIPLINE:",
+                    "transform": 1,
+                    "font-size": 30,
+                    "font-style": "bold condensed"
+                },
+                "events": {}
+            },
+            {
+                "module": "label",
+                "name": "lblDDiscipline",
+                "properties": {
+                    "text": "",
+                    "transform": 1,
+                    "font-size": 30,
+                    "font-style": "regular"
+                },
+                "events": {}
+            },
+            {
+                "module": "spacer",
+                "name": "spacer1",
+                "properties": {
+                    "height": 5
+                },
+                "events": {}
+            },
+            {
+                "module": "label",
+                "name": "lblDDDate",
+                "properties": {
+                    "text": "DATE:",
+                    "transform": 1,
+                    "font-size": 30,
+                    "font-style": "bold condensed"
+                },
+                "events": {}
+            },
+            {
+                "module": "label",
+                "name": "lblDDate",
+                "properties": {
+                    "text": "",
+                    "transform": 1,
+                    "font-size": 30,
+                    "font-style": "regular"
+                },
+                "events": {}
+            },
+            {
+                "module": "spacer",
+                "name": "spacer1",
+                "properties": {
+                    "height": 5
+                },
+                "events": {}
+            },
+            {
+                "module": "label",
+                "name": "lblDDTeacher",
+                "properties": {
+                    "text": "TEACHER:",
+                    "transform": 1,
+                    "font-size": 30,
+                    "font-style": "bold condensed"
+                },
+                "events": {}
+            },
+            {
+                "module": "label",
+                "name": "lblDTeacher",
+                "properties": {
+                    "text": "",
+                    "transform": 1,
+                    "font-size": 30,
+                    "font-style": "regular"
+                },
+                "events": {}
+            },
+            {
+                "module": "spacer",
+                "name": "spacer1",
+                "properties": {
+                    "height": 15
+                },
+                "events": {}
+            },
+            {
+                "module": "label",
+                "name": "lblDHours",
+                "properties": {
+                    "text": "HOURS:",
+                    "transform": 1,
+                    "font-size": 30,
+                    "font-style": "bold condensed"
+                },
+                "events": {}
+            },
+            {
+                "module": "spacer",
+                "name": "spacer1",
+                "properties": {
+                    "height": 5
+                },
+                "events": {}
+            },
+            {
+                "module": "groupedViews",
+                "name": "grpDHours",
+                "properties": {
+                    "listSource": "qryInfoLessonDet",
+                    "modules": [
+                        {
+                            "module": "label",
+                            "name": "lblDHoursLst",
+                            "properties": {
+                                "text": "• {{hours}}",
+                                "transform": 0,
+                                "font-size": 30,
+                                "font-style": "regular"
+                            },
+                            "events": {}
+                        }
+                    ]
+                },
+                "events": {}
+            },
+            {
+                "module": "spacer",
+                "name": "spacer1",
+                "properties": {
+                    "height": 15
+                },
+                "events": {}
+            },
+            {
+                "module": "label",
+                "name": "lblDQtdHours",
+                "properties": {
+                    "text": "",
+                    "transform": 1,
+                    "font-size": 24,
+                    "font-style": "bold condensed"
+                },
+                "events": {}
+            },
+            {
+                "module": "spacer",
+                "name": "spacer1",
+                "properties": {
+                    "height": 5
+                },
+                "events": {}
+            },
+            {
+                "module": "label",
+                "name": "lblDPriceHour",
+                "properties": {
+                    "text": "",
+                    "transform": 1,
+                    "font-size": 24,
+                    "font-style": "bold condensed"
+                },
+                "events": {}
+            },
+            {
+                "module": "spacer",
+                "name": "spacer1",
+                "properties": {
+                    "height": 5
+                },
+                "events": {}
+            },
+            {
+                "module": "label",
+                "name": "lblDDiscountValue",
+                "properties": {
+                    "text": "",
+                    "transform": 1,
+                    "font-size": 24,
+                    "font-style": "bold condensed"
+                },
+                "events": {}
+            },
+            {
+                "module": "spacer",
+                "name": "spacer1",
+                "properties": {
+                    "height": 5
+                },
+                "events": {}
+            },
+            {
+                "module": "label",
+                "name": "lblDValuewoDiscount",
+                "properties": {
+                    "text": "",
+                    "transform": 1,
+                    "font-size": 24,
+                    "font-style": "bold condensed"
+                },
+                "events": {}
+            },
+            {
+                "module": "spacer",
+                "name": "spacer1",
+                "properties": {
+                    "height": 5
+                },
+                "events": {}
+            },
+            {
+                "module": "label",
+                "name": "lblDTotalValue",
+                "properties": {
+                    "text": "",
+                    "transform": 1,
+                    "font-size": 24,
+                    "font-style": "bold condensed"
+                },
+                "events": {}
+            }
+        ]
+    },
+    {
+        "name": "vwLessonDetailsReject",
+        "title": "Lesson Details",
+        "layout": "linear",
+        "events": {
+            "onLoad": "loadLessonDetails",
+            "onShow": "showLessonDetailsReject"
+        },
+        "actionButton": {},
+        "modules": [
+            {
+                "module": "label",
+                "name": "lblDDDisciplineType",
+                "properties": {
+                    "text": "DISCIPLINE TYPE:",
+                    "transform": 1,
+                    "font-size": 30,
+                    "font-style": "bold condensed"
+                },
+                "events": {}
+            },
+            {
+                "module": "label",
+                "name": "lblDDisciplineType",
+                "properties": {
+                    "text": "",
+                    "transform": 1,
+                    "font-size": 30,
+                    "font-style": "regular"
+                },
+                "events": {}
+            },
+            {
+                "module": "spacer",
+                "name": "spacer1",
+                "properties": {
+                    "height": 5
+                },
+                "events": {}
+            },
+            {
+                "module": "label",
+                "name": "lblDDDiscipline",
+                "properties": {
+                    "text": "DISCIPLINE:",
+                    "transform": 1,
+                    "font-size": 30,
+                    "font-style": "bold condensed"
+                },
+                "events": {}
+            },
+            {
+                "module": "label",
+                "name": "lblDDiscipline",
+                "properties": {
+                    "text": "",
+                    "transform": 1,
+                    "font-size": 30,
+                    "font-style": "regular"
+                },
+                "events": {}
+            },
+            {
+                "module": "spacer",
+                "name": "spacer1",
+                "properties": {
+                    "height": 5
+                },
+                "events": {}
+            },
+            {
+                "module": "label",
+                "name": "lblDDDate",
+                "properties": {
+                    "text": "DATE:",
+                    "transform": 1,
+                    "font-size": 30,
+                    "font-style": "bold condensed"
+                },
+                "events": {}
+            },
+            {
+                "module": "label",
+                "name": "lblDDate",
+                "properties": {
+                    "text": "",
+                    "transform": 1,
+                    "font-size": 30,
+                    "font-style": "regular"
+                },
+                "events": {}
+            },
+            {
+                "module": "spacer",
+                "name": "spacer1",
+                "properties": {
+                    "height": 5
+                },
+                "events": {}
+            },
+            {
+                "module": "label",
+                "name": "lblDDTeacher",
+                "properties": {
+                    "text": "TEACHER:",
+                    "transform": 1,
+                    "font-size": 30,
+                    "font-style": "bold condensed"
+                },
+                "events": {}
+            },
+            {
+                "module": "label",
+                "name": "lblDTeacher",
+                "properties": {
+                    "text": "",
+                    "transform": 1,
+                    "font-size": 30,
+                    "font-style": "regular"
+                },
+                "events": {}
+            },
+            {
+                "module": "spacer",
+                "name": "spacer1",
+                "properties": {
+                    "height": 15
+                },
+                "events": {}
+            },
+            {
+                "module": "label",
+                "name": "lblDHours",
+                "properties": {
+                    "text": "HOURS:",
+                    "transform": 1,
+                    "font-size": 30,
+                    "font-style": "bold condensed"
+                },
+                "events": {}
+            },
+            {
+                "module": "spacer",
+                "name": "spacer1",
+                "properties": {
+                    "height": 5
+                },
+                "events": {}
+            },
+            {
+                "module": "groupedViews",
+                "name": "grpDHours",
+                "properties": {
+                    "listSource": "qryInfoLessonDet",
+                    "modules": [
+                        {
+                            "module": "label",
+                            "name": "lblDHoursLst",
+                            "properties": {
+                                "text": "• {{hours}}",
+                                "transform": 0,
+                                "font-size": 30,
+                                "font-style": "regular"
+                            },
+                            "events": {}
+                        }
+                    ]
+                },
+                "events": {}
+            },
+            {
+                "module": "spacer",
+                "name": "spacer1",
+                "properties": {
+                    "height": 15
+                },
+                "events": {}
+            },
+            {
+                "module": "label",
+                "name": "lblDQtdHours",
+                "properties": {
+                    "text": "",
+                    "transform": 1,
+                    "font-size": 24,
+                    "font-style": "bold condensed"
+                },
+                "events": {}
+            },
+            {
+                "module": "spacer",
+                "name": "spacer1",
+                "properties": {
+                    "height": 5
+                },
+                "events": {}
+            },
+            {
+                "module": "label",
+                "name": "lblDPriceHour",
+                "properties": {
+                    "text": "",
+                    "transform": 1,
+                    "font-size": 24,
+                    "font-style": "bold condensed"
+                },
+                "events": {}
+            },
+            {
+                "module": "spacer",
+                "name": "spacer1",
+                "properties": {
+                    "height": 5
+                },
+                "events": {}
+            },
+            {
+                "module": "label",
+                "name": "lblDDiscountValue",
+                "properties": {
+                    "text": "",
+                    "transform": 1,
+                    "font-size": 24,
+                    "font-style": "bold condensed"
+                },
+                "events": {}
+            },
+            {
+                "module": "spacer",
+                "name": "spacer1",
+                "properties": {
+                    "height": 5
+                },
+                "events": {}
+            },
+            {
+                "module": "label",
+                "name": "lblDValuewoDiscount",
+                "properties": {
+                    "text": "",
+                    "transform": 1,
+                    "font-size": 24,
+                    "font-style": "bold condensed"
+                },
+                "events": {}
+            },
+            {
+                "module": "spacer",
+                "name": "spacer1",
+                "properties": {
+                    "height": 5
+                },
+                "events": {}
+            },
+            {
+                "module": "label",
+                "name": "lblDTotalValue",
+                "properties": {
+                    "text": "",
+                    "transform": 1,
+                    "font-size": 24,
+                    "font-style": "bold condensed"
+                },
+                "events": {}
+            },
+            {
+                "module": "spacer",
+                "name": "spacer1",
+                "properties": {
+                    "height": 10
+                },
+                "events": {}
+            },
+            {
+                "module": "line",
+                "name": "lineSep",
+                "properties": {
+                    "height": 1
+                },
+                "events": {}
+            },
+            {
+                "module": "spacer",
+                "name": "spacer1",
+                "properties": {
+                    "height": 10
+                },
+                "events": {}
+            },
+            {
+                "module": "label",
+                "name": "lblDDObs",
+                "properties": {
+                    "text": "OBSERVATIONS:",
+                    "transform": 1,
+                    "font-size": 24,
+                    "font-style": "bold condensed"
+                },
+                "events": {}
+            },
+            {
+                "module": "label",
+                "name": "lblDObs",
+                "properties": {
+                    "text": "",
+                    "transform": 1,
+                    "font-size": 24,
+                    "font-style": "regular"
+                },
+                "events": {}
+            }
+        ]
+    },
+    {
+        "name": "vwLessonDetailsDone",
+        "title": "Lesson Details",
+        "layout": "linear",
+        "events": {
+            "onLoad": "loadLessonDetails",
+            "onShow": "showLessonDetailsDone"
+        },
+        "actionButton": {
+            "title": "Add Teacher to Favorites",
+            "action": "doAddFavorites"
+        },
+        "modules": [
+            {
+                "module": "label",
+                "name": "lblDDDisciplineType",
+                "properties": {
+                    "text": "DISCIPLINE TYPE:",
+                    "transform": 1,
+                    "font-size": 30,
+                    "font-style": "bold condensed"
+                },
+                "events": {}
+            },
+            {
+                "module": "label",
+                "name": "lblDDisciplineType",
+                "properties": {
+                    "text": "",
+                    "transform": 1,
+                    "font-size": 30,
+                    "font-style": "regular"
+                },
+                "events": {}
+            },
+            {
+                "module": "spacer",
+                "name": "spacer1",
+                "properties": {
+                    "height": 5
+                },
+                "events": {}
+            },
+            {
+                "module": "label",
+                "name": "lblDDDiscipline",
+                "properties": {
+                    "text": "DISCIPLINE:",
+                    "transform": 1,
+                    "font-size": 30,
+                    "font-style": "bold condensed"
+                },
+                "events": {}
+            },
+            {
+                "module": "label",
+                "name": "lblDDiscipline",
+                "properties": {
+                    "text": "",
+                    "transform": 1,
+                    "font-size": 30,
+                    "font-style": "regular"
+                },
+                "events": {}
+            },
+            {
+                "module": "spacer",
+                "name": "spacer1",
+                "properties": {
+                    "height": 5
+                },
+                "events": {}
+            },
+            {
+                "module": "label",
+                "name": "lblDDDate",
+                "properties": {
+                    "text": "DATE:",
+                    "transform": 1,
+                    "font-size": 30,
+                    "font-style": "bold condensed"
+                },
+                "events": {}
+            },
+            {
+                "module": "label",
+                "name": "lblDDate",
+                "properties": {
+                    "text": "",
+                    "transform": 1,
+                    "font-size": 30,
+                    "font-style": "regular"
+                },
+                "events": {}
+            },
+            {
+                "module": "spacer",
+                "name": "spacer1",
+                "properties": {
+                    "height": 5
+                },
+                "events": {}
+            },
+            {
+                "module": "label",
+                "name": "lblDDTeacher",
+                "properties": {
+                    "text": "TEACHER:",
+                    "transform": 1,
+                    "font-size": 30,
+                    "font-style": "bold condensed"
+                },
+                "events": {}
+            },
+            {
+                "module": "label",
+                "name": "lblDTeacher",
+                "properties": {
+                    "text": "",
+                    "transform": 1,
+                    "font-size": 30,
+                    "font-style": "regular"
+                },
+                "events": {}
+            },
+            {
+                "module": "spacer",
+                "name": "spacer1",
+                "properties": {
+                    "height": 15
+                },
+                "events": {}
+            },
+            {
+                "module": "label",
+                "name": "lblDHours",
+                "properties": {
+                    "text": "HOURS:",
+                    "transform": 1,
+                    "font-size": 30,
+                    "font-style": "bold condensed"
+                },
+                "events": {}
+            },
+            {
+                "module": "spacer",
+                "name": "spacer1",
+                "properties": {
+                    "height": 5
+                },
+                "events": {}
+            },
+            {
+                "module": "groupedViews",
+                "name": "grpDHours",
+                "properties": {
+                    "listSource": "qryInfoLessonDet",
+                    "modules": [
+                        {
+                            "module": "label",
+                            "name": "lblDHoursLst",
+                            "properties": {
+                                "text": "• {{hours}}",
+                                "transform": 0,
+                                "font-size": 30,
+                                "font-style": "regular"
+                            },
+                            "events": {}
+                        }
+                    ]
+                },
+                "events": {}
+            },
+            {
+                "module": "spacer",
+                "name": "spacer1",
+                "properties": {
+                    "height": 15
+                },
+                "events": {}
+            },
+            {
+                "module": "label",
+                "name": "lblDQtdHours",
+                "properties": {
+                    "text": "",
+                    "transform": 1,
+                    "font-size": 24,
+                    "font-style": "bold condensed"
+                },
+                "events": {}
+            },
+            {
+                "module": "spacer",
+                "name": "spacer1",
+                "properties": {
+                    "height": 5
+                },
+                "events": {}
+            },
+            {
+                "module": "label",
+                "name": "lblDPriceHour",
+                "properties": {
+                    "text": "",
+                    "transform": 1,
+                    "font-size": 24,
+                    "font-style": "bold condensed"
+                },
+                "events": {}
+            },
+            {
+                "module": "spacer",
+                "name": "spacer1",
+                "properties": {
+                    "height": 5
+                },
+                "events": {}
+            },
+            {
+                "module": "label",
+                "name": "lblDDiscountValue",
+                "properties": {
+                    "text": "",
+                    "transform": 1,
+                    "font-size": 24,
+                    "font-style": "bold condensed"
+                },
+                "events": {}
+            },
+            {
+                "module": "spacer",
+                "name": "spacer1",
+                "properties": {
+                    "height": 5
+                },
+                "events": {}
+            },
+            {
+                "module": "label",
+                "name": "lblDValuewoDiscount",
+                "properties": {
+                    "text": "",
+                    "transform": 1,
+                    "font-size": 24,
+                    "font-style": "bold condensed"
+                },
+                "events": {}
+            },
+            {
+                "module": "spacer",
+                "name": "spacer1",
+                "properties": {
+                    "height": 5
+                },
+                "events": {}
+            },
+            {
+                "module": "label",
+                "name": "lblDTotalValue",
+                "properties": {
+                    "text": "",
+                    "transform": 1,
+                    "font-size": 24,
+                    "font-style": "bold condensed"
+                },
+                "events": {}
+            },
+            {
+                "module": "spacer",
+                "name": "spacer1",
+                "properties": {
+                    "height": 10
+                },
+                "events": {}
+            },
+            {
+                "module": "line",
+                "name": "lineSep",
+                "properties": {
+                    "height": 1
+                },
+                "events": {}
+            },
+            {
+                "module": "spacer",
+                "name": "spacer1",
+                "properties": {
+                    "height": 10
+                },
+                "events": {}
+            },
+            {
+                "module": "label",
+                "name": "lblDDRating",
+                "properties": {
+                    "text": "RATING:",
+                    "transform": 1,
+                    "font-size": 24,
+                    "font-style": "bold condensed"
+                },
+                "events": {}
+            },
+            {
+                "module": "label",
+                "name": "lblDRating",
+                "properties": {
+                    "text": "",
+                    "transform": 1,
+                    "font-size": 24,
+                    "font-style": "regular"
+                },
+                "events": {}
+            },
+            {
+                "module": "label",
+                "name": "lblDDObs",
+                "properties": {
+                    "text": "OBSERVATIONS:",
+                    "transform": 1,
+                    "font-size": 24,
+                    "font-style": "bold condensed"
+                },
+                "events": {}
+            },
+            {
+                "module": "label",
+                "name": "lblDObs",
+                "properties": {
+                    "text": "",
+                    "transform": 1,
+                    "font-size": 24,
+                    "font-style": "regular"
+                },
+                "events": {}
+            }
+        ]
+    },
+    {
+        "name": "vwLessonDetailsNotDone",
+        "title": "Lesson Details",
+        "layout": "linear",
+        "events": {
+            "onLoad": "loadLessonDetails",
+            "onShow": "showLessonDetailsNotDone"
+        },
+        "actionButton": {},
+        "modules": [
+            {
+                "module": "label",
+                "name": "lblDDDisciplineType",
+                "properties": {
+                    "text": "DISCIPLINE TYPE:",
+                    "transform": 1,
+                    "font-size": 30,
+                    "font-style": "bold condensed"
+                },
+                "events": {}
+            },
+            {
+                "module": "label",
+                "name": "lblDDisciplineType",
+                "properties": {
+                    "text": "",
+                    "transform": 1,
+                    "font-size": 30,
+                    "font-style": "regular"
+                },
+                "events": {}
+            },
+            {
+                "module": "spacer",
+                "name": "spacer1",
+                "properties": {
+                    "height": 5
+                },
+                "events": {}
+            },
+            {
+                "module": "label",
+                "name": "lblDDDiscipline",
+                "properties": {
+                    "text": "DISCIPLINE:",
+                    "transform": 1,
+                    "font-size": 30,
+                    "font-style": "bold condensed"
+                },
+                "events": {}
+            },
+            {
+                "module": "label",
+                "name": "lblDDiscipline",
+                "properties": {
+                    "text": "",
+                    "transform": 1,
+                    "font-size": 30,
+                    "font-style": "regular"
+                },
+                "events": {}
+            },
+            {
+                "module": "spacer",
+                "name": "spacer1",
+                "properties": {
+                    "height": 5
+                },
+                "events": {}
+            },
+            {
+                "module": "label",
+                "name": "lblDDDate",
+                "properties": {
+                    "text": "DATE:",
+                    "transform": 1,
+                    "font-size": 30,
+                    "font-style": "bold condensed"
+                },
+                "events": {}
+            },
+            {
+                "module": "label",
+                "name": "lblDDate",
+                "properties": {
+                    "text": "",
+                    "transform": 1,
+                    "font-size": 30,
+                    "font-style": "regular"
+                },
+                "events": {}
+            },
+            {
+                "module": "spacer",
+                "name": "spacer1",
+                "properties": {
+                    "height": 5
+                },
+                "events": {}
+            },
+            {
+                "module": "label",
+                "name": "lblDDTeacher",
+                "properties": {
+                    "text": "TEACHER:",
+                    "transform": 1,
+                    "font-size": 30,
+                    "font-style": "bold condensed"
+                },
+                "events": {}
+            },
+            {
+                "module": "label",
+                "name": "lblDTeacher",
+                "properties": {
+                    "text": "",
+                    "transform": 1,
+                    "font-size": 30,
+                    "font-style": "regular"
+                },
+                "events": {}
+            },
+            {
+                "module": "spacer",
+                "name": "spacer1",
+                "properties": {
+                    "height": 15
+                },
+                "events": {}
+            },
+            {
+                "module": "label",
+                "name": "lblDHours",
+                "properties": {
+                    "text": "HOURS:",
+                    "transform": 1,
+                    "font-size": 30,
+                    "font-style": "bold condensed"
+                },
+                "events": {}
+            },
+            {
+                "module": "spacer",
+                "name": "spacer1",
+                "properties": {
+                    "height": 5
+                },
+                "events": {}
+            },
+            {
+                "module": "groupedViews",
+                "name": "grpDHours",
+                "properties": {
+                    "listSource": "qryInfoLessonDet",
+                    "modules": [
+                        {
+                            "module": "label",
+                            "name": "lblDHoursLst",
+                            "properties": {
+                                "text": "• {{hours}}",
+                                "transform": 0,
+                                "font-size": 30,
+                                "font-style": "regular"
+                            },
+                            "events": {}
+                        }
+                    ]
+                },
+                "events": {}
+            },
+            {
+                "module": "spacer",
+                "name": "spacer1",
+                "properties": {
+                    "height": 15
+                },
+                "events": {}
+            },
+            {
+                "module": "label",
+                "name": "lblDQtdHours",
+                "properties": {
+                    "text": "",
+                    "transform": 1,
+                    "font-size": 24,
+                    "font-style": "bold condensed"
+                },
+                "events": {}
+            },
+            {
+                "module": "spacer",
+                "name": "spacer1",
+                "properties": {
+                    "height": 5
+                },
+                "events": {}
+            },
+            {
+                "module": "label",
+                "name": "lblDPriceHour",
+                "properties": {
+                    "text": "",
+                    "transform": 1,
+                    "font-size": 24,
+                    "font-style": "bold condensed"
+                },
+                "events": {}
+            },
+            {
+                "module": "spacer",
+                "name": "spacer1",
+                "properties": {
+                    "height": 5
+                },
+                "events": {}
+            },
+            {
+                "module": "label",
+                "name": "lblDDiscountValue",
+                "properties": {
+                    "text": "",
+                    "transform": 1,
+                    "font-size": 24,
+                    "font-style": "bold condensed"
+                },
+                "events": {}
+            },
+            {
+                "module": "spacer",
+                "name": "spacer1",
+                "properties": {
+                    "height": 5
+                },
+                "events": {}
+            },
+            {
+                "module": "label",
+                "name": "lblDValuewoDiscount",
+                "properties": {
+                    "text": "",
+                    "transform": 1,
+                    "font-size": 24,
+                    "font-style": "bold condensed"
+                },
+                "events": {}
+            },
+            {
+                "module": "spacer",
+                "name": "spacer1",
+                "properties": {
+                    "height": 5
+                },
+                "events": {}
+            },
+            {
+                "module": "label",
+                "name": "lblDTotalValue",
+                "properties": {
+                    "text": "",
+                    "transform": 1,
+                    "font-size": 24,
+                    "font-style": "bold condensed"
+                },
+                "events": {}
+            },
+            {
+                "module": "spacer",
+                "name": "spacer1",
+                "properties": {
+                    "height": 10
+                },
+                "events": {}
+            },
+            {
+                "module": "line",
+                "name": "lineSep",
+                "properties": {
+                    "height": 1
+                },
+                "events": {}
+            },
+            {
+                "module": "spacer",
+                "name": "spacer1",
+                "properties": {
+                    "height": 10
+                },
+                "events": {}
+            },
+            {
+                "module": "label",
+                "name": "lblDDReason",
+                "properties": {
+                    "text": "REASON:",
+                    "transform": 1,
+                    "font-size": 24,
+                    "font-style": "bold condensed"
+                },
+                "events": {}
+            },
+            {
+                "module": "label",
+                "name": "lblDReason",
+                "properties": {
+                    "text": "",
+                    "transform": 1,
+                    "font-size": 24,
+                    "font-style": "regular"
+                },
+                "events": {}
+            },
+            {
+                "module": "label",
+                "name": "lblDDObs",
+                "properties": {
+                    "text": "OBSERVATIONS:",
+                    "transform": 1,
+                    "font-size": 24,
+                    "font-style": "bold condensed"
+                },
+                "events": {}
+            },
+            {
+                "module": "label",
+                "name": "lblDObs",
+                "properties": {
+                    "text": "",
+                    "transform": 1,
+                    "font-size": 24,
+                    "font-style": "regular"
+                },
+                "events": {}
+            }
+        ]
+    },
+    {
+        "name": "vwLessonRatings",
+        "title": "Ratings",
+        "layout": "linear",
+        "events": {
+            "onLoad": "qryLstLessRati"
+        },
+        "actionButton": {
+            "title": "Finish",
+            "action": "doEvalRatings"
+        },
+        "modules": [
+            {
+                "module": "label",
+                "name": "lblLessonRatings",
+                "properties": {
+                    "text": "Tell us about teaching effectiveness",
+                    "transform": 1,
+                    "font-size": 24,
+                    "font-style": "bold condensed"
+                },
+                "events": {}
+            },
+            {
+                "module": "spacer",
+                "name": "spacer1",
+                "properties": {
+                    "height": 10
+                },
+                "events": {}
+            },
+            {
+                "module": "listcheckscreen",
+                "name": "listLessonRatings",
+                "properties": {
+                    "style": 0,
+                    "multiselect": false,
+                    "list": {
+                        "objectList": "qryLstLessRati",
+                        "index": "_id",
+                        "title": "description",
+                        "subtitle": ""
+                    }
+                },
+                "events": {}
+            },
+            {
+                "module": "textfield",
+                "name": "txtObsLessRati",
+                "properties": {
+                    "text": "",
+                    "lines": 3,
+                    "password": false,
+                    "font-size": 18,
+                    "font-style": "regular",
+                    "hint": "Observations",
+                    "keyboard": 2
+                },
+                "events": {}
+            }
+        ]
+    },
+    {
+        "name": "vwLessonReasons",
+        "title": "Reasons",
+        "layout": "linear",
+        "events": {
+            "onLoad": "qryLstLessReas"
+        },
+        "actionButton": {
+            "title": "Finish",
+            "action": "doEvalReasons"
+        },
+        "modules": [
+            {
+                "module": "label",
+                "name": "lblLessonReasons",
+                "properties": {
+                    "text": "What was the reason why the class was not done?",
+                    "transform": 1,
+                    "font-size": 24,
+                    "font-style": "bold condensed"
+                },
+                "events": {}
+            },
+            {
+                "module": "spacer",
+                "name": "spacer1",
+                "properties": {
+                    "height": 10
+                },
+                "events": {}
+            },
+            {
+                "module": "listcheckscreen",
+                "name": "listLessonReasons",
+                "properties": {
+                    "style": 0,
+                    "multiselect": false,
+                    "list": {
+                        "objectList": "qryLstLessReas",
+                        "index": "_id",
+                        "title": "description",
+                        "subtitle": ""
+                    }
+                },
+                "events": {}
+            },
+            {
+                "module": "textfield",
+                "name": "txtObsLessReas",
+                "properties": {
+                    "text": "",
+                    "lines": 3,
+                    "password": false,
+                    "font-size": 18,
+                    "font-style": "regular",
+                    "hint": "Observations",
+                    "keyboard": 2
+                },
+                "events": {}
+            }
+        ]
+    },
+    {
+        "name": "vwFavoriteTeachers",
+        "title": "Favorite Teachers",
+        "layout": "linear",
+        "events": {
+            "onLoad": "loadFavoriteTeachers"
+        },
+        "actionButton": {},
+        "modules": [
+            {
+                "module": "label",
+                "name": "lblFavoriteTeachers",
+                "properties": {
+                    "text": "Choose The Teacher",
+                    "transform": 1,
+                    "font-size": 24,
+                    "font-style": "bold condensed"
+                },
+                "events": {}
+            },
+            {
+                "module": "spacer",
+                "name": "spacer1",
+                "properties": {
+                    "height": 10
+                },
+                "events": {}
+            },
+            {
+                "module": "listscreen",
+                "name": "listFavoriteTeachers",
+                "disclosured": true,
+                "properties": {
+                    "style": 1,
+                    "list": {
+                        "objectList": "qryLstFavoTeac",
+                        "index": "_id",
+                        "title": "teacher",
+                        "subtitle": "company"
+                    }
+                },
+                "events": {
+                    "onSelectCell": "openFavoDiscTypes"
+                }
+            }
+        ]
+    },
+    {
+        "name": "vwFavoDiscTypes",
+        "title": "Discpline Types",
+        "layout": "linear",
+        "events": {
+            "onLoad": "loadFavoDiscTypes"
+        },
+        "actionButton": {},
+        "modules": [
+            {
+                "module": "label",
+                "name": "lblFavoDiscTypes",
+                "properties": {
+                    "text": "Choose The Discpline Type of Teacher",
+                    "transform": 1,
+                    "font-size": 24,
+                    "font-style": "bold condensed"
+                },
+                "events": {}
+            },
+            {
+                "module": "spacer",
+                "name": "spacer1",
+                "properties": {
+                    "height": 10
+                },
+                "events": {}
+            },
+            {
+                "module": "listscreen",
+                "name": "listFavoDiscTypes",
+                "disclosured": true,
+                "properties": {
+                    "style": 0,
+                    "list": {
+                        "objectList": "qryLstFavoDiscTypes",
+                        "index": "_id",
+                        "title": "disc_type",
+                        "subtitle": ""
+                    }
+                },
+                "events": {
+                    "onSelectCell": "openFavoDiscs"
+                }
+            }
+        ]
+    },
+    {
+        "name": "vwFavoDiscs",
+        "title": "Discplines",
+        "layout": "linear",
+        "events": {
+            "onLoad": "loadFavoDiscs"
+        },
+        "actionButton": {},
+        "modules": [
+            {
+                "module": "label",
+                "name": "lblFavoDiscs",
+                "properties": {
+                    "text": "Choose The Discpline of Teacher",
+                    "transform": 1,
+                    "font-size": 24,
+                    "font-style": "bold condensed"
+                },
+                "events": {}
+            },
+            {
+                "module": "spacer",
+                "name": "spacer1",
+                "properties": {
+                    "height": 10
+                },
+                "events": {}
+            },
+            {
+                "module": "listscreen",
+                "name": "listFavoDiscs",
+                "disclosured": true,
+                "properties": {
+                    "style": 0,
+                    "list": {
+                        "objectList": "qryLstFavoDiscs",
+                        "index": "_id",
+                        "title": "disc",
+                        "subtitle": ""
+                    }
+                },
+                "events": {
+                    "onSelectCell": "openFavoScheDateRange"
+                }
+            }
+        ]
+    },
+    {
+        "name": "vwFavoScheDateRange",
+        "title": "Date Range",
+        "layout": "linear",
+        "events": {},
+        "actionButton": {
+            "title": "Search",
+            "action": "doSearchTeacherDates"
+        },
+        "modules": [
+            {
+                "module": "label",
+                "name": "lblFavoScheDateRange",
+                "properties": {
+                    "text": "Select The Date Range",
+                    "transform": 1,
+                    "font-size": 24,
+                    "font-style": "bold condensed"
+                },
+                "events": {}
+            },
+            {
+                "module": "spacer",
+                "name": "spacer1",
+                "properties": {
+                    "height": 10
+                },
+                "events": {}
+            },
+            {
+                "module": "label",
+                "name": "lblFavoFrom",
+                "properties": {
+                    "text": "From",
+                    "transform": 1,
+                    "font-size": 18,
+                    "font-style": "bold condensed"
+                },
+                "events": {}
+            },
+            {
+                "module": "spacer",
+                "name": "spacer1",
+                "properties": {
+                    "height": 5
+                },
+                "events": {}
+            },
+            {
+                "module": "datetimepicker",
+                "name": "dateFavoFrom",
+                "properties": {
+                    "hint": "Select date",
+                    "mode": 0,
+                    "day": -1,
+                    "month": -1,
+                    "year": -1
+                },
+                "events": {}
+            },
+            {
+                "module": "spacer",
+                "name": "spacer1",
+                "properties": {
+                    "height": 20
+                },
+                "events": {}
+            },
+            {
+                "module": "label",
+                "name": "lblFavoTo",
+                "properties": {
+                    "text": "To",
+                    "transform": 1,
+                    "font-size": 18,
+                    "font-style": "bold condensed"
+                },
+                "events": {}
+            },
+            {
+                "module": "spacer",
+                "name": "spacer1",
+                "properties": {
+                    "height": 5
+                },
+                "events": {}
+            },
+            {
+                "module": "datetimepicker",
+                "name": "dateFavoTo",
+                "properties": {
+                    "hint": "Select date",
+                    "mode": 0,
+                    "day": -1,
+                    "month": -1,
+                    "year": -1
+                },
+                "events": {}
+            }
+        ]
+    },
+    {
+        "name": "vwFavoTeacDates",
+        "title": "Dates",
+        "layout": "linear",
+        "events": {
+            "onLoad": "qryLstFavoTeacDates"
+        },
+        "actionButton": {},
+        "modules": [
+            {
+                "module": "label",
+                "name": "lblFavoTeacDates",
+                "properties": {
+                    "text": "Choose The Date of Teacher",
+                    "transform": 1,
+                    "font-size": 24,
+                    "font-style": "bold condensed"
+                },
+                "events": {}
+            },
+            {
+                "module": "spacer",
+                "name": "spacer1",
+                "properties": {
+                    "height": 10
+                },
+                "events": {}
+            },
+            {
+                "module": "listscreen",
+                "name": "listFavoTeacDates",
+                "disclosured": true,
+                "properties": {
+                    "style": 1,
+                    "list": {
+                        "objectList": "qryLstFavoTeacDates",
+                        "index": "_id",
+                        "title": "date",
+                        "subtitle": "price"
+                    }
+                },
+                "events": {
+                    "onSelectCell": "openFavoTeacDateHours"
+                }
+            }
+        ]
+    },
+    {
+        "name": "vwFavoTeacDateHours",
+        "title": "Hours",
+        "layout": "linear",
+        "events": {
+            "onLoad": "qryLstFavoTeacDateHours"
+        },
+        "actionButton": {
+            "title": "Done",
+            "action": "doFavoLessSummary"
+        },
+        "modules": [
+            {
+                "module": "label",
+                "name": "lblFavoTeacDateHours",
+                "properties": {
+                    "text": "Select The Hours of Teacher",
+                    "transform": 1,
+                    "font-size": 24,
+                    "font-style": "bold condensed"
+                },
+                "events": {}
+            },
+            {
+                "module": "spacer",
+                "name": "spacer1",
+                "properties": {
+                    "height": 10
+                },
+                "events": {}
+            },
+            {
+                "module": "listcheckscreen",
+                "name": "listFavoTeacDateHours",
+                "properties": {
+                    "style": 0,
+                    "multiselect": true,
+                    "list": {
+                        "objectList": "qryLstFavoTeacDateHours",
+                        "index": "_id",
+                        "title": "hours"
+                    }
+                },
+                "events": {}
+            }
+        ]
+    },
+    {
+        "name": "vwFavoLessSummary",
+        "title": "Lesson Summary",
+        "layout": "linear",
+        "events": {
+            "onLoad": "loadFavoLessSummary",
+            "onShow": "showFavoLessSummary"
+        },
+        "actionButton": {
+            "title": "Save",
+            "action": "doDiscountQuestion"
+        },
+        "modules": [
+            {
+                "module": "label",
+                "name": "lblFFDisciplineType",
+                "properties": {
+                    "text": "DISCIPLINE TYPE:",
+                    "transform": 1,
+                    "font-size": 30,
+                    "font-style": "bold condensed"
+                },
+                "events": {}
+            },
+            {
+                "module": "label",
+                "name": "lblFDisciplineType",
+                "properties": {
+                    "text": "",
+                    "transform": 1,
+                    "font-size": 30,
+                    "font-style": "regular"
+                },
+                "events": {}
+            },
+            {
+                "module": "spacer",
+                "name": "spacer1",
+                "properties": {
+                    "height": 5
+                },
+                "events": {}
+            },
+            {
+                "module": "label",
+                "name": "lblFFDiscipline",
+                "properties": {
+                    "text": "DISCIPLINE:",
+                    "transform": 1,
+                    "font-size": 30,
+                    "font-style": "bold condensed"
+                },
+                "events": {}
+            },
+            {
+                "module": "label",
+                "name": "lblFDiscipline",
+                "properties": {
+                    "text": "",
+                    "transform": 1,
+                    "font-size": 30,
+                    "font-style": "regular"
+                },
+                "events": {}
+            },
+            {
+                "module": "spacer",
+                "name": "spacer1",
+                "properties": {
+                    "height": 5
+                },
+                "events": {}
+            },
+            {
+                "module": "label",
+                "name": "lblFFDate",
+                "properties": {
+                    "text": "DATE:",
+                    "transform": 1,
+                    "font-size": 30,
+                    "font-style": "bold condensed"
+                },
+                "events": {}
+            },
+            {
+                "module": "label",
+                "name": "lblFDate",
+                "properties": {
+                    "text": "",
+                    "transform": 1,
+                    "font-size": 30,
+                    "font-style": "regular"
+                },
+                "events": {}
+            },
+            {
+                "module": "spacer",
+                "name": "spacer1",
+                "properties": {
+                    "height": 5
+                },
+                "events": {}
+            },
+            {
+                "module": "label",
+                "name": "lblFFTeacher",
+                "properties": {
+                    "text": "TEACHER:",
+                    "transform": 1,
+                    "font-size": 30,
+                    "font-style": "bold condensed"
+                },
+                "events": {}
+            },
+            {
+                "module": "label",
+                "name": "lblFTeacher",
+                "properties": {
+                    "text": "",
+                    "transform": 1,
+                    "font-size": 30,
+                    "font-style": "regular"
+                },
+                "events": {}
+            },
+            {
+                "module": "spacer",
+                "name": "spacer1",
+                "properties": {
+                    "height": 15
+                },
+                "events": {}
+            },
+            {
+                "module": "label",
+                "name": "lblFHours",
+                "properties": {
+                    "text": "HOURS:",
+                    "transform": 1,
+                    "font-size": 30,
+                    "font-style": "bold condensed"
+                },
+                "events": {}
+            },
+            {
+                "module": "spacer",
+                "name": "spacer1",
+                "properties": {
+                    "height": 5
+                },
+                "events": {}
+            },
+            {
+                "module": "groupedViews",
+                "name": "grpFHours",
+                "properties": {
+                    "listSource": "vwFavoTeacDateHours__listFavoTeacDateHours__selectedTitles",
+                    "modules": [
+                        {
+                            "module": "label",
+                            "name": "lblFHoursLst",
+                            "properties": {
+                                "text": "• {{title}}",
+                                "transform": 0,
+                                "font-size": 30,
+                                "font-style": "regular"
+                            },
+                            "events": {}
+                        }
+                    ]
+                },
+                "events": {}
+            },
+            {
+                "module": "spacer",
+                "name": "spacer1",
+                "properties": {
+                    "height": 15
+                },
+                "events": {}
+            },
+            {
+                "module": "label",
+                "name": "lblFQtdHours",
+                "properties": {
+                    "text": "",
+                    "transform": 1,
+                    "font-size": 24,
+                    "font-style": "bold condensed"
+                },
+                "events": {}
+            },
+            {
+                "module": "spacer",
+                "name": "spacer1",
+                "properties": {
+                    "height": 5
+                },
+                "events": {}
+            },
+            {
+                "module": "label",
+                "name": "lblFPriceHour",
+                "properties": {
+                    "text": "",
+                    "transform": 1,
+                    "font-size": 24,
+                    "font-style": "bold condensed"
+                },
+                "events": {}
+            },
+            {
+                "module": "spacer",
+                "name": "spacer1",
+                "properties": {
+                    "height": 5
+                },
+                "events": {}
+            },
+            {
+                "module": "label",
+                "name": "lblFTotalValue",
+                "properties": {
+                    "text": "",
+                    "transform": 1,
+                    "font-size": 24,
+                    "font-style": "bold condensed"
+                },
+                "events": {}
+            }
+        ]
+    },
+    {
+        "name": "vwCompanyDiscounts",
+        "title": "Companies",
+        "layout": "linear",
+        "events": {
+            "onLoad": "loadCompanyDiscounts"
+        },
+        "actionButton": {},
+        "modules": [
+            {
+                "module": "label",
+                "name": "lblCompanyDiscounts",
+                "properties": {
+                    "text": "Choose The Company",
+                    "transform": 1,
+                    "font-size": 24,
+                    "font-style": "bold condensed"
+                },
+                "events": {}
+            },
+            {
+                "module": "spacer",
+                "name": "spacer1",
+                "properties": {
+                    "height": 10
+                },
+                "events": {}
+            },
+            {
+                "module": "listscreen",
+                "name": "listCompanyDiscounts",
+                "disclosured": true,
+                "properties": {
+                    "style": 0,
+                    "list": {
+                        "objectList": "qryLstCompDiscs",
+                        "index": "_id",
+                        "title": "name",
+                        "subtitle": ""
+                    }
+                },
+                "events": {
+                    "onSelectCell": "openDiscountCodes"
+                }
+            }
+        ]
+    },
+    {
+        "name": "vwDiscountCodes",
+        "title": "Discount Codes",
+        "layout": "linear",
+        "events": {
+            "onLoad": "qryLstDiscountCodes"
+        },
+        "actionButton": {},
+        "modules": [
+            {
+                "module": "groupedViews",
+                "name": "grpDiscCodes",
+                "properties": {
+                    "listSource": "qryLstDiscountCodes",
+                    "modules": [
+                        {
+                            "module": "label",
+                            "name": "lblDCode",
+                            "properties": {
+                                "text": "{{code}}",
+                                "transform": 0,
+                                "font-size": 28,
+                                "font-style": "light"
+                            },
+                            "events": {}
+                        },
+                        {
+                            "module": "label",
+                            "name": "lblDPercent",
+                            "properties": {
+                                "text": "DISCOUNT {{percent}}",
+                                "transform": 0,
+                                "font-size": 16,
+                                "font-style": "regular"
+                            },
+                            "events": {}
+                        },
+                        {
+                            "module": "label",
+                            "name": "lblDCondition",
+                            "properties": {
+                                "text": "LESSONS BETWEEN {{condition}}",
+                                "transform": 0,
+                                "font-size": 16,
+                                "font-style": "regular"
+                            },
+                            "events": {}
+                        },
+                        {
+                            "module": "spacer",
+                            "name": "spacer1",
+                            "properties": {
+                                "height": 10
+                            },
+                            "events": {}
+                        },
+                        {
+                            "module": "line",
+                            "name": "lineSep",
+                            "properties": {
+                                "height": 1
+                            },
+                            "events": {}
+                        },
+                        {
+                            "module": "spacer",
+                            "name": "spacer1",
+                            "properties": {
+                                "height": 10
+                            },
+                            "events": {}
+                        }
+                    ]
+                },
+                "events": {}
+            }
+        ]
+    }
+]

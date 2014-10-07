@@ -1,0 +1,2921 @@
+[
+    {
+        "name": "main",
+        "params": [],
+        "code": [
+            {
+                "getData": {
+                    "tableName": "clients",
+                    "requestType": "s",
+                    "requestParams": "fk_heart = {{__user_id}}",
+                    "clearAll": true,
+                    "userExclusive": false,
+                    "loadingMessage": "Downloading... (15)",
+                    "displayTimeOutDialog": true,
+                    "timeOutDialogButton": "Try again",
+                    "timeOutMessage": "Connection Timeout expired.",
+                    "onTimeOut": "pendingDownloads",
+                    "blockSuccess": [
+                        {
+                            "getData": {
+                                "tableName": "countries",
+                                "requestType": "s",
+                                "requestParams": "_id in (select fk_country from clients where fk_heart = {{__user_id}})",
+                                "clearAll": true,
+                                "userExclusive": false,
+                                "loadingMessage": "Downloading... (14)",
+                                "displayTimeOutDialog": true,
+                                "timeOutDialogButton": "Try again",
+                                "timeOutMessage": "Connection Timeout expired.",
+                                "onTimeOut": "pendingDownloads",
+                                "blockSuccess": [
+                                    {
+                                        "getData": {
+                                            "tableName": "companies",
+                                            "requestType": "s",
+                                            "requestParams": "fk_country in (select fk_country from clients where fk_heart = {{__user_id}})",
+                                            "clearAll": true,
+                                            "userExclusive": false,
+                                            "loadingMessage": "Downloading... (13)",
+                                            "displayTimeOutDialog": true,
+                                            "timeOutDialogButton": "Try again",
+                                            "timeOutMessage": "Connection Timeout expired.",
+                                            "onTimeOut": "pendingDownloads",
+                                            "blockSuccess": [
+                                                {
+                                                    "getData": {
+                                                        "tableName": "discounts",
+                                                        "requestType": "s",
+                                                        "requestParams": "fk_company in (select _id from companies where fk_country in (select fk_country from clients where fk_heart = {{__user_id}}))",
+                                                        "clearAll": true,
+                                                        "userExclusive": false,
+                                                        "loadingMessage": "Downloading... (12)",
+                                                        "displayTimeOutDialog": true,
+                                                        "timeOutDialogButton": "Try again",
+                                                        "timeOutMessage": "Connection Timeout expired.",
+                                                        "onTimeOut": "pendingDownloads",
+                                                        "blockSuccess": [
+                                                            {
+                                                                "getData": {
+                                                                    "tableName": "users",
+                                                                    "requestType": "s",
+                                                                    "requestParams": "fk_company in (select _id from companies where fk_country in (select fk_country from clients where fk_heart = {{__user_id}}))",
+                                                                    "clearAll": true,
+                                                                    "userExclusive": false,
+                                                                    "loadingMessage": "Downloading... (11)",
+                                                                    "displayTimeOutDialog": true,
+                                                                    "timeOutDialogButton": "Try again",
+                                                                    "timeOutMessage": "Connection Timeout expired.",
+                                                                    "onTimeOut": "pendingDownloads",
+                                                                    "blockSuccess": [
+                                                                        {
+                                                                            "getData": {
+                                                                                "tableName": "user_disciplines",
+                                                                                "requestType": "s",
+                                                                                "requestParams": "fk_user in (select _id from users where fk_company in (select _id from companies where fk_country in (select fk_country from clients where fk_heart = {{__user_id}})))",
+                                                                                "clearAll": true,
+                                                                                "userExclusive": false,
+                                                                                "loadingMessage": "Downloading... (10)",
+                                                                                "displayTimeOutDialog": true,
+                                                                                "timeOutDialogButton": "Try again",
+                                                                                "timeOutMessage": "Connection Timeout expired.",
+                                                                                "onTimeOut": "pendingDownloads",
+                                                                                "blockSuccess": [
+                                                                                    {
+                                                                                        "getData": {
+                                                                                            "tableName": "discipline_types",
+                                                                                            "requestType": "s",
+                                                                                            "requestParams": "",
+                                                                                            "clearAll": true,
+                                                                                            "userExclusive": false,
+                                                                                            "loadingMessage": "Downloading... (9)",
+                                                                                            "displayTimeOutDialog": true,
+                                                                                            "timeOutDialogButton": "Try again",
+                                                                                            "timeOutMessage": "Connection Timeout expired.",
+                                                                                            "onTimeOut": "pendingDownloads",
+                                                                                            "blockSuccess": [
+                                                                                                {
+                                                                                                    "getData": {
+                                                                                                        "tableName": "disciplines",
+                                                                                                        "requestType": "s",
+                                                                                                        "requestParams": "",
+                                                                                                        "clearAll": true,
+                                                                                                        "userExclusive": false,
+                                                                                                        "loadingMessage": "Downloading... (8)",
+                                                                                                        "displayTimeOutDialog": true,
+                                                                                                        "timeOutDialogButton": "Try again",
+                                                                                                        "timeOutMessage": "Connection Timeout expired.",
+                                                                                                        "onTimeOut": "pendingDownloads",
+                                                                                                        "blockSuccess": [
+                                                                                                            {
+                                                                                                                "getData": {
+                                                                                                                    "tableName": "lesson_ratings",
+                                                                                                                    "requestType": "s",
+                                                                                                                    "requestParams": "",
+                                                                                                                    "clearAll": true,
+                                                                                                                    "userExclusive": false,
+                                                                                                                    "loadingMessage": "Downloading... (7)",
+                                                                                                                    "displayTimeOutDialog": true,
+                                                                                                                    "timeOutDialogButton": "Try again",
+                                                                                                                    "timeOutMessage": "Connection Timeout expired.",
+                                                                                                                    "onTimeOut": "pendingDownloads",
+                                                                                                                    "blockSuccess": [
+                                                                                                                        {
+                                                                                                                            "getData": {
+                                                                                                                                "tableName": "lesson_reasons",
+                                                                                                                                "requestType": "s",
+                                                                                                                                "requestParams": "",
+                                                                                                                                "clearAll": true,
+                                                                                                                                "userExclusive": false,
+                                                                                                                                "loadingMessage": "Downloading... (6)",
+                                                                                                                                "displayTimeOutDialog": true,
+                                                                                                                                "timeOutDialogButton": "Try again",
+                                                                                                                                "timeOutMessage": "Connection Timeout expired.",
+                                                                                                                                "onTimeOut": "pendingDownloads",
+                                                                                                                                "blockSuccess": [
+                                                                                                                                    {
+                                                                                                                                        "getData": {
+                                                                                                                                            "tableName": "lesson_statuses",
+                                                                                                                                            "requestType": "s",
+                                                                                                                                            "requestParams": "",
+                                                                                                                                            "clearAll": true,
+                                                                                                                                            "userExclusive": false,
+                                                                                                                                            "loadingMessage": "Downloading... (5)",
+                                                                                                                                            "displayTimeOutDialog": true,
+                                                                                                                                            "timeOutDialogButton": "Try again",
+                                                                                                                                            "timeOutMessage": "Connection Timeout expired.",
+                                                                                                                                            "onTimeOut": "pendingDownloads",
+                                                                                                                                            "blockSuccess": [
+                                                                                                                                                {
+                                                                                                                                                    "getData": {
+                                                                                                                                                        "tableName": "lessons",
+                                                                                                                                                        "requestType": "s",
+                                                                                                                                                        "requestParams": "fk_client in (select _id clients where fk_heart = {{__user_id}})",
+                                                                                                                                                        "clearAll": true,
+                                                                                                                                                        "userExclusive": false,
+                                                                                                                                                        "loadingMessage": "Downloading... (4)",
+                                                                                                                                                        "displayTimeOutDialog": true,
+                                                                                                                                                        "timeOutDialogButton": "Try again",
+                                                                                                                                                        "timeOutMessage": "Connection Timeout expired.",
+                                                                                                                                                        "onTimeOut": "pendingDownloads",
+                                                                                                                                                        "blockSuccess": [
+                                                                                                                                                            {
+                                                                                                                                                                "getData": {
+                                                                                                                                                                    "tableName": "lesson_details",
+                                                                                                                                                                    "requestType": "s",
+                                                                                                                                                                    "requestParams": "fk_client in (select _id clients where fk_heart = {{__user_id}})",
+                                                                                                                                                                    "clearAll": true,
+                                                                                                                                                                    "userExclusive": false,
+                                                                                                                                                                    "loadingMessage": "Downloading... (3)",
+                                                                                                                                                                    "displayTimeOutDialog": true,
+                                                                                                                                                                    "timeOutDialogButton": "Try again",
+                                                                                                                                                                    "timeOutMessage": "Connection Timeout expired.",
+                                                                                                                                                                    "onTimeOut": "pendingDownloads",
+                                                                                                                                                                    "blockSuccess": [
+                                                                                                                                                                        {
+                                                                                                                                                                            "getData": {
+                                                                                                                                                                                "tableName": "lesson_evaluations",
+                                                                                                                                                                                "requestType": "s",
+                                                                                                                                                                                "requestParams": "fk_client in (select _id clients where fk_heart = {{__user_id}})",
+                                                                                                                                                                                "clearAll": true,
+                                                                                                                                                                                "userExclusive": false,
+                                                                                                                                                                                "loadingMessage": "Downloading... (2)",
+                                                                                                                                                                                "displayTimeOutDialog": true,
+                                                                                                                                                                                "timeOutDialogButton": "Try again",
+                                                                                                                                                                                "timeOutMessage": "Connection Timeout expired.",
+                                                                                                                                                                                "onTimeOut": "pendingDownloads",
+                                                                                                                                                                                "blockSuccess": [
+                                                                                                                                                                                    {
+                                                                                                                                                                                        "getData": {
+                                                                                                                                                                                            "tableName": "client_favorites",
+                                                                                                                                                                                            "requestType": "s",
+                                                                                                                                                                                            "requestParams": "fk_client in (select _id clients where fk_heart = {{__user_id}})",
+                                                                                                                                                                                            "clearAll": true,
+                                                                                                                                                                                            "userExclusive": false,
+                                                                                                                                                                                            "loadingMessage": "Downloading... (1)",
+                                                                                                                                                                                            "displayTimeOutDialog": true,
+                                                                                                                                                                                            "timeOutDialogButton": "Try again",
+                                                                                                                                                                                            "timeOutMessage": "Connection Timeout expired.",
+                                                                                                                                                                                            "onTimeOut": "pendingDownloads",
+                                                                                                                                                                                            "blockSuccess": [
+                                                                                                                                                                                                {
+                                                                                                                                                                                                    "call": {
+                                                                                                                                                                                                        "method": "loadInitialData"
+                                                                                                                                                                                                    }
+                                                                                                                                                                                                }
+                                                                                                                                                                                            ]
+                                                                                                                                                                                        }
+                                                                                                                                                                                    }
+                                                                                                                                                                                ]
+                                                                                                                                                                            }
+                                                                                                                                                                        }
+                                                                                                                                                                    ]
+                                                                                                                                                                }
+                                                                                                                                                            }
+                                                                                                                                                        ]
+                                                                                                                                                    }
+                                                                                                                                                }
+                                                                                                                                            ]
+                                                                                                                                        }
+                                                                                                                                    }
+                                                                                                                                ]
+                                                                                                                            }
+                                                                                                                        }
+                                                                                                                    ]
+                                                                                                                }
+                                                                                                            }
+                                                                                                        ]
+                                                                                                    }
+                                                                                                }
+                                                                                            ]
+                                                                                        }
+                                                                                    }
+                                                                                ]
+                                                                            }
+                                                                        }
+                                                                    ]
+                                                                }
+                                                            }
+                                                        ]
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                ]
+                            }
+                        }
+                    ]
+                }
+            }
+        ],
+        "return": "void"
+    },
+    {
+        "name": "loadInitialData",
+        "params": [],
+        "code": [],
+        "return": "void"
+    },
+    {
+        "name": "_onShowMenu",
+        "params": [],
+        "code": [],
+        "return": "void"
+    },
+    {
+        "name": "openDisciplines",
+        "params": [],
+        "code": [
+            {
+                "tableDelete": {
+                    "tableName": "lessons_tmp"
+                }
+            },
+            {
+                "tableDelete": {
+                    "tableName": "lesson_details_tmp"
+                }
+            },
+            {
+                "tableDelete": {
+                    "tableName": "schedules"
+                }
+            },
+            {
+                "tableDelete": {
+                    "tableName": "schedule_details"
+                }
+            },
+            {
+                "tableInsert": {
+                    "tableName": "lessons_tmp",
+                    "values": [
+                        {
+                            "fk_client": "{{__user_id}}",
+                            "fk_less_stat": "1",
+                            "discount": "0",
+                            "fk_discount": "0",
+                            "value_discount": "0",
+                            "fk_disc_type": "{{vwDisciplineTypes__listDisciplineTypes__selectedValue}}"
+                        }
+                    ]
+                }
+            },
+            {
+                "query": {
+                    "statement": "select _id from lessons_tmp",
+                    "returnVar": "qryLessonsTmp"
+                }
+            },
+            {
+                "queryValue": {
+                    "queryVar": "qryLessonsTmp",
+                    "fieldName": "_id",
+                    "position": 0,
+                    "returnVar": "idLessonsTmp"
+                }
+            },
+            {
+                "openScreen": {
+                    "screenName": "vwDisciplines",
+                    "variables": []
+                }
+            }
+        ]
+    },
+    {
+        "name": "openScheduleDateRange",
+        "params": [],
+        "code": [
+            {
+                "tableUpdate": {
+                    "tableName": "lessons_tmp",
+                    "values": [
+                        {
+                            "fk_discipline": "{{vwDisciplines__listDisciplines__selectedValue}}",
+                            "_id": "{{idLessonsTmp}}"
+                        }
+                    ]
+                }
+            },
+            {
+                "openScreen": {
+                    "screenName": "vwScheduleDateRange",
+                    "variables": []
+                }
+            }
+        ]
+    },
+    {
+        "name": "doSearchTeacherSchedules",
+        "params": [],
+        "code": [
+            {
+                "setVariable": {
+                    "name": "dtFrom",
+                    "type": "int",
+                    "value": "{{vwScheduleDateRange__dateFrom__year}}{{vwScheduleDateRange__dateFrom__month}}{{vwScheduleDateRange__dateFrom__day}}"
+                }
+            },
+            {
+                "setVariable": {
+                    "name": "dtTo",
+                    "type": "int",
+                    "value": "{{vwScheduleDateRange__dateTo__year}}{{vwScheduleDateRange__dateTo__month}}{{vwScheduleDateRange__dateTo__day}}"
+                }
+            },
+            {
+                "if": {
+                    "condition": "{{dtFrom}} < 0",
+                    "block": [
+                        {
+                            "alertDialog": {
+                                "title": "Information",
+                                "message": "Select the Start Date.",
+                                "closeButton": {
+                                    "title": "Ok",
+                                    "onClick": ""
+                                }
+                            }
+                        }
+                    ],
+                    "else": [
+                        {
+                            "if": {
+                                "condition": "{{dtTo}} <  {{dtFrom}}",
+                                "block": [
+                                    {
+                                        "alertDialog": {
+                                            "title": "Information",
+                                            "message": "The From Date cannot be less than the Start Date",
+                                            "closeButton": {
+                                                "title": "Ok",
+                                                "onClick": ""
+                                            }
+                                        }
+                                    }
+                                ],
+                                "else": [
+                                    {
+                                        "getData": {
+                                            "tableName": "schedules",
+                                            "requestType": "s",
+                                            "requestParams": "CAST(DATE_FORMAT(date, '%Y%m%d') as UNSIGNED) BETWEEN {{dtFrom}} and {{dtTo}}",
+                                            "clearAll": true,
+                                            "userExclusive": false,
+                                            "loadingMessage": "Searching schedules...",
+                                            "displayTimeOutDialog": true,
+                                            "timeOutDialogButton": "Try again",
+                                            "timeOutMessage": "Connection Timeout expired.",
+                                            "onTimeOut": "pendingDownloads",
+                                            "blockSuccess": [
+                                                {
+                                                    "getData": {
+                                                        "tableName": "schedule_details",
+                                                        "requestType": "s",
+                                                        "requestParams": "fk_schedule in (select _id from schedules where CAST(DATE_FORMAT(date, '%Y%m%d') as UNSIGNED) BETWEEN {{dtFrom}} and {{dtTo}})",
+                                                        "clearAll": true,
+                                                        "userExclusive": false,
+                                                        "loadingMessage": "Searching schedules...",
+                                                        "displayTimeOutDialog": true,
+                                                        "timeOutDialogButton": "Try again",
+                                                        "timeOutMessage": "Connection Timeout expired.",
+                                                        "onTimeOut": "pendingDownloads",
+                                                        "blockSuccess": [
+                                                            {
+                                                                "query": {
+                                                                    "statement": "SELECT schedules._id as _id, (UPPER(users.name) || ' / ' || UPPER(companies.name)) as teacher_company, (strftime('%d/%m/%Y', date) || ' - ' || countries.currency || ' ' || CAST(user_disciplines.price_company as text)) as date_price FROM schedules INNER JOIN user_disciplines ON schedules.fk_user = user_disciplines.fk_user INNER JOIN users ON user_disciplines.fk_user = users._id INNER JOIN companies ON users.fk_company = companies._id INNER JOIN clients ON clients.fk_country = companies.fk_country INNER JOIN countries ON companies.fk_country = countries._id WHERE user_disciplines.fk_discipline = {{vwDisciplines__listDisciplines__selectedValue}} and users.status = 1 companies.status = 1 and clients.status = 1 and countries.status = 1",
+                                                                    "returnVar": "qryLstTeacSche"
+                                                                }
+                                                            },
+                                                            {
+                                                                "queryNumRows": {
+                                                                    "queryVar": "qryLstTeacSche",
+                                                                    "returnVar": "numTeacSche"
+                                                                }
+                                                            },
+                                                            {
+                                                                "if": {
+                                                                    "condition": "{{numTeacSche}} > 0",
+                                                                    "block": [
+                                                                        {
+                                                                            "openScreen": {
+                                                                                "screenName": "vwTeacherSchedules",
+                                                                                "variables": []
+                                                                            }
+                                                                        }
+                                                                    ],
+                                                                    "else": [
+                                                                        {
+                                                                            "alertDialog": {
+                                                                                "title": "Information",
+                                                                                "message": "No Search Results",
+                                                                                "closeButton": {
+                                                                                    "title": "Ok",
+                                                                                    "onClick": ""
+                                                                                }
+                                                                            }
+                                                                        }
+                                                                    ]
+                                                                }
+                                                            }
+                                                        ]
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                ]
+                            }
+                        }
+                    ]
+                }
+            }
+        ]
+    },
+    {
+        "name": "openTeacherScheduleDet",
+        "params": [],
+        "code": [
+            {
+                "tableUpdate": {
+                    "tableName": "lessons_tmp",
+                    "values": [
+                        {
+                            "fk_schedule": "{{vwTeacherSchedules__listTeacherSchedules__selectedValue}}",
+                            "_id": "{{idLessonsTmp}}"
+                        }
+                    ]
+                }
+            },
+            {
+                "query": {
+                    "statement": "SELECT schedules.fk_user as fk_user, schedules.date as date, schedule_details._id as _id, (schedule_details.start || ' - ' || schedule_details.end) as hours FROM schedule_details WHERE schedule_details.fk_schedule = {{vwTeacherSchedules__listTeacherSchedules__selectedValue}}",
+                    "returnVar": "qryLstTeacScheDet"
+                }
+            },
+            {
+                "queryValue": {
+                    "queryVar": "qryLstTeacScheDet",
+                    "fieldName": "date",
+                    "position": 0,
+                    "returnVar": "dtSchedule"
+                }
+            },
+            {
+                "queryValue": {
+                    "queryVar": "qryLstTeacScheDet",
+                    "fieldName": "fk_user",
+                    "position": 0,
+                    "returnVar": "vIdTeacher"
+                }
+            },
+            {
+                "tableUpdate": {
+                    "tableName": "lessons_tmp",
+                    "values": [
+                        {
+                            "date": "{{dtSchedule}}",
+                            "fk_user": "{{vIdTeacher}}",
+                            "_id": "{{idLessonsTmp}}"
+                        }
+                    ]
+                }
+            },
+            {
+                "openScreen": {
+                    "screenName": "vwTeacherScheduleDet",
+                    "variables": []
+                }
+            }
+        ]
+    },
+    {
+        "name": "doLessonSummary",
+        "params": [],
+        "code": [
+            {
+                "listObjectCount": {
+                    "object": "{{vwTeacherScheduleDet__listTeacherScheduleDet__selectedValues}}",
+                    "returnVar": "qtd_sche_det"
+                }
+            },
+            {
+                "if": {
+                    "condition": "{{qtd_sche_det}} > 0",
+                    "block": [
+                        {
+                            "tableUpdate": {
+                                "tableName": "lessons_tmp",
+                                "values": [
+                                    {
+                                        "hours": "{{qtd_sche_det}}",
+                                        "_id": "{{idLessonsTmp}}"
+                                    }
+                                ]
+                            }
+                        },
+                        {
+                            "tableDelete": {
+                                "tableName": "lesson_details_tmp"
+                            }
+                        },
+                        {
+                            "for": {
+                                "variable": "i",
+                                "initial": 0,
+                                "final": "{{qtd_sche_det}}",
+                                "increment": "+1",
+                                "block": [
+                                    {
+                                        "listObjectValue": {
+                                            "object": "{{vwTeacherScheduleDet__listTeacherScheduleDet__selectedValues}}",
+                                            "index": "{{i}}",
+                                            "field": "value",
+                                            "returnVar": "idScheDetsTmp"
+                                        }
+                                    },
+                                    {
+                                        "query": {
+                                            "statement": "SELECT schedule_details.start as start, schedule_details.end as end FROM schedule_details WHERE schedule_details._id = {{idScheDetsTmp}}",
+                                            "returnVar": "qryScheDets"
+                                        }
+                                    },
+                                    {
+                                        "queryValue": {
+                                            "queryVar": "qryScheDets",
+                                            "fieldName": "start",
+                                            "position": 0,
+                                            "returnVar": "hrStart"
+                                        }
+                                    },
+                                    {
+                                        "queryValue": {
+                                            "queryVar": "qryScheDets",
+                                            "fieldName": "end",
+                                            "position": 0,
+                                            "returnVar": "hrEnd"
+                                        }
+                                    },
+                                    {
+                                        "tableInsert": {
+                                            "tableName": "lesson_details_tmp",
+                                            "values": [
+                                                {
+                                                    "fk_lesson": "{{idLessonsTmp}}",
+                                                    "fk_sche_det": "{{idScheDetsTmp}}",
+                                                    "start": "{{hrStart}}",
+                                                    "end": "{{hrEnd}}"
+                                                }
+                                            ]
+                                        }
+                                    }
+                                ]
+                            }
+                        },
+                        {
+                            "openScreen": {
+                                "screenName": "vwLessonSummary",
+                                "variables": []
+                            }
+                        }
+                    ],
+                    "else": [
+                        {
+                            "alertDialog": {
+                                "title": "Information",
+                                "message": "Select the Hours",
+                                "closeButton": {
+                                    "title": "Ok",
+                                    "onClick": ""
+                                }
+                            }
+                        }
+                    ]
+                }
+            }
+        ]
+    },
+    {
+        "name": "doDiscountQuestion",
+        "params": [],
+        "code": [
+            {
+                "tableUpdate": {
+                    "tableName": "lessons_tmp",
+                    "values": [
+                        {
+                            "value_wo_discount": "{{vTotalCompany}}",
+                            "value_total_comp": "{{vTotalCompany}}",
+                            "value_total_user": "{{vTotalUser}}",
+                            "_id": "{{idLessonsTmp}}"
+                        }
+                    ]
+                }
+            },
+            {
+                "openScreen": {
+                    "screenName": "vwDiscountQuestion",
+                    "variables": []
+                }
+            }
+        ]
+    },
+    {
+        "name": "openDiscountCode",
+        "params": [],
+        "code": [
+            {
+                "openScreen": {
+                    "screenName": "vwDiscountCode",
+                    "variables": []
+                }
+            }
+        ]
+    },
+    {
+        "name": "doLesson",
+        "params": [],
+        "code": [
+            {
+                "query": {
+                    "statement": "SELECT * FROM lessons_tmp",
+                    "returnVar": "qryDoLessonsTmp"
+                }
+            },
+            {
+                "queryValue": {
+                    "queryVar": "qryDoLessonsTmp",
+                    "fieldName": "fk_client",
+                    "position": "0",
+                    "returnVar": "clieDoLessonsTmp"
+                }
+            },
+            {
+                "queryValue": {
+                    "queryVar": "qryDoLessonsTmp",
+                    "fieldName": "fk_company",
+                    "position": "0",
+                    "returnVar": "compDoLessonsTmp"
+                }
+            },
+            {
+                "queryValue": {
+                    "queryVar": "qryDoLessonsTmp",
+                    "fieldName": "fk_user",
+                    "position": "0",
+                    "returnVar": "userDoLessonsTmp"
+                }
+            },
+            {
+                "queryValue": {
+                    "queryVar": "qryDoLessonsTmp",
+                    "fieldName": "fk_schedule",
+                    "position": "0",
+                    "returnVar": "scheDoLessonsTmp"
+                }
+            },
+            {
+                "queryValue": {
+                    "queryVar": "qryDoLessonsTmp",
+                    "fieldName": "fk_disc_type",
+                    "position": "0",
+                    "returnVar": "discTypeDoLessonsTmp"
+                }
+            },
+            {
+                "queryValue": {
+                    "queryVar": "qryDoLessonsTmp",
+                    "fieldName": "fk_discipline",
+                    "position": "0",
+                    "returnVar": "idDisciDoLessonsTmp"
+                }
+            },
+            {
+                "queryValue": {
+                    "queryVar": "qryDoLessonsTmp",
+                    "fieldName": "fk_less_stat",
+                    "position": "0",
+                    "returnVar": "lessStatDoLessonsTmp"
+                }
+            },
+            {
+                "queryValue": {
+                    "queryVar": "qryDoLessonsTmp",
+                    "fieldName": "date",
+                    "position": "0",
+                    "returnVar": "dateDoLessonsTmp"
+                }
+            },
+            {
+                "queryValue": {
+                    "queryVar": "qryDoLessonsTmp",
+                    "fieldName": "hours",
+                    "position": "0",
+                    "returnVar": "hoursDoLessonsTmp"
+                }
+            },
+            {
+                "queryValue": {
+                    "queryVar": "qryDoLessonsTmp",
+                    "fieldName": "price_hour_comp",
+                    "position": "0",
+                    "returnVar": "pricHourCompDoLessonsTmp"
+                }
+            },
+            {
+                "queryValue": {
+                    "queryVar": "qryDoLessonsTmp",
+                    "fieldName": "price_hour_user",
+                    "position": "0",
+                    "returnVar": "pricHourUserDoLessonsTmp"
+                }
+            },
+            {
+                "queryValue": {
+                    "queryVar": "qryDoLessonsTmp",
+                    "fieldName": "discount",
+                    "position": "0",
+                    "returnVar": "discDoLessonsTmp"
+                }
+            },
+            {
+                "queryValue": {
+                    "queryVar": "qryDoLessonsTmp",
+                    "fieldName": "fk_discount",
+                    "position": "0",
+                    "returnVar": "idDiscDoLessonsTmp"
+                }
+            },
+            {
+                "queryValue": {
+                    "queryVar": "qryDoLessonsTmp",
+                    "fieldName": "currency",
+                    "position": "0",
+                    "returnVar": "currDoLessonsTmp"
+                }
+            },
+            {
+                "queryValue": {
+                    "queryVar": "qryDoLessonsTmp",
+                    "fieldName": "value_discount",
+                    "position": "0",
+                    "returnVar": "valDiscDoLessonsTmp"
+                }
+            },
+            {
+                "queryValue": {
+                    "queryVar": "qryDoLessonsTmp",
+                    "fieldName": "value_wo_discount",
+                    "position": "0",
+                    "returnVar": "valWoDiscDoLessonsTmp"
+                }
+            },
+            {
+                "queryValue": {
+                    "queryVar": "qryDoLessonsTmp",
+                    "fieldName": "value_total_comp",
+                    "position": "0",
+                    "returnVar": "valTotCompDoLessonsTmp"
+                }
+            },
+            {
+                "queryValue": {
+                    "queryVar": "qryDoLessonsTmp",
+                    "fieldName": "value_total_user",
+                    "position": "0",
+                    "returnVar": "valTotUserDoLessonsTmp"
+                }
+            },
+            {
+                "tableInsert": {
+                    "tableName": "lessons",
+                    "values": [
+                        {
+                            "fk_client": "{{clieDoLessonsTmp}}",
+                            "fk_company": "{{compDoLessonsTmp}}",
+                            "fk_user": "{{userDoLessonsTmp}}",
+                            "fk_schedule": "{{scheDoLessonsTmp}}",
+                            "fk_disc_type": "{{discTypeDoLessonsTmp}}",
+                            "fk_discipline": "{{idDisciDoLessonsTmp}}",
+                            "fk_less_stat": "{{lessStatDoLessonsTmp}}",
+                            "date": "{{dateDoLessonsTmp}}",
+                            "hours": "{{hoursDoLessonsTmp}}",
+                            "price_hour_comp": "{{pricHourCompDoLessonsTmp}}",
+                            "price_hour_user": "{{pricHourUserDoLessonsTmp}}",
+                            "discount": "{{discDoLessonsTmp}}",
+                            "fk_discount": "{{idDiscDoLessonsTmp}}",
+                            "currency": "{{currDoLessonsTmp}}",
+                            "value_discount": "{{valDiscDoLessonsTmp}}",
+                            "value_wo_discount": "{{valWoDiscDoLessonsTmp}}",
+                            "value_total_comp": "{{valTotCompDoLessonsTmp}}",
+                            "value_total_user": "{{valTotUserDoLessonsTmp}}"
+                        }
+                    ]
+                }
+            },
+            {
+                "query": {
+                    "statement": "SELECT fk_mobile FROM lessons ORDER BY _id DESC LIMIT 1",
+                    "returnVar": "qryLesson"
+                }
+            },
+            {
+                "queryValue": {
+                    "queryVar": "qryLesson",
+                    "fieldName": "fk_mobile",
+                    "position": "0",
+                    "returnVar": "vIdLesson"
+                }
+            },
+            {
+                "query": {
+                    "statement": "SELECT * FROM lesson_details_tmp",
+                    "returnVar": "qryDoLessonDetTmp"
+                }
+            },
+            {
+                "for": {
+                    "variable": "i",
+                    "initial": 0,
+                    "final": "{{qtd_sche_det}}",
+                    "increment": "+1",
+                    "block": [
+                        {
+                            "queryValue": {
+                                "queryVar": "qryDoLessonDetTmp",
+                                "fieldName": "fk_sche_det",
+                                "position": "{{i}}",
+                                "returnVar": "scheDetDoLessonDetTmp"
+                            }
+                        },
+                        {
+                            "queryValue": {
+                                "queryVar": "qryDoLessonDetTmp",
+                                "fieldName": "start",
+                                "position": "{{i}}",
+                                "returnVar": "startDoLessonDetTmp"
+                            }
+                        },
+                        {
+                            "queryValue": {
+                                "queryVar": "qryDoLessonDetTmp",
+                                "fieldName": "end",
+                                "position": "{{i}}",
+                                "returnVar": "endDoLessonDetTmp"
+                            }
+                        },
+                        {
+                            "tableInsert": {
+                                "tableName": "lesson_details",
+                                "values": [
+                                    {
+                                        "fk_client": "{{clieDoLessonsTmp}}",
+                                        "fk_lesson": "{{vIdLesson}}",
+                                        "fk_sche_det": "{{scheDetDoLessonDetTmp}}",
+                                        "start": "{{startDoLessonDetTmp}}",
+                                        "end": "{{endDoLessonDetTmp}}"
+                                    }
+                                ]
+                            }
+                        }
+                    ]
+                }
+            },
+            {
+                "alertDialog": {
+                    "title": "Lesson Success",
+                    "message": "The class was scheduled",
+                    "closeButton": {
+                        "title": "Ok",
+                        "onClick": "doCloseSheduleScreens"
+                    }
+                }
+            }
+        ]
+    },
+    {
+        "name": "doCloseSheduleScreens",
+        "params": [],
+        "code": [
+            {
+                "closeScreen": {
+                    "screenName": "vwDisciplineTypes"
+                }
+            },
+            {
+                "closeScreen": {
+                    "screenName": "vwDisciplines"
+                }
+            },
+            {
+                "closeScreen": {
+                    "screenName": "vwScheduleDateRange"
+                }
+            },
+            {
+                "closeScreen": {
+                    "screenName": "vwTeacherSchedules"
+                }
+            },
+            {
+                "closeScreen": {
+                    "screenName": "vwTeacherScheduleDet"
+                }
+            },
+            {
+                "closeScreen": {
+                    "screenName": "vwLessonSummary"
+                }
+            },
+            {
+                "closeScreen": {
+                    "screenName": "vwFavoriteTeachers"
+                }
+            },
+            {
+                "closeScreen": {
+                    "screenName": "vwFavoDiscTypes"
+                }
+            },
+            {
+                "closeScreen": {
+                    "screenName": "vwFavoDiscs"
+                }
+            },
+            {
+                "closeScreen": {
+                    "screenName": "vwFavoScheDateRange"
+                }
+            },
+            {
+                "closeScreen": {
+                    "screenName": "vwFavoTeacDates"
+                }
+            },
+            {
+                "closeScreen": {
+                    "screenName": "vwFavoTeacDateHours"
+                }
+            },
+            {
+                "closeScreen": {
+                    "screenName": "vwFavoLessSummary"
+                }
+            },
+            {
+                "closeScreen": {
+                    "screenName": "vwDiscountQuestion"
+                }
+            },
+            {
+                "closeScreen": {
+                    "screenName": ""
+                }
+            }
+        ]
+    },
+    {
+        "name": "doCloseCurrentScreen",
+        "params": [],
+        "code": [
+            {
+                "closeScreen": {
+                    "screenName": ""
+                }
+            }
+        ]
+    },
+    {
+        "name": "doDeduct",
+        "params": [],
+        "code": [
+            {
+                "query": {
+                    "statement": "SELECT discounts._id as _id, discounts.percent as percent, discounts.condition_start as condition_start, discounts.condition_end as condition_end FROM discounts INNER JOIN companies ON discounts.fk_company = companies._id WHERE discounts.code = '{{vwDiscountCode__txtCode__text}}' AND (discounts.condition_start <= (CAST('{{vTotalCompany}}' as decimal)) AND discounts.condition_end >= (CAST('{{vTotalCompany}}' as decimal)))",
+                    "returnVar": "qryInfoDiscount"
+                }
+            },
+            {
+                "queryNumRows": {
+                    "queryVar": "qryInfoDiscount",
+                    "returnVar": "numInfoDiscount"
+                }
+            },
+            {
+                "if": {
+                    "condition": "{{numInfoDiscount}} > 0",
+                    "block": [
+                        {
+                            "queryValue": {
+                                "queryVar": "qryInfoDiscount",
+                                "fieldName": "percent",
+                                "position": "0",
+                                "returnVar": "vPerc"
+                            }
+                        },
+                        {
+                            "calc": {
+                                "expression": "{{pHourCompany}} * {{qtd_sche_det}} * {{vPerc}}",
+                                "returnType": "float",
+                                "decimals": 2,
+                                "returnVar": "vDisc"
+                            }
+                        },
+                        {
+                            "calc": {
+                                "expression": "({{pHourCompany}} * {{qtd_sche_det}}) - ({{pHourCompany}} * {{qtd_sche_det}} * {{vPerc}})",
+                                "returnType": "float",
+                                "decimals": 2,
+                                "returnVar": "vTotalwDisc"
+                            }
+                        },
+                        {
+                            "queryValue": {
+                                "queryVar": "qryInfoDiscount",
+                                "fieldName": "_id",
+                                "position": "0",
+                                "returnVar": "id_discount"
+                            }
+                        },
+                        {
+                            "tableUpdate": {
+                                "tableName": "lessons_tmp",
+                                "values": [
+                                    {
+                                        "discount": "1",
+                                        "fk_discount": "{{id_discount}}",
+                                        "value_discount": "{{vDisc}}",
+                                        "value_total_comp": "{{vTotalwDisc}}",
+                                        "_id": "{{idLessonsTmp}}"
+                                    }
+                                ]
+                            }
+                        },
+                        {
+                            "setProperty": {
+                                "componentName": "vwDiscountCode__lblValwoDiscount",
+                                "property": "text",
+                                "transform": 1,
+                                "value": "{{vTotalCompany}}"
+                            }
+                        },
+                        {
+                            "setProperty": {
+                                "componentName": "vwDiscountCode__lblValDiscount",
+                                "property": "text",
+                                "transform": 1,
+                                "value": "{{vDisc}}"
+                            }
+                        },
+                        {
+                            "setProperty": {
+                                "componentName": "vwDiscountCode__lblValTotal",
+                                "property": "text",
+                                "transform": 1,
+                                "value": "{{vTotalwDisc}}"
+                            }
+                        }
+                    ],
+                    "else": [
+                        {
+                            "alertDialog": {
+                                "title": "Information",
+                                "message": "Invalid Code Discount",
+                                "closeButton": {
+                                    "title": "Ok",
+                                    "onClick": ""
+                                }
+                            }
+                        }
+                    ]
+                }
+            }
+        ]
+    },
+    {
+        "name": "loadDisciplineTypes",
+        "params": [],
+        "code": [
+            {
+                "query": {
+                    "statement": "SELECT discipline_types._id as _id, UPPER(discipline_types.description) as description FROM discipline_types where status = 1 order by discipline_types.description",
+                    "returnVar": "qryLstDiscTypes"
+                }
+            }
+        ]
+    },
+    {
+        "name": "loadDisciplines",
+        "params": [],
+        "code": [
+            {
+                "query": {
+                    "statement": "SELECT disciplines._id as _id, UPPER(disciplines.description) as description FROM disciplines WHERE disciplines.fk_disc_type = {{vwDisciplineTypes__listDisciplineTypes__selectedValue}} and status = 1 ORDER BY disciplines.description",
+                    "returnVar": "qryLstDiscs"
+                }
+            }
+        ]
+    },
+    {
+        "name": "loadLessonSummary",
+        "params": [],
+        "code": [
+            {
+                "query": {
+                    "statement": "SELECT users.fk_company as fk_company, strftime('%d/%m/%Y',schedules.date) as date, users.name as name, user_disciplines.price_company as price_company, user_disciplines.price_user as price_user, countries.currency as currency FROM user_disciplines INNER JOIN users ON user_disciplines.fk_user = users._id INNER JOIN companies ON users.fk_company = companies._id INNER JOIN countries ON companies.fk_country = countries._id INNER JOIN schedules ON user_disciplines.fk_user = schedules.fk_user WHERE schedules._id = {{vwTeacherSchedules__listTeacherSchedules__selectedValue}} and user_disciplines.fk_discipline = {{vwDisciplines__listDisciplines__selectedValue}}",
+                    "returnVar": "qryInfoPrice"
+                }
+            },
+            {
+                "queryValue": {
+                    "queryVar": "qryInfoPrice",
+                    "fieldName": "fk_company",
+                    "position": "0",
+                    "returnVar": "vCompany"
+                }
+            },
+            {
+                "queryValue": {
+                    "queryVar": "qryInfoPrice",
+                    "fieldName": "name",
+                    "position": "0",
+                    "returnVar": "vTeacher"
+                }
+            },
+            {
+                "queryValue": {
+                    "queryVar": "qryInfoPrice",
+                    "fieldName": "date",
+                    "position": "0",
+                    "returnVar": "vDate"
+                }
+            },
+            {
+                "queryValue": {
+                    "queryVar": "qryInfoPrice",
+                    "fieldName": "price_company",
+                    "position": "0",
+                    "returnVar": "pHourCompany"
+                }
+            },
+            {
+                "queryValue": {
+                    "queryVar": "qryInfoPrice",
+                    "fieldName": "price_user",
+                    "position": "0",
+                    "returnVar": "pHourUser"
+                }
+            },
+            {
+                "queryValue": {
+                    "queryVar": "qryInfoPrice",
+                    "fieldName": "currency",
+                    "position": "0",
+                    "returnVar": "vCurrency"
+                }
+            },
+            {
+                "calc": {
+                    "expression": "{{pHourCompany}} * {{qtd_sche_det}}",
+                    "returnType": "float",
+                    "decimals": 2,
+                    "returnVar": "vTotalCompany"
+                }
+            },
+            {
+                "calc": {
+                    "expression": "{{pHourUser}} * {{qtd_sche_det}}",
+                    "returnType": "float",
+                    "decimals": 2,
+                    "returnVar": "vTotalUser"
+                }
+            },
+            {
+                "tableUpdate": {
+                    "tableName": "lessons_tmp",
+                    "values": [
+                        {
+                            "fk_company": "{{vCompany}}",
+                            "price_hour_comp": "{{pHourCompany}}",
+                            "price_hour_user": "{{pHourUser}}",
+                            "currency": "{{vCurrency}}",
+                            "_id": "{{idLessonsTmp}}"
+                        }
+                    ]
+                }
+            }
+        ]
+    },
+    {
+        "name": "showLessonSummary",
+        "params": [],
+        "code": [
+            {
+                "setProperty": {
+                    "componentName": "vwLessonSummary__lblSDisciplineType",
+                    "property": "text",
+                    "transform": 1,
+                    "value": "{{vwDisciplineTypes__listDisciplineTypes__selectedTitle}}"
+                }
+            },
+            {
+                "setProperty": {
+                    "componentName": "vwLessonSummary__lblSDiscipline",
+                    "property": "text",
+                    "transform": 1,
+                    "value": "{{vwDisciplines__listDisciplines__selectedTitle}}"
+                }
+            },
+            {
+                "setProperty": {
+                    "componentName": "vwLessonSummary__lblSDate",
+                    "property": "text",
+                    "transform": 1,
+                    "value": "{{vDate}}"
+                }
+            },
+            {
+                "setProperty": {
+                    "componentName": "vwLessonSummary__lblSTeacher",
+                    "property": "text",
+                    "transform": 1,
+                    "value": "{{vTeacher}}"
+                }
+            },
+            {
+                "setProperty": {
+                    "componentName": "vwLessonSummary__lblSQtdHours",
+                    "property": "text",
+                    "transform": 1,
+                    "value": "QUANTITY HOURS: {{qtd_sche_det}}"
+                }
+            },
+            {
+                "setProperty": {
+                    "componentName": "vwLessonSummary__lblSPriceHour",
+                    "property": "text",
+                    "transform": 1,
+                    "value": "PRICE FOR HOUR: {{vCurrency}} {{pHourCompany}}"
+                }
+            },
+            {
+                "setProperty": {
+                    "componentName": "vwLessonSummary__lblSTotalValue",
+                    "property": "text",
+                    "transform": 1,
+                    "value": "TOTAL VALUE: {{vCurrency}} {{vTotalCompany}}"
+                }
+            }
+        ]
+    },
+    {
+        "name": "showDiscountCode",
+        "params": [],
+        "code": [
+            {
+                "setProperty": {
+                    "componentName": "vwDiscountCode__lblValwoDiscount",
+                    "property": "text",
+                    "transform": 1,
+                    "value": "{{vTotalCompany}}"
+                }
+            },
+            {
+                "setProperty": {
+                    "componentName": "vwDiscountCode__lblValDiscount",
+                    "property": "text",
+                    "transform": 1,
+                    "value": "0,00"
+                }
+            },
+            {
+                "setProperty": {
+                    "componentName": "vwDiscountCode__lblValTotal",
+                    "property": "text",
+                    "transform": 1,
+                    "value": "{{vTotalCompany}}"
+                }
+            }
+        ]
+    },
+    {
+        "name": "loadLessonStatuses",
+        "params": [],
+        "code": [
+            {
+                "query": {
+                    "statement": "SELECT lesson_statuses._id as _id, UPPER(lesson_statuses.description) as description FROM lesson_statuses WHERE status = 1 order by lesson_statuses.description",
+                    "returnVar": "qryLstLessStat"
+                }
+            }
+        ]
+    },
+    {
+        "name": "openLessons",
+        "params": [],
+        "code": [
+            {
+                "query": {
+                    "statement": "SELECT lessons._id as _id, users._id as idTeacher, (UPPER(users.name) || ' / ' || UPPER(companies.name)) as teacher_company, strftime('%d/%m/%Y', schedules.date) as date FROM lessons INNER JOIN schedules ON lessons.fk_schedule = schedules._id INNER JOIN users ON schedules.fk_user = users._id INNER JOIN companies ON lessons.fk_company = companies._id WHERE lessons.fk_less_stat = {{vwLessonStatuses__listLessonStatuses__selectedValue}} order by lessons._id",
+                    "returnVar": "qryLstLess"
+                }
+            },
+            {
+                "queryNumRows": {
+                    "queryVar": "qryLstLess",
+                    "returnVar": "numLess"
+                }
+            },
+            {
+                "if": {
+                    "condition": "{{numLess}} > 0",
+                    "block": [
+                        {
+                            "queryValue": {
+                                "queryVar": "qryLstLess",
+                                "fieldName": "idTeacher",
+                                "position": "0",
+                                "returnVar": "vIdTeacher"
+                            }
+                        },
+                        {
+                            "openScreen": {
+                                "screenName": "vwLessons",
+                                "variables": []
+                            }
+                        }
+                    ],
+                    "else": [
+                        {
+                            "alertDialog": {
+                                "title": "Information",
+                                "message": "No Search Results",
+                                "closeButton": {
+                                    "title": "Ok",
+                                    "onClick": ""
+                                }
+                            }
+                        }
+                    ]
+                }
+            }
+        ]
+    },
+    {
+        "name": "openLessonDet",
+        "params": [],
+        "code": [
+            {
+                "if": {
+                    "condition": "{{vwLessonStatuses__listLessonStatuses__selectedValue}} == '1'",
+                    "block": [
+                        {
+                            "openScreen": {
+                                "screenName": "vwLessonDetails",
+                                "variables": []
+                            }
+                        }
+                    ],
+                    "else": [
+                        {
+                            "if": {
+                                "condition": "{{vwLessonStatuses__listLessonStatuses__selectedValue}} == '2'",
+                                "block": [
+                                    {
+                                        "openScreen": {
+                                            "screenName": "vwLessonDetailsAppr",
+                                            "variables": []
+                                        }
+                                    }
+                                ],
+                                "else": [
+                                    {
+                                        "if": {
+                                            "condition": "{{vwLessonStatuses__listLessonStatuses__selectedValue}} == '5'",
+                                            "block": [
+                                                {
+                                                    "openScreen": {
+                                                        "screenName": "vwLessonDetailsNotDone",
+                                                        "variables": []
+                                                    }
+                                                }
+                                            ],
+                                            "else": [
+                                                {
+                                                    "if": {
+                                                        "condition": "{{vwLessonStatuses__listLessonStatuses__selectedValue}} == '3'",
+                                                        "block": [
+                                                            {
+                                                                "openScreen": {
+                                                                    "screenName": "vwLessonDetailsReject",
+                                                                    "variables": []
+                                                                }
+                                                            }
+                                                        ],
+                                                        "else": [
+                                                            {
+                                                                "openScreen": {
+                                                                    "screenName": "vwLessonDetailsDone",
+                                                                    "variables": []
+                                                                }
+                                                            }
+                                                        ]
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                ]
+                            }
+                        }
+                    ]
+                }
+            }
+        ]
+    },
+    {
+        "name": "loadLessonDetails",
+        "params": [],
+        "code": [
+            {
+                "query": {
+                    "statement": "SELECT discipline_types.description as disc_type, disciplines.description as discipline, strftime('%d/%m/%Y',lessons.date) as date, users.name as teacher, lessons.hours as hours, lessons.currency as currency, lessons.price_hour_comp as price_hour_comp, lessons.value_discount as value_discount, lessons.value_wo_discount as value_wo_discount, lessons.value_total_comp as value_total_comp, lessons.observations as observations, IFNULL(lesson_ratings.description,'rating') as rating, IFNULL(lesson_reasons.description,'reason') as reason, IFNULL(lesson_evaluations.observations,'obs') as obs FROM lessons INNER JOIN discipline_types ON lessons.fk_disc_type = discipline_types._id INNER JOIN disciplines ON lessons.fk_discipline = disciplines._id INNER JOIN users ON schedules.fk_user = users._id LEFT JOIN lesson_evaluations ON lessons._id = lesson_evaluations.fk_lesson LEFT JOIN lesson_ratings ON lesson_evaluations.fk_rating = lesson_ratings._id LEFT JOIN lesson_reasons ON lesson_evaluations.fk_reason = lesson_reasons._id WHERE lessons._id = {{vwLessons__listLessons__selectedValue}}",
+                    "returnVar": "qryInfoLesson"
+                }
+            },
+            {
+                "query": {
+                    "statement": "SELECT lesson_details._id as _id, (lesson_details.start || ' - ' || lesson_details.end) as hours FROM lesson_details WHERE lesson_details.fk_lesson = {{vwLessons__listLessons__selectedValue}}",
+                    "returnVar": "qryInfoLessonDet"
+                }
+            },
+            {
+                "queryValue": {
+                    "queryVar": "qryInfoLesson",
+                    "fieldName": "disc_type",
+                    "position": "0",
+                    "returnVar": "vDiscType"
+                }
+            },
+            {
+                "queryValue": {
+                    "queryVar": "qryInfoLesson",
+                    "fieldName": "discipline",
+                    "position": "0",
+                    "returnVar": "vDiscipline"
+                }
+            },
+            {
+                "queryValue": {
+                    "queryVar": "qryInfoLesson",
+                    "fieldName": "date",
+                    "position": "0",
+                    "returnVar": "vDate"
+                }
+            },
+            {
+                "queryValue": {
+                    "queryVar": "qryInfoLesson",
+                    "fieldName": "teacher",
+                    "position": "0",
+                    "returnVar": "vTeacher"
+                }
+            },
+            {
+                "queryValue": {
+                    "queryVar": "qryInfoLesson",
+                    "fieldName": "hours",
+                    "position": "0",
+                    "returnVar": "vHours"
+                }
+            },
+            {
+                "queryValue": {
+                    "queryVar": "qryInfoLesson",
+                    "fieldName": "currency",
+                    "position": "0",
+                    "returnVar": "vCurrency"
+                }
+            },
+            {
+                "queryValue": {
+                    "queryVar": "qryInfoLesson",
+                    "fieldName": "price_hour_comp",
+                    "position": "0",
+                    "returnVar": "vPriceHour"
+                }
+            },
+            {
+                "queryValue": {
+                    "queryVar": "qryInfoLesson",
+                    "fieldName": "value_discount",
+                    "position": "0",
+                    "returnVar": "vValDiscount"
+                }
+            },
+            {
+                "queryValue": {
+                    "queryVar": "qryInfoLesson",
+                    "fieldName": "value_wo_discount",
+                    "position": "0",
+                    "returnVar": "vValwoDiscount"
+                }
+            },
+            {
+                "queryValue": {
+                    "queryVar": "qryInfoLesson",
+                    "fieldName": "value_total_comp",
+                    "position": "0",
+                    "returnVar": "vValTotal"
+                }
+            },
+            {
+                "queryValue": {
+                    "queryVar": "qryInfoLesson",
+                    "fieldName": "observations",
+                    "position": "0",
+                    "returnVar": "vObsHeader"
+                }
+            },
+            {
+                "queryValue": {
+                    "queryVar": "qryInfoLesson",
+                    "fieldName": "rating",
+                    "position": "0",
+                    "returnVar": "vRatiDesc"
+                }
+            },
+            {
+                "queryValue": {
+                    "queryVar": "qryInfoLesson",
+                    "fieldName": "reason",
+                    "position": "0",
+                    "returnVar": "vReasDesc"
+                }
+            },
+            {
+                "queryValue": {
+                    "queryVar": "qryInfoLesson",
+                    "fieldName": "obs",
+                    "position": "0",
+                    "returnVar": "vObs"
+                }
+            }
+        ]
+    },
+    {
+        "name": "showLessonDetails",
+        "params": [],
+        "code": [
+            {
+                "setProperty": {
+                    "componentName": "vwLessonDetails__lblDDisciplineType",
+                    "property": "text",
+                    "transform": 1,
+                    "value": "{{vDiscType}}"
+                }
+            },
+            {
+                "setProperty": {
+                    "componentName": "vwLessonDetails__lblDDiscipline",
+                    "property": "text",
+                    "transform": 1,
+                    "value": "{{vDiscipline}}"
+                }
+            },
+            {
+                "setProperty": {
+                    "componentName": "vwLessonDetails__lblDDate",
+                    "property": "text",
+                    "transform": 1,
+                    "value": "{{vDate}}"
+                }
+            },
+            {
+                "setProperty": {
+                    "componentName": "vwLessonDetails__lblDTeacher",
+                    "property": "text",
+                    "transform": 1,
+                    "value": "{{vTeacher}}"
+                }
+            },
+            {
+                "setProperty": {
+                    "componentName": "vwLessonDetails__lblDQtdHours",
+                    "property": "text",
+                    "transform": 1,
+                    "value": "QUANTITY HOURS: {{vHours}}"
+                }
+            },
+            {
+                "setProperty": {
+                    "componentName": "vwLessonDetails__lblDPriceHour",
+                    "property": "text",
+                    "transform": 1,
+                    "value": "PRICE FOR HOUR: {{vCurrency}} {{vPriceHour}}"
+                }
+            },
+            {
+                "setProperty": {
+                    "componentName": "vwLessonDetails__lblDDiscountValue",
+                    "property": "text",
+                    "transform": 1,
+                    "value": "DISCOUNT VALUE: {{vCurrency}} {{vValDiscount}}"
+                }
+            },
+            {
+                "setProperty": {
+                    "componentName": "vwLessonDetails__lblDValuewoDiscount",
+                    "property": "text",
+                    "transform": 1,
+                    "value": "VALUE WITHOUT DISCOUNT: {{vCurrency}} {{vValwoDiscount}}"
+                }
+            },
+            {
+                "setProperty": {
+                    "componentName": "vwLessonDetails__lblDTotalValue",
+                    "property": "text",
+                    "transform": 1,
+                    "value": "TOTAL VALUE: {{vCurrency}} {{vValTotal}}"
+                }
+            }
+        ]
+    },
+    {
+        "name": "showLessonDetailsAppr",
+        "params": [],
+        "code": [
+            {
+                "setProperty": {
+                    "componentName": "vwLessonDetailsAppr__lblDDisciplineType",
+                    "property": "text",
+                    "transform": 1,
+                    "value": "{{vDiscType}}"
+                }
+            },
+            {
+                "setProperty": {
+                    "componentName": "vwLessonDetailsAppr__lblDDiscipline",
+                    "property": "text",
+                    "transform": 1,
+                    "value": "{{vDiscipline}}"
+                }
+            },
+            {
+                "setProperty": {
+                    "componentName": "vwLessonDetailsAppr__lblDDate",
+                    "property": "text",
+                    "transform": 1,
+                    "value": "{{vDate}}"
+                }
+            },
+            {
+                "setProperty": {
+                    "componentName": "vwLessonDetailsAppr__lblDTeacher",
+                    "property": "text",
+                    "transform": 1,
+                    "value": "{{vTeacher}}"
+                }
+            },
+            {
+                "setProperty": {
+                    "componentName": "vwLessonDetailsAppr__lblDQtdHours",
+                    "property": "text",
+                    "transform": 1,
+                    "value": "QUANTITY HOURS: {{vHours}}"
+                }
+            },
+            {
+                "setProperty": {
+                    "componentName": "vwLessonDetailsAppr__lblDPriceHour",
+                    "property": "text",
+                    "transform": 1,
+                    "value": "PRICE FOR HOUR: {{vCurrency}} {{vPriceHour}}"
+                }
+            },
+            {
+                "setProperty": {
+                    "componentName": "vwLessonDetailsAppr__lblDDiscountValue",
+                    "property": "text",
+                    "transform": 1,
+                    "value": "DISCOUNT VALUE: {{vCurrency}} {{vValDiscount}}"
+                }
+            },
+            {
+                "setProperty": {
+                    "componentName": "vwLessonDetailsAppr__lblDValuewoDiscount",
+                    "property": "text",
+                    "transform": 1,
+                    "value": "VALUE WITHOUT DISCOUNT: {{vCurrency}} {{vValwoDiscount}}"
+                }
+            },
+            {
+                "setProperty": {
+                    "componentName": "vwLessonDetailsAppr__lblDTotalValue",
+                    "property": "text",
+                    "transform": 1,
+                    "value": "TOTAL VALUE: {{vCurrency}} {{vValTotal}}"
+                }
+            }
+        ]
+    },
+    {
+        "name": "showLessonDetailsReject",
+        "params": [],
+        "code": [
+            {
+                "setProperty": {
+                    "componentName": "vwLessonDetailsReject__lblDDisciplineType",
+                    "property": "text",
+                    "transform": 1,
+                    "value": "{{vDiscType}}"
+                }
+            },
+            {
+                "setProperty": {
+                    "componentName": "vwLessonDetailsReject__lblDDiscipline",
+                    "property": "text",
+                    "transform": 1,
+                    "value": "{{vDiscipline}}"
+                }
+            },
+            {
+                "setProperty": {
+                    "componentName": "vwLessonDetailsReject__lblDDate",
+                    "property": "text",
+                    "transform": 1,
+                    "value": "{{vDate}}"
+                }
+            },
+            {
+                "setProperty": {
+                    "componentName": "vwLessonDetailsReject__lblDTeacher",
+                    "property": "text",
+                    "transform": 1,
+                    "value": "{{vTeacher}}"
+                }
+            },
+            {
+                "setProperty": {
+                    "componentName": "vwLessonDetailsReject__lblDQtdHours",
+                    "property": "text",
+                    "transform": 1,
+                    "value": "QUANTITY HOURS: {{vHours}}"
+                }
+            },
+            {
+                "setProperty": {
+                    "componentName": "vwLessonDetailsReject__lblDPriceHour",
+                    "property": "text",
+                    "transform": 1,
+                    "value": "PRICE FOR HOUR: {{vCurrency}} {{vPriceHour}}"
+                }
+            },
+            {
+                "setProperty": {
+                    "componentName": "vwLessonDetailsReject__lblDDiscountValue",
+                    "property": "text",
+                    "transform": 1,
+                    "value": "DISCOUNT VALUE: {{vCurrency}} {{vValDiscount}}"
+                }
+            },
+            {
+                "setProperty": {
+                    "componentName": "vwLessonDetailsReject__lblDValuewoDiscount",
+                    "property": "text",
+                    "transform": 1,
+                    "value": "VALUE WITHOUT DISCOUNT: {{vCurrency}} {{vValwoDiscount}}"
+                }
+            },
+            {
+                "setProperty": {
+                    "componentName": "vwLessonDetailsReject__lblDTotalValue",
+                    "property": "text",
+                    "transform": 1,
+                    "value": "TOTAL VALUE: {{vCurrency}} {{vValTotal}}"
+                }
+            },
+            {
+                "setProperty": {
+                    "componentName": "vwLessonDetailsReject__lblDObs",
+                    "property": "text",
+                    "transform": 1,
+                    "value": "{{vObsHeader}}"
+                }
+            }
+        ]
+    },
+    {
+        "name": "showLessonDetailsDone",
+        "params": [],
+        "code": [
+            {
+                "setProperty": {
+                    "componentName": "vwLessonDetailsDone__lblDDisciplineType",
+                    "property": "text",
+                    "transform": 1,
+                    "value": "{{vDiscType}}"
+                }
+            },
+            {
+                "setProperty": {
+                    "componentName": "vwLessonDetailsDone__lblDDiscipline",
+                    "property": "text",
+                    "transform": 1,
+                    "value": "{{vDiscipline}}"
+                }
+            },
+            {
+                "setProperty": {
+                    "componentName": "vwLessonDetailsDone__lblDDate",
+                    "property": "text",
+                    "transform": 1,
+                    "value": "{{vDate}}"
+                }
+            },
+            {
+                "setProperty": {
+                    "componentName": "vwLessonDetailsDone__lblDTeacher",
+                    "property": "text",
+                    "transform": 1,
+                    "value": "{{vTeacher}}"
+                }
+            },
+            {
+                "setProperty": {
+                    "componentName": "vwLessonDetailsDone__lblDQtdHours",
+                    "property": "text",
+                    "transform": 1,
+                    "value": "QUANTITY HOURS: {{vHours}}"
+                }
+            },
+            {
+                "setProperty": {
+                    "componentName": "vwLessonDetailsDone__lblDPriceHour",
+                    "property": "text",
+                    "transform": 1,
+                    "value": "PRICE FOR HOUR: {{vCurrency}} {{vPriceHour}}"
+                }
+            },
+            {
+                "setProperty": {
+                    "componentName": "vwLessonDetailsDone__lblDDiscountValue",
+                    "property": "text",
+                    "transform": 1,
+                    "value": "DISCOUNT VALUE: {{vCurrency}} {{vValDiscount}}"
+                }
+            },
+            {
+                "setProperty": {
+                    "componentName": "vwLessonDetailsDone__lblDValuewoDiscount",
+                    "property": "text",
+                    "transform": 1,
+                    "value": "VALUE WITHOUT DISCOUNT: {{vCurrency}} {{vValwoDiscount}}"
+                }
+            },
+            {
+                "setProperty": {
+                    "componentName": "vwLessonDetailsDone__lblDTotalValue",
+                    "property": "text",
+                    "transform": 1,
+                    "value": "TOTAL VALUE: {{vCurrency}} {{vValTotal}}"
+                }
+            },
+            {
+                "setProperty": {
+                    "componentName": "vwLessonDetailsDone__lblDRating",
+                    "property": "text",
+                    "transform": 1,
+                    "value": "{{vRatiDesc}}"
+                }
+            },
+            {
+                "setProperty": {
+                    "componentName": "vwLessonDetailsDone__lblDObs",
+                    "property": "text",
+                    "transform": 1,
+                    "value": "{{vObs}}"
+                }
+            }
+        ]
+    },
+    {
+        "name": "showLessonDetailsNotDone",
+        "params": [],
+        "code": [
+            {
+                "setProperty": {
+                    "componentName": "vwLessonDetailsNotDone__lblDDisciplineType",
+                    "property": "text",
+                    "transform": 1,
+                    "value": "{{vDiscType}}"
+                }
+            },
+            {
+                "setProperty": {
+                    "componentName": "vwLessonDetailsNotDone__lblDDiscipline",
+                    "property": "text",
+                    "transform": 1,
+                    "value": "{{vDiscipline}}"
+                }
+            },
+            {
+                "setProperty": {
+                    "componentName": "vwLessonDetailsNotDone__lblDDate",
+                    "property": "text",
+                    "transform": 1,
+                    "value": "{{vDate}}"
+                }
+            },
+            {
+                "setProperty": {
+                    "componentName": "vwLessonDetailsNotDone__lblDTeacher",
+                    "property": "text",
+                    "transform": 1,
+                    "value": "{{vTeacher}}"
+                }
+            },
+            {
+                "setProperty": {
+                    "componentName": "vwLessonDetailsNotDone__lblDQtdHours",
+                    "property": "text",
+                    "transform": 1,
+                    "value": "QUANTITY HOURS: {{vHours}}"
+                }
+            },
+            {
+                "setProperty": {
+                    "componentName": "vwLessonDetailsNotDone__lblDPriceHour",
+                    "property": "text",
+                    "transform": 1,
+                    "value": "PRICE FOR HOUR: {{vCurrency}} {{vPriceHour}}"
+                }
+            },
+            {
+                "setProperty": {
+                    "componentName": "vwLessonDetailsNotDone__lblDDiscountValue",
+                    "property": "text",
+                    "transform": 1,
+                    "value": "DISCOUNT VALUE: {{vCurrency}} {{vValDiscount}}"
+                }
+            },
+            {
+                "setProperty": {
+                    "componentName": "vwLessonDetailsNotDone__lblDValuewoDiscount",
+                    "property": "text",
+                    "transform": 1,
+                    "value": "VALUE WITHOUT DISCOUNT: {{vCurrency}} {{vValwoDiscount}}"
+                }
+            },
+            {
+                "setProperty": {
+                    "componentName": "vwLessonDetailsNotDone__lblDTotalValue",
+                    "property": "text",
+                    "transform": 1,
+                    "value": "TOTAL VALUE: {{vCurrency}} {{vValTotal}}"
+                }
+            },
+            {
+                "setProperty": {
+                    "componentName": "vwLessonDetailsNotDone__lblDReason",
+                    "property": "text",
+                    "transform": 1,
+                    "value": "{{vReasDesc}}"
+                }
+            },
+            {
+                "setProperty": {
+                    "componentName": "vwLessonDetailsNotDone__lblDObs",
+                    "property": "text",
+                    "transform": 1,
+                    "value": "{{vObs}}"
+                }
+            }
+        ]
+    },
+    {
+        "name": "doEvaluation",
+        "params": [],
+        "code": [
+            {
+                "alertDialog": {
+                    "title": "Evaluation",
+                    "message": "The lesson was done?",
+                    "closeButton": {
+                        "title": "Yes",
+                        "onClick": "openLessRatings"
+                    },
+                    "secondButton": {
+                        "title": "No",
+                        "onClick": "openLessReasons"
+                    }
+                }
+            }
+        ]
+    },
+    {
+        "name": "openLessRatings",
+        "params": [],
+        "code": [
+            {
+                "query": {
+                    "statement": "SELECT lesson_ratings._id as _id, lesson_ratings.description as description FROM lesson_ratings WHERE status = 1 ORDER BY lesson_ratings._id",
+                    "returnVar": "qryLstLessRati"
+                }
+            },
+            {
+                "openScreen": {
+                    "screenName": "vwLessonRatings",
+                    "variables": []
+                }
+            }
+        ]
+    },
+    {
+        "name": "openLessReasons",
+        "params": [],
+        "code": [
+            {
+                "query": {
+                    "statement": "SELECT lesson_reasons._id as _id, lesson_reasons.description as description FROM lesson_reasons WHERE status = 1 ORDER BY lesson_reasons._id",
+                    "returnVar": "qryLstLessReas"
+                }
+            },
+            {
+                "openScreen": {
+                    "screenName": "vwLessonReasons",
+                    "variables": []
+                }
+            }
+        ]
+    },
+    {
+        "name": "doEvalRatings",
+        "params": [],
+        "code": [
+            {
+                "listObjectValue": {
+                    "object": "{{vwLessonRatings__listLessonRatings__selectedValues}}",
+                    "index": 0,
+                    "field": "value",
+                    "returnVar": "vRating"
+                }
+            },
+            {
+                "tableUpdate": {
+                    "tableName": "lessons",
+                    "values": [
+                        {
+                            "fk_less_stat": "4",
+                            "fk_mobile": "{{vwLessons__listLessons__selectedValue}}"
+                        }
+                    ]
+                }
+            },
+            {
+                "tableInsert": {
+                    "tableName": "lesson_evaluations",
+                    "values": [
+                        {
+                            "fk_lesson": "{{vwLessons__listLessons__selectedValue}}",
+                            "fk_client": "{{__user_id}}",
+                            "fk_user": "{{vIdTeacher}}",
+                            "fk_rating": "{{vRating}}",
+                            "fk_reason": "0",
+                            "observations": "{{vwLessonRatings__txtObsLessRati__text}}"
+                        }
+                    ]
+                }
+            },
+            {
+                "alertDialog": {
+                    "title": "Evaluation Success",
+                    "message": "The evaluation was done",
+                    "closeButton": {
+                        "title": "Ok",
+                        "onClick": "doCloseEvaluationScreens"
+                    }
+                }
+            }
+        ]
+    },
+    {
+        "name": "doEvalReasons",
+        "params": [],
+        "code": [
+            {
+                "listObjectValue": {
+                    "object": "{{vwLessonReasons__listLessonReasons__selectedValues}}",
+                    "index": 0,
+                    "field": "value",
+                    "returnVar": "vReason"
+                }
+            },
+            {
+                "tableUpdate": {
+                    "tableName": "lessons",
+                    "values": [
+                        {
+                            "fk_less_stat": "5",
+                            "fk_mobile": "{{vwLessons__listLessons__selectedValue}}"
+                        }
+                    ]
+                }
+            },
+            {
+                "tableInsert": {
+                    "tableName": "lesson_evaluations",
+                    "values": [
+                        {
+                            "fk_lesson": "{{vwLessons__listLessons__selectedValue}}",
+                            "fk_client": "{{__user_id}}",
+                            "fk_user": "{{vIdTeacher}}",
+                            "fk_rating": "0",
+                            "fk_reason": "{{vReason}}",
+                            "observations": "{{vwLessonReasons__txtObsLessReas__text}}"
+                        }
+                    ]
+                }
+            },
+            {
+                "alertDialog": {
+                    "title": "Evaluation Success",
+                    "message": "The evaluation was done",
+                    "closeButton": {
+                        "title": "Ok",
+                        "onClick": "doCloseEvaluationScreens"
+                    }
+                }
+            }
+        ]
+    },
+    {
+        "name": "doCloseEvaluationScreens",
+        "params": [],
+        "code": [
+            {
+                "closeScreen": {
+                    "screenName": "vwLessonDetailsAppr"
+                }
+            },
+            {
+                "closeScreen": {
+                    "screenName": "vwLessons"
+                }
+            },
+            {
+                "closeScreen": {
+                    "screenName": "vwLessonStatuses"
+                }
+            },
+            {
+                "closeScreen": {
+                    "screenName": ""
+                }
+            }
+        ]
+    },
+    {
+        "name": "doAddFavorites",
+        "params": [],
+        "code": [
+            {
+                "query": {
+                    "statement": "SELECT _id FROM client_favorites WHERE client_favorites.fk_client = {{__user_id}} AND client_favorites.fk_user = {{vIdTeacher}} AND status = 1",
+                    "returnVar": "qryInfoFavorites"
+                }
+            },
+            {
+                "queryNumRows": {
+                    "queryVar": "qryInfoFavorites",
+                    "returnVar": "numInfoFavorites"
+                }
+            },
+            {
+                "if": {
+                    "condition": "{{numInfoFavorites}} > 0",
+                    "block": [
+                        {
+                            "alertDialog": {
+                                "title": "Favorites Success",
+                                "message": "The teacher is already in favorites",
+                                "closeButton": {
+                                    "title": "Ok",
+                                    "onClick": "doCloseFavoriteScreens"
+                                }
+                            }
+                        }
+                    ],
+                    "else": [
+                        {
+                            "tableInsert": {
+                                "tableName": "client_favorites",
+                                "values": [
+                                    {
+                                        "fk_client": "{{__user_id}}",
+                                        "fk_user": "{{vIdTeacher}}",
+                                        "status": "1"
+                                    }
+                                ]
+                            }
+                        },
+                        {
+                            "alertDialog": {
+                                "title": "Favorites Success",
+                                "message": "The teacher was added to favorites",
+                                "closeButton": {
+                                    "title": "Ok",
+                                    "onClick": "doCloseFavoriteScreens"
+                                }
+                            }
+                        }
+                    ]
+                }
+            }
+        ]
+    },
+    {
+        "name": "doCloseFavoriteScreens",
+        "params": [],
+        "code": [
+            {
+                "closeScreen": {
+                    "screenName": "vwLessonDetailsDone"
+                }
+            },
+            {
+                "closeScreen": {
+                    "screenName": "vwLessons"
+                }
+            },
+            {
+                "closeScreen": {
+                    "screenName": "vwLessonStatuses"
+                }
+            },
+            {
+                "closeScreen": {
+                    "screenName": ""
+                }
+            }
+        ]
+    },
+    {
+        "name": "loadFavoriteTeachers",
+        "params": [],
+        "code": [
+            {
+                "query": {
+                    "statement": "SELECT users._id as _id, UPPER(users.name) as teacher, UPPER(companies.name) as company FROM users INNER JOIN client_favorites ON users._id = client_favorites.fk_user INNER JOIN companies ON users.fk_company = companies._id order by users.name",
+                    "returnVar": "qryLstFavoTeac"
+                }
+            },
+            {
+                "queryNumRows": {
+                    "queryVar": "qryLstFavoTeac",
+                    "returnVar": "numFavoTeac"
+                }
+            },
+            {
+                "if": {
+                    "condition": "{{numFavoTeac}} <= 0",
+                    "block": [
+                        {
+                            "alertDialog": {
+                                "title": "Information",
+                                "message": "Still do not have Favorite Teachers",
+                                "closeButton": {
+                                    "title": "Ok",
+                                    "onClick": ""
+                                }
+                            }
+                        },
+                        {
+                            "closeScreen": {
+                                "screenName": "vwFavoriteTeachers"
+                            }
+                        }
+                    ]
+                }
+            }
+        ]
+    },
+    {
+        "name": "openFavoDiscTypes",
+        "params": [],
+        "code": [
+            {
+                "tableDelete": {
+                    "tableName": "lessons_tmp"
+                }
+            },
+            {
+                "tableDelete": {
+                    "tableName": "lesson_details_tmp"
+                }
+            },
+            {
+                "tableDelete": {
+                    "tableName": "schedules"
+                }
+            },
+            {
+                "tableDelete": {
+                    "tableName": "schedule_details"
+                }
+            },
+            {
+                "tableInsert": {
+                    "tableName": "lessons_tmp",
+                    "values": [
+                        {
+                            "fk_client": "{{__user_id}}",
+                            "fk_user": "{{vwFavoriteTeachers__listFavoriteTeachers__selectedValue}}",
+                            "fk_less_stat": "1",
+                            "discount": "0",
+                            "fk_discount": "0",
+                            "value_discount": "0"
+                        }
+                    ]
+                }
+            },
+            {
+                "query": {
+                    "statement": "select _id from lessons_tmp",
+                    "returnVar": "qryLessonsTmp"
+                }
+            },
+            {
+                "queryValue": {
+                    "queryVar": "qryLessonsTmp",
+                    "fieldName": "_id",
+                    "position": 0,
+                    "returnVar": "idLessonsTmp"
+                }
+            },
+            {
+                "openScreen": {
+                    "screenName": "vwFavoDiscTypes",
+                    "variables": []
+                }
+            }
+        ]
+    },
+    {
+        "name": "loadFavoDiscTypes",
+        "params": [],
+        "code": [
+            {
+                "query": {
+                    "statement": "SELECT DISTINCT discipline_types._id as _id, UPPER(discipline_types.description) as disc_type FROM users INNER JOIN user_disciplines ON users._id = user_disciplines.fk_user INNER JOIN disciplines ON user_disciplines.fk_discipline = disciplines._id INNER JOIN discipline_types ON disciplines.fk_disc_type = discipline_types._id WHERE users._id = {{vwFavoriteTeachers__listFavoriteTeachers__selectedValue}} and discipline_types.status = 1 order by discipline_types.description",
+                    "returnVar": "qryLstFavoDiscTypes"
+                }
+            }
+        ]
+    },
+    {
+        "name": "openFavoDiscs",
+        "params": [],
+        "code": [
+            {
+                "tableUpdate": {
+                    "tableName": "lessons_tmp",
+                    "values": [
+                        {
+                            "fk_disc_type": "{{vwFavoDiscTypes__listFavoDiscTypes__selectedValue}}",
+                            "_id": "{{idLessonsTmp}}"
+                        }
+                    ]
+                }
+            },
+            {
+                "openScreen": {
+                    "screenName": "vwFavoDiscs",
+                    "variables": []
+                }
+            }
+        ]
+    },
+    {
+        "name": "loadFavoDiscs",
+        "params": [],
+        "code": [
+            {
+                "query": {
+                    "statement": "SELECT disciplines._id as _id, UPPER(disciplines.description) as disc FROM disciplines WHERE disciplines.fk_disc_type = {{vwFavoDiscTypes__listFavoDiscTypes__selectedValue}} and disciplines.status = 1 order by disciplines.description",
+                    "returnVar": "qryLstFavoDiscs"
+                }
+            }
+        ]
+    },
+    {
+        "name": "openFavoScheDateRange",
+        "params": [],
+        "code": [
+            {
+                "tableUpdate": {
+                    "tableName": "lessons_tmp",
+                    "values": [
+                        {
+                            "fk_discipline": "{{vwFavoDiscs__listFavoDiscs__selectedValue}}",
+                            "_id": "{{idLessonsTmp}}"
+                        }
+                    ]
+                }
+            },
+            {
+                "openScreen": {
+                    "screenName": "vwFavoScheDateRange",
+                    "variables": []
+                }
+            }
+        ]
+    },
+    {
+        "name": "doSearchTeacherDates",
+        "params": [],
+        "code": [
+            {
+                "setVariable": {
+                    "name": "dtFrom",
+                    "type": "int",
+                    "value": "{{vwFavoScheDateRange__dateFavoFrom__year}}{{vwFavoScheDateRange__dateFavoFrom__month}}{{vwFavoScheDateRange__dateFavoFrom__day}}"
+                }
+            },
+            {
+                "setVariable": {
+                    "name": "dtTo",
+                    "type": "int",
+                    "value": "{{vwFavoScheDateRange__dateFavoTo__year}}{{vwFavoScheDateRange__dateFavoTo__month}}{{vwFavoScheDateRange__dateFavoTo__day}}"
+                }
+            },
+            {
+                "if": {
+                    "condition": "{{dtFrom}} < 0",
+                    "block": [
+                        {
+                            "alertDialog": {
+                                "title": "Information",
+                                "message": "Select the Start Date.",
+                                "closeButton": {
+                                    "title": "Ok",
+                                    "onClick": ""
+                                }
+                            }
+                        }
+                    ],
+                    "else": [
+                        {
+                            "if": {
+                                "condition": "{{dtTo}} <  {{dtFrom}}",
+                                "block": [
+                                    {
+                                        "alertDialog": {
+                                            "title": "Information",
+                                            "message": "The From Date cannot be less than the Start Date",
+                                            "closeButton": {
+                                                "title": "Ok",
+                                                "onClick": ""
+                                            }
+                                        }
+                                    }
+                                ],
+                                "else": [
+                                    {
+                                        "getData": {
+                                            "tableName": "schedules",
+                                            "requestType": "s",
+                                            "requestParams": "fk_user = {{vwFavoriteTeachers__listFavoriteTeachers__selectedValue}} AND (CAST(DATE_FORMAT(date, '%Y%m%d') as UNSIGNED) BETWEEN {{dtFrom}} and {{dtTo}})",
+                                            "clearAll": true,
+                                            "userExclusive": false,
+                                            "loadingMessage": "Searching schedules...",
+                                            "displayTimeOutDialog": true,
+                                            "timeOutDialogButton": "Try again",
+                                            "timeOutMessage": "Connection Timeout expired.",
+                                            "onTimeOut": "pendingDownloads",
+                                            "blockSuccess": [
+                                                {
+                                                    "getData": {
+                                                        "tableName": "schedule_details",
+                                                        "requestType": "s",
+                                                        "requestParams": "fk_schedule in (select _id from schedules where fk_user = {{vwFavoriteTeachers__listFavoriteTeachers__selectedValue}} AND (CAST(DATE_FORMAT(date, '%Y%m%d') as UNSIGNED) BETWEEN {{dtFrom}} and {{dtTo}}))",
+                                                        "clearAll": true,
+                                                        "userExclusive": false,
+                                                        "loadingMessage": "Searching schedules...",
+                                                        "displayTimeOutDialog": true,
+                                                        "timeOutDialogButton": "Try again",
+                                                        "timeOutMessage": "Connection Timeout expired.",
+                                                        "onTimeOut": "pendingDownloads",
+                                                        "blockSuccess": [
+                                                            {
+                                                                "query": {
+                                                                    "statement": "SELECT schedules._id as _id, strftime('%d/%m/%Y', date) as date, (countries.currency || ' ' || CAST(user_disciplines.price_company as text)) as price FROM schedules INNER JOIN user_disciplines ON schedules.fk_user = user_disciplines.fk_user INNER JOIN users ON user_disciplines.fk_user = users._id INNER JOIN companies ON users.fk_company = companies._id INNER JOIN clients ON clients.fk_country = companies.fk_country INNER JOIN countries ON companies.fk_country = countries._id WHERE user_disciplines.fk_discipline = {{vwFavoDiscs__listFavoDiscs__selectedValue}} and users.status = 1 companies.status = 1 and clients.status = 1 and countries.status = 1",
+                                                                    "returnVar": "qryLstFavoTeacDates"
+                                                                }
+                                                            },
+                                                            {
+                                                                "queryNumRows": {
+                                                                    "queryVar": "qryLstFavoTeacDates",
+                                                                    "returnVar": "numFavoTeacDates"
+                                                                }
+                                                            },
+                                                            {
+                                                                "if": {
+                                                                    "condition": "{{numFavoTeacDates}} > 0",
+                                                                    "block": [
+                                                                        {
+                                                                            "openScreen": {
+                                                                                "screenName": "vwFavoTeacDates",
+                                                                                "variables": []
+                                                                            }
+                                                                        }
+                                                                    ],
+                                                                    "else": [
+                                                                        {
+                                                                            "alertDialog": {
+                                                                                "title": "Information",
+                                                                                "message": "No Search Results",
+                                                                                "closeButton": {
+                                                                                    "title": "Ok",
+                                                                                    "onClick": ""
+                                                                                }
+                                                                            }
+                                                                        }
+                                                                    ]
+                                                                }
+                                                            }
+                                                        ]
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                ]
+                            }
+                        }
+                    ]
+                }
+            }
+        ]
+    },
+    {
+        "name": "openFavoTeacDateHours",
+        "params": [],
+        "code": [
+            {
+                "tableUpdate": {
+                    "tableName": "lessons_tmp",
+                    "values": [
+                        {
+                            "fk_schedule": "{{vwFavoTeacDates__listFavoTeacDates__selectedValue}}",
+                            "_id": "{{idLessonsTmp}}"
+                        }
+                    ]
+                }
+            },
+            {
+                "query": {
+                    "statement": "SELECT schedule_details._id as _id, (schedule_details.start || ' - ' || schedule_details.end) as hours FROM schedule_details WHERE schedule_details.fk_schedule = {{vwFavoTeacDates__listFavoTeacDates__selectedValue}}",
+                    "returnVar": "qryLstFavoTeacDateHours"
+                }
+            },
+            {
+                "openScreen": {
+                    "screenName": "vwFavoTeacDateHours",
+                    "variables": []
+                }
+            }
+        ]
+    },
+    {
+        "name": "doFavoLessSummary",
+        "params": [],
+        "code": [
+            {
+                "listObjectCount": {
+                    "object": "{{vwFavoTeacDateHours__listFavoTeacDateHours__selectedValues}}",
+                    "returnVar": "qtd_sche_det"
+                }
+            },
+            {
+                "if": {
+                    "condition": "{{qtd_sche_det}} > 0",
+                    "block": [
+                        {
+                            "tableUpdate": {
+                                "tableName": "lessons_tmp",
+                                "values": [
+                                    {
+                                        "hours": "{{qtd_sche_det}}",
+                                        "_id": "{{idLessonsTmp}}"
+                                    }
+                                ]
+                            }
+                        },
+                        {
+                            "tableDelete": {
+                                "tableName": "lesson_details_tmp"
+                            }
+                        },
+                        {
+                            "for": {
+                                "variable": "i",
+                                "initial": 0,
+                                "final": "{{qtd_sche_det}}",
+                                "increment": "+1",
+                                "block": [
+                                    {
+                                        "listObjectValue": {
+                                            "object": "{{vwFavoTeacDateHours__listFavoTeacDateHours__selectedValues}}",
+                                            "index": "{{i}}",
+                                            "field": "value",
+                                            "returnVar": "idScheDetsTmp"
+                                        }
+                                    },
+                                    {
+                                        "tableInsert": {
+                                            "tableName": "lesson_details_tmp",
+                                            "values": [
+                                                {
+                                                    "fk_lesson": "{{idLessonsTmp}}",
+                                                    "fk_sche_det": "{{idScheDetsTmp}}"
+                                                }
+                                            ]
+                                        }
+                                    }
+                                ]
+                            }
+                        },
+                        {
+                            "openScreen": {
+                                "screenName": "vwFavoLessSummary",
+                                "variables": []
+                            }
+                        }
+                    ],
+                    "else": [
+                        {
+                            "alertDialog": {
+                                "title": "Information",
+                                "message": "Select the Hours",
+                                "closeButton": {
+                                    "title": "Ok",
+                                    "onClick": ""
+                                }
+                            }
+                        }
+                    ]
+                }
+            }
+        ]
+    },
+    {
+        "name": "loadFavoLessSummary",
+        "params": [],
+        "code": [
+            {
+                "query": {
+                    "statement": "SELECT users.fk_company as fk_company, strftime('%d/%m/%Y',schedules.date) as date, users.name as name, user_disciplines.price_user as price_user, user_disciplines.price_company as price_company, countries.currency as currency FROM user_disciplines INNER JOIN users ON user_disciplines.fk_user = users._id INNER JOIN companies ON users.fk_company = companies._id INNER JOIN countries ON companies.fk_country = countries._id INNER JOIN schedules ON user_disciplines.fk_user = schedules.fk_user WHERE schedules._id = {{vwFavoTeacDates__listFavoTeacDates__selectedValue}} and user_disciplines.fk_discipline = {{vwFavoDiscs__listFavoDiscs__selectedValue}}",
+                    "returnVar": "qryInfoPrice"
+                }
+            },
+            {
+                "queryValue": {
+                    "queryVar": "qryInfoPrice",
+                    "fieldName": "fk_company",
+                    "position": "0",
+                    "returnVar": "vCompany"
+                }
+            },
+            {
+                "queryValue": {
+                    "queryVar": "qryInfoPrice",
+                    "fieldName": "name",
+                    "position": "0",
+                    "returnVar": "vTeacher"
+                }
+            },
+            {
+                "queryValue": {
+                    "queryVar": "qryInfoPrice",
+                    "fieldName": "date",
+                    "position": "0",
+                    "returnVar": "vDate"
+                }
+            },
+            {
+                "queryValue": {
+                    "queryVar": "qryInfoPrice",
+                    "fieldName": "price_company",
+                    "position": "0",
+                    "returnVar": "pHourCompany"
+                }
+            },
+            {
+                "queryValue": {
+                    "queryVar": "qryInfoPrice",
+                    "fieldName": "price_user",
+                    "position": "0",
+                    "returnVar": "pHourUser"
+                }
+            },
+            {
+                "queryValue": {
+                    "queryVar": "qryInfoPrice",
+                    "fieldName": "currency",
+                    "position": "0",
+                    "returnVar": "vCurrency"
+                }
+            },
+            {
+                "calc": {
+                    "expression": "{{pHourCompany}} * {{qtd_sche_det}}",
+                    "returnType": "float",
+                    "decimals": 2,
+                    "returnVar": "vTotalCompany"
+                }
+            },
+            {
+                "calc": {
+                    "expression": "{{pHourUser}} * {{qtd_sche_det}}",
+                    "returnType": "float",
+                    "decimals": 2,
+                    "returnVar": "vTotalUser"
+                }
+            },
+            {
+                "tableUpdate": {
+                    "tableName": "lessons_tmp",
+                    "values": [
+                        {
+                            "fk_company": "{{vCompany}}",
+                            "price_hour_comp": "{{pHourCompany}}",
+                            "price_hour_user": "{{pHourUser}}",
+                            "currency": "{{vCurrency}}",
+                            "_id": "{{idLessonsTmp}}"
+                        }
+                    ]
+                }
+            }
+        ]
+    },
+    {
+        "name": "showFavoLessSummary",
+        "params": [],
+        "code": [
+            {
+                "setProperty": {
+                    "componentName": "vwFavoLessSummary__lblFDisciplineType",
+                    "property": "text",
+                    "transform": 1,
+                    "value": "{{vwFavoDiscTypes__listFavoDiscTypes__selectedTitle}}"
+                }
+            },
+            {
+                "setProperty": {
+                    "componentName": "vwFavoLessSummary__lblFDiscipline",
+                    "property": "text",
+                    "transform": 1,
+                    "value": "{{vwFavoDiscs__listFavoDiscs__selectedTitle}}"
+                }
+            },
+            {
+                "setProperty": {
+                    "componentName": "vwFavoLessSummary__lblFDate",
+                    "property": "text",
+                    "transform": 1,
+                    "value": "{{vDate}}"
+                }
+            },
+            {
+                "setProperty": {
+                    "componentName": "vwFavoLessSummary__lblFTeacher",
+                    "property": "text",
+                    "transform": 1,
+                    "value": "{{vTeacher}}"
+                }
+            },
+            {
+                "setProperty": {
+                    "componentName": "vwFavoLessSummary__lblFQtdHours",
+                    "property": "text",
+                    "transform": 1,
+                    "value": "QUANTITY HOURS: {{qtd_sche_det}}"
+                }
+            },
+            {
+                "setProperty": {
+                    "componentName": "vwFavoLessSummary__lblFPriceHour",
+                    "property": "text",
+                    "transform": 1,
+                    "value": "PRICE FOR HOUR: {{vCurrency}} {{pHourCompany}}"
+                }
+            },
+            {
+                "setProperty": {
+                    "componentName": "vwFavoLessSummary__lblFTotalValue",
+                    "property": "text",
+                    "transform": 1,
+                    "value": "TOTAL VALUE: {{vCurrency}} {{vTotalCompany}}"
+                }
+            }
+        ]
+    },
+    {
+        "name": "loadCompanyDiscounts",
+        "params": [],
+        "code": [
+            {
+                "query": {
+                    "statement": "SELECT companies._id as _id, UPPER(companies.name) as name FROM companies INNER JOIN clients ON companies.fk_country = clients.fk_country WHERE companies.status = 1 order by companies.name",
+                    "returnVar": "qryLstCompDiscs"
+                }
+            }
+        ]
+    },
+    {
+        "name": "openDiscountCodes",
+        "params": [],
+        "code": [
+            {
+                "query": {
+                    "statement": "SELECT discounts._id as _id, UPPER(discounts.code) as code, ('-' || CAST((discounts.percent*100) as text) || '%') as percent, (countries.currency || ' ' || CAST(discounts.condition_start as text) || ' AND ' || countries.currency || ' ' || CAST(discounts.condition_end as text)) as condition FROM discounts INNER JOIN companies ON discounts.fk_company = companies._id INNER JOIN countries ON companies.fk_country = countries._id WHERE discounts.fk_company = {{vwCompanyDiscounts__listCompanyDiscounts__selectedValue}} AND discounts.status = 1 order by discounts.code",
+                    "returnVar": "qryLstDiscountCodes"
+                }
+            },
+            {
+                "queryNumRows": {
+                    "queryVar": "qryLstDiscountCodes",
+                    "returnVar": "numDiscountCodes"
+                }
+            },
+            {
+                "if": {
+                    "condition": "{{numDiscountCodes}} > 0",
+                    "block": [
+                        {
+                            "openScreen": {
+                                "screenName": "vwDiscountCodes",
+                                "variables": []
+                            }
+                        }
+                    ],
+                    "else": [
+                        {
+                            "alertDialog": {
+                                "title": "Information",
+                                "message": "No Search Results",
+                                "closeButton": {
+                                    "title": "Ok",
+                                    "onClick": ""
+                                }
+                            }
+                        }
+                    ]
+                }
+            }
+        ]
+    }
+]
