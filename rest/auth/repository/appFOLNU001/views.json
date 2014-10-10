@@ -1383,6 +1383,319 @@
         ]
     },
     {
+        "name": "vwLessonDetailsReject",
+        "title": "Lesson Details",
+        "layout": "linear",
+        "events": {
+            "onLoad": "loadLessonDetails",
+            "onShow": "showLessonDetailsReject"
+        },
+        "actionButton": {},
+        "modules": [
+            {
+                "module": "label",
+                "name": "lblDDDisciplineType",
+                "properties": {
+                    "text": "DISCIPLINE TYPE:",
+                    "transform": 1,
+                    "font-size": 30,
+                    "font-style": "bold condensed"
+                },
+                "events": {}
+            },
+            {
+                "module": "label",
+                "name": "lblDDisciplineType",
+                "properties": {
+                    "text": "",
+                    "transform": 1,
+                    "font-size": 30,
+                    "font-style": "regular"
+                },
+                "events": {}
+            },
+            {
+                "module": "spacer",
+                "name": "spacer1",
+                "properties": {
+                    "height": 5
+                },
+                "events": {}
+            },
+            {
+                "module": "label",
+                "name": "lblDDDiscipline",
+                "properties": {
+                    "text": "DISCIPLINE:",
+                    "transform": 1,
+                    "font-size": 30,
+                    "font-style": "bold condensed"
+                },
+                "events": {}
+            },
+            {
+                "module": "label",
+                "name": "lblDDiscipline",
+                "properties": {
+                    "text": "",
+                    "transform": 1,
+                    "font-size": 30,
+                    "font-style": "regular"
+                },
+                "events": {}
+            },
+            {
+                "module": "spacer",
+                "name": "spacer1",
+                "properties": {
+                    "height": 5
+                },
+                "events": {}
+            },
+            {
+                "module": "label",
+                "name": "lblDDDate",
+                "properties": {
+                    "text": "DATE:",
+                    "transform": 1,
+                    "font-size": 30,
+                    "font-style": "bold condensed"
+                },
+                "events": {}
+            },
+            {
+                "module": "label",
+                "name": "lblDDate",
+                "properties": {
+                    "text": "",
+                    "transform": 1,
+                    "font-size": 30,
+                    "font-style": "regular"
+                },
+                "events": {}
+            },
+            {
+                "module": "spacer",
+                "name": "spacer1",
+                "properties": {
+                    "height": 5
+                },
+                "events": {}
+            },
+            {
+                "module": "label",
+                "name": "lblDDTeacher",
+                "properties": {
+                    "text": "TEACHER:",
+                    "transform": 1,
+                    "font-size": 30,
+                    "font-style": "bold condensed"
+                },
+                "events": {}
+            },
+            {
+                "module": "label",
+                "name": "lblDTeacher",
+                "properties": {
+                    "text": "",
+                    "transform": 1,
+                    "font-size": 30,
+                    "font-style": "regular"
+                },
+                "events": {}
+            },
+            {
+                "module": "spacer",
+                "name": "spacer1",
+                "properties": {
+                    "height": 15
+                },
+                "events": {}
+            },
+            {
+                "module": "label",
+                "name": "lblDHours",
+                "properties": {
+                    "text": "HOURS:",
+                    "transform": 1,
+                    "font-size": 30,
+                    "font-style": "bold condensed"
+                },
+                "events": {}
+            },
+            {
+                "module": "spacer",
+                "name": "spacer1",
+                "properties": {
+                    "height": 5
+                },
+                "events": {}
+            },
+            {
+                "module": "groupedViews",
+                "name": "grpDHours",
+                "properties": {
+                    "listSource": "qryInfoLessonDet",
+                    "modules": [
+                        {
+                            "module": "label",
+                            "name": "lblDHoursLst",
+                            "properties": {
+                                "text": "• {{hours}}",
+                                "transform": 0,
+                                "font-size": 30,
+                                "font-style": "regular"
+                            },
+                            "events": {}
+                        }
+                    ]
+                },
+                "events": {}
+            },
+            {
+                "module": "spacer",
+                "name": "spacer1",
+                "properties": {
+                    "height": 15
+                },
+                "events": {}
+            },
+            {
+                "module": "label",
+                "name": "lblDQtdHours",
+                "properties": {
+                    "text": "",
+                    "transform": 1,
+                    "font-size": 24,
+                    "font-style": "bold condensed"
+                },
+                "events": {}
+            },
+            {
+                "module": "spacer",
+                "name": "spacer1",
+                "properties": {
+                    "height": 5
+                },
+                "events": {}
+            },
+            {
+                "module": "label",
+                "name": "lblDPriceHour",
+                "properties": {
+                    "text": "",
+                    "transform": 1,
+                    "font-size": 24,
+                    "font-style": "bold condensed"
+                },
+                "events": {}
+            },
+            {
+                "module": "spacer",
+                "name": "spacer1",
+                "properties": {
+                    "height": 5
+                },
+                "events": {}
+            },
+            {
+                "module": "label",
+                "name": "lblDDiscountValue",
+                "properties": {
+                    "text": "",
+                    "transform": 1,
+                    "font-size": 24,
+                    "font-style": "bold condensed"
+                },
+                "events": {}
+            },
+            {
+                "module": "spacer",
+                "name": "spacer1",
+                "properties": {
+                    "height": 5
+                },
+                "events": {}
+            },
+            {
+                "module": "label",
+                "name": "lblDValuewoDiscount",
+                "properties": {
+                    "text": "",
+                    "transform": 1,
+                    "font-size": 24,
+                    "font-style": "bold condensed"
+                },
+                "events": {}
+            },
+            {
+                "module": "spacer",
+                "name": "spacer1",
+                "properties": {
+                    "height": 5
+                },
+                "events": {}
+            },
+            {
+                "module": "label",
+                "name": "lblDTotalValue",
+                "properties": {
+                    "text": "",
+                    "transform": 1,
+                    "font-size": 24,
+                    "font-style": "bold condensed"
+                },
+                "events": {}
+            },
+            {
+                "module": "spacer",
+                "name": "spacer1",
+                "properties": {
+                    "height": 10
+                },
+                "events": {}
+            },
+            {
+                "module": "line",
+                "name": "lineSep",
+                "properties": {
+                    "height": 1
+                },
+                "events": {}
+            },
+            {
+                "module": "spacer",
+                "name": "spacer1",
+                "properties": {
+                    "height": 10
+                },
+                "events": {}
+            },
+            {
+                "module": "label",
+                "name": "lblDDObs",
+                "properties": {
+                    "text": "OBSERVATIONS:",
+                    "transform": 1,
+                    "font-size": 24,
+                    "font-style": "bold condensed"
+                },
+                "events": {}
+            },
+            {
+                "module": "label",
+                "name": "lblDObs",
+                "properties": {
+                    "text": "",
+                    "transform": 1,
+                    "font-size": 24,
+                    "font-style": "regular"
+                },
+                "events": {}
+            }
+        ]
+    },
+    {
         "name": "vwLessonDetailsDone",
         "title": "Lesson Details",
         "layout": "linear",

@@ -5,12 +5,12 @@
         "code": [
             {
                 "getData": {
-                    "tableName": "discipline_types",
+                    "tableName": "clients",
                     "requestType": "s",
-                    "requestParams": "",
+                    "requestParams": "fk_heart = {{__user_id}}",
                     "clearAll": true,
                     "userExclusive": false,
-                    "loadingMessage": "Downloading... (17)",
+                    "loadingMessage": "Downloading... (15)",
                     "displayTimeOutDialog": true,
                     "timeOutDialogButton": "Try again",
                     "timeOutMessage": "Connection Timeout expired.",
@@ -18,12 +18,12 @@
                     "blockSuccess": [
                         {
                             "getData": {
-                                "tableName": "disciplines",
+                                "tableName": "countries",
                                 "requestType": "s",
-                                "requestParams": "",
+                                "requestParams": "_id in (select fk_country from clients where fk_heart = {{__user_id}})",
                                 "clearAll": true,
                                 "userExclusive": false,
-                                "loadingMessage": "Downloading... (16)",
+                                "loadingMessage": "Downloading... (14)",
                                 "displayTimeOutDialog": true,
                                 "timeOutDialogButton": "Try again",
                                 "timeOutMessage": "Connection Timeout expired.",
@@ -31,12 +31,12 @@
                                 "blockSuccess": [
                                     {
                                         "getData": {
-                                            "tableName": "discounts",
+                                            "tableName": "companies",
                                             "requestType": "s",
-                                            "requestParams": "",
+                                            "requestParams": "fk_country in (select fk_country from clients where fk_heart = {{__user_id}})",
                                             "clearAll": true,
                                             "userExclusive": false,
-                                            "loadingMessage": "Downloading... (15)",
+                                            "loadingMessage": "Downloading... (13)",
                                             "displayTimeOutDialog": true,
                                             "timeOutDialogButton": "Try again",
                                             "timeOutMessage": "Connection Timeout expired.",
@@ -44,12 +44,12 @@
                                             "blockSuccess": [
                                                 {
                                                     "getData": {
-                                                        "tableName": "lessons",
+                                                        "tableName": "discounts",
                                                         "requestType": "s",
-                                                        "requestParams": "",
+                                                        "requestParams": "fk_company in (select _id from companies where fk_country in (select fk_country from clients where fk_heart = {{__user_id}}))",
                                                         "clearAll": true,
                                                         "userExclusive": false,
-                                                        "loadingMessage": "Downloading... (14)",
+                                                        "loadingMessage": "Downloading... (12)",
                                                         "displayTimeOutDialog": true,
                                                         "timeOutDialogButton": "Try again",
                                                         "timeOutMessage": "Connection Timeout expired.",
@@ -57,12 +57,12 @@
                                                         "blockSuccess": [
                                                             {
                                                                 "getData": {
-                                                                    "tableName": "lesson_details",
+                                                                    "tableName": "users",
                                                                     "requestType": "s",
-                                                                    "requestParams": "",
+                                                                    "requestParams": "fk_company in (select _id from companies where fk_country in (select fk_country from clients where fk_heart = {{__user_id}}))",
                                                                     "clearAll": true,
                                                                     "userExclusive": false,
-                                                                    "loadingMessage": "Downloading... (13)",
+                                                                    "loadingMessage": "Downloading... (11)",
                                                                     "displayTimeOutDialog": true,
                                                                     "timeOutDialogButton": "Try again",
                                                                     "timeOutMessage": "Connection Timeout expired.",
@@ -70,12 +70,12 @@
                                                                     "blockSuccess": [
                                                                         {
                                                                             "getData": {
-                                                                                "tableName": "lesson_evaluations",
+                                                                                "tableName": "user_disciplines",
                                                                                 "requestType": "s",
-                                                                                "requestParams": "",
+                                                                                "requestParams": "fk_user in (select _id from users where fk_company in (select _id from companies where fk_country in (select fk_country from clients where fk_heart = {{__user_id}})))",
                                                                                 "clearAll": true,
                                                                                 "userExclusive": false,
-                                                                                "loadingMessage": "Downloading... (12)",
+                                                                                "loadingMessage": "Downloading... (10)",
                                                                                 "displayTimeOutDialog": true,
                                                                                 "timeOutDialogButton": "Try again",
                                                                                 "timeOutMessage": "Connection Timeout expired.",
@@ -83,12 +83,12 @@
                                                                                 "blockSuccess": [
                                                                                     {
                                                                                         "getData": {
-                                                                                            "tableName": "lesson_ratings",
+                                                                                            "tableName": "discipline_types",
                                                                                             "requestType": "s",
                                                                                             "requestParams": "",
                                                                                             "clearAll": true,
                                                                                             "userExclusive": false,
-                                                                                            "loadingMessage": "Downloading... (11)",
+                                                                                            "loadingMessage": "Downloading... (9)",
                                                                                             "displayTimeOutDialog": true,
                                                                                             "timeOutDialogButton": "Try again",
                                                                                             "timeOutMessage": "Connection Timeout expired.",
@@ -96,12 +96,12 @@
                                                                                             "blockSuccess": [
                                                                                                 {
                                                                                                     "getData": {
-                                                                                                        "tableName": "lesson_reasons",
+                                                                                                        "tableName": "disciplines",
                                                                                                         "requestType": "s",
                                                                                                         "requestParams": "",
                                                                                                         "clearAll": true,
                                                                                                         "userExclusive": false,
-                                                                                                        "loadingMessage": "Downloading... (10)",
+                                                                                                        "loadingMessage": "Downloading... (8)",
                                                                                                         "displayTimeOutDialog": true,
                                                                                                         "timeOutDialogButton": "Try again",
                                                                                                         "timeOutMessage": "Connection Timeout expired.",
@@ -109,12 +109,12 @@
                                                                                                         "blockSuccess": [
                                                                                                             {
                                                                                                                 "getData": {
-                                                                                                                    "tableName": "lesson_statuses",
+                                                                                                                    "tableName": "lesson_ratings",
                                                                                                                     "requestType": "s",
                                                                                                                     "requestParams": "",
                                                                                                                     "clearAll": true,
                                                                                                                     "userExclusive": false,
-                                                                                                                    "loadingMessage": "Downloading... (9)",
+                                                                                                                    "loadingMessage": "Downloading... (7)",
                                                                                                                     "displayTimeOutDialog": true,
                                                                                                                     "timeOutDialogButton": "Try again",
                                                                                                                     "timeOutMessage": "Connection Timeout expired.",
@@ -122,12 +122,12 @@
                                                                                                                     "blockSuccess": [
                                                                                                                         {
                                                                                                                             "getData": {
-                                                                                                                                "tableName": "schedules",
+                                                                                                                                "tableName": "lesson_reasons",
                                                                                                                                 "requestType": "s",
                                                                                                                                 "requestParams": "",
                                                                                                                                 "clearAll": true,
                                                                                                                                 "userExclusive": false,
-                                                                                                                                "loadingMessage": "Downloading... (8)",
+                                                                                                                                "loadingMessage": "Downloading... (6)",
                                                                                                                                 "displayTimeOutDialog": true,
                                                                                                                                 "timeOutDialogButton": "Try again",
                                                                                                                                 "timeOutMessage": "Connection Timeout expired.",
@@ -135,12 +135,12 @@
                                                                                                                                 "blockSuccess": [
                                                                                                                                     {
                                                                                                                                         "getData": {
-                                                                                                                                            "tableName": "schedule_details",
+                                                                                                                                            "tableName": "lesson_statuses",
                                                                                                                                             "requestType": "s",
                                                                                                                                             "requestParams": "",
                                                                                                                                             "clearAll": true,
                                                                                                                                             "userExclusive": false,
-                                                                                                                                            "loadingMessage": "Downloading... (7)",
+                                                                                                                                            "loadingMessage": "Downloading... (5)",
                                                                                                                                             "displayTimeOutDialog": true,
                                                                                                                                             "timeOutDialogButton": "Try again",
                                                                                                                                             "timeOutMessage": "Connection Timeout expired.",
@@ -148,12 +148,12 @@
                                                                                                                                             "blockSuccess": [
                                                                                                                                                 {
                                                                                                                                                     "getData": {
-                                                                                                                                                        "tableName": "users",
+                                                                                                                                                        "tableName": "lessons",
                                                                                                                                                         "requestType": "s",
-                                                                                                                                                        "requestParams": "",
+                                                                                                                                                        "requestParams": "fk_client in (select _id clients where fk_heart = {{__user_id}})",
                                                                                                                                                         "clearAll": true,
                                                                                                                                                         "userExclusive": false,
-                                                                                                                                                        "loadingMessage": "Downloading... (6)",
+                                                                                                                                                        "loadingMessage": "Downloading... (4)",
                                                                                                                                                         "displayTimeOutDialog": true,
                                                                                                                                                         "timeOutDialogButton": "Try again",
                                                                                                                                                         "timeOutMessage": "Connection Timeout expired.",
@@ -161,12 +161,12 @@
                                                                                                                                                         "blockSuccess": [
                                                                                                                                                             {
                                                                                                                                                                 "getData": {
-                                                                                                                                                                    "tableName": "user_disciplines",
+                                                                                                                                                                    "tableName": "lesson_details",
                                                                                                                                                                     "requestType": "s",
-                                                                                                                                                                    "requestParams": "",
+                                                                                                                                                                    "requestParams": "fk_client in (select _id clients where fk_heart = {{__user_id}})",
                                                                                                                                                                     "clearAll": true,
                                                                                                                                                                     "userExclusive": false,
-                                                                                                                                                                    "loadingMessage": "Downloading... (5)",
+                                                                                                                                                                    "loadingMessage": "Downloading... (3)",
                                                                                                                                                                     "displayTimeOutDialog": true,
                                                                                                                                                                     "timeOutDialogButton": "Try again",
                                                                                                                                                                     "timeOutMessage": "Connection Timeout expired.",
@@ -174,12 +174,12 @@
                                                                                                                                                                     "blockSuccess": [
                                                                                                                                                                         {
                                                                                                                                                                             "getData": {
-                                                                                                                                                                                "tableName": "companies",
+                                                                                                                                                                                "tableName": "lesson_evaluations",
                                                                                                                                                                                 "requestType": "s",
-                                                                                                                                                                                "requestParams": "",
+                                                                                                                                                                                "requestParams": "fk_client in (select _id clients where fk_heart = {{__user_id}})",
                                                                                                                                                                                 "clearAll": true,
                                                                                                                                                                                 "userExclusive": false,
-                                                                                                                                                                                "loadingMessage": "Downloading... (4)",
+                                                                                                                                                                                "loadingMessage": "Downloading... (2)",
                                                                                                                                                                                 "displayTimeOutDialog": true,
                                                                                                                                                                                 "timeOutDialogButton": "Try again",
                                                                                                                                                                                 "timeOutMessage": "Connection Timeout expired.",
@@ -187,52 +187,20 @@
                                                                                                                                                                                 "blockSuccess": [
                                                                                                                                                                                     {
                                                                                                                                                                                         "getData": {
-                                                                                                                                                                                            "tableName": "countries",
+                                                                                                                                                                                            "tableName": "client_favorites",
                                                                                                                                                                                             "requestType": "s",
-                                                                                                                                                                                            "requestParams": "",
+                                                                                                                                                                                            "requestParams": "fk_client in (select _id clients where fk_heart = {{__user_id}})",
                                                                                                                                                                                             "clearAll": true,
                                                                                                                                                                                             "userExclusive": false,
-                                                                                                                                                                                            "loadingMessage": "Downloading... (3)",
+                                                                                                                                                                                            "loadingMessage": "Downloading... (1)",
                                                                                                                                                                                             "displayTimeOutDialog": true,
                                                                                                                                                                                             "timeOutDialogButton": "Try again",
                                                                                                                                                                                             "timeOutMessage": "Connection Timeout expired.",
                                                                                                                                                                                             "onTimeOut": "pendingDownloads",
                                                                                                                                                                                             "blockSuccess": [
                                                                                                                                                                                                 {
-                                                                                                                                                                                                    "getData": {
-                                                                                                                                                                                                        "tableName": "languages",
-                                                                                                                                                                                                        "requestType": "s",
-                                                                                                                                                                                                        "requestParams": "",
-                                                                                                                                                                                                        "clearAll": true,
-                                                                                                                                                                                                        "userExclusive": false,
-                                                                                                                                                                                                        "loadingMessage": "Downloading... (2)",
-                                                                                                                                                                                                        "displayTimeOutDialog": true,
-                                                                                                                                                                                                        "timeOutDialogButton": "Try again",
-                                                                                                                                                                                                        "timeOutMessage": "Connection Timeout expired.",
-                                                                                                                                                                                                        "onTimeOut": "pendingDownloads",
-                                                                                                                                                                                                        "blockSuccess": [
-                                                                                                                                                                                                            {
-                                                                                                                                                                                                                "getData": {
-                                                                                                                                                                                                                    "tableName": "clients",
-                                                                                                                                                                                                                    "requestType": "s",
-                                                                                                                                                                                                                    "requestParams": "",
-                                                                                                                                                                                                                    "clearAll": true,
-                                                                                                                                                                                                                    "userExclusive": false,
-                                                                                                                                                                                                                    "loadingMessage": "Downloading... (1)",
-                                                                                                                                                                                                                    "displayTimeOutDialog": true,
-                                                                                                                                                                                                                    "timeOutDialogButton": "Try again",
-                                                                                                                                                                                                                    "timeOutMessage": "Connection Timeout expired.",
-                                                                                                                                                                                                                    "onTimeOut": "pendingDownloads",
-                                                                                                                                                                                                                    "blockSuccess": [
-                                                                                                                                                                                                                        {
-                                                                                                                                                                                                                            "call": {
-                                                                                                                                                                                                                                "method": "loadInitialData"
-                                                                                                                                                                                                                            }
-                                                                                                                                                                                                                        }
-                                                                                                                                                                                                                    ]
-                                                                                                                                                                                                                }
-                                                                                                                                                                                                            }
-                                                                                                                                                                                                        ]
+                                                                                                                                                                                                    "call": {
+                                                                                                                                                                                                        "method": "loadInitialData"
                                                                                                                                                                                                     }
                                                                                                                                                                                                 }
                                                                                                                                                                                             ]
@@ -307,6 +275,16 @@
             {
                 "tableDelete": {
                     "tableName": "lesson_details_tmp"
+                }
+            },
+            {
+                "tableDelete": {
+                    "tableName": "schedules"
+                }
+            },
+            {
+                "tableDelete": {
+                    "tableName": "schedule_details"
                 }
             },
             {
@@ -420,37 +398,69 @@
                                 ],
                                 "else": [
                                     {
-                                        "query": {
-                                            "statement": "SELECT schedules._id as _id, (UPPER(users.name) || ' / ' || UPPER(companies.name)) as teacher_company, (strftime('%d/%m/%Y', date) || ' - ' || countries.currency || ' ' || CAST(user_disciplines.price as text)) as date_price FROM schedules INNER JOIN user_disciplines ON schedules.fk_user = user_disciplines.fk_user INNER JOIN users ON user_disciplines.fk_user = users._id INNER JOIN companies ON users.fk_company = companies._id INNER JOIN clients ON clients.fk_country = companies.fk_country INNER JOIN countries ON companies.fk_country = countries._id WHERE user_disciplines.fk_discipline = {{vwDisciplines__listDisciplines__selectedValue}} and schedules.status = 1 and (CAST(strftime('%Y%m%d', date) as integer) BETWEEN {{dtFrom}} and {{dtTo}})",
-                                            "returnVar": "qryLstTeacSche"
-                                        }
-                                    },
-                                    {
-                                        "queryNumRows": {
-                                            "queryVar": "qryLstTeacSche",
-                                            "returnVar": "numTeacSche"
-                                        }
-                                    },
-                                    {
-                                        "if": {
-                                            "condition": "{{numTeacSche}} > 0",
-                                            "block": [
+                                        "getData": {
+                                            "tableName": "schedules",
+                                            "requestType": "s",
+                                            "requestParams": "CAST(DATE_FORMAT(date, '%Y%m%d') as UNSIGNED) BETWEEN {{dtFrom}} and {{dtTo}}",
+                                            "clearAll": true,
+                                            "userExclusive": false,
+                                            "loadingMessage": "Searching schedules...",
+                                            "displayTimeOutDialog": true,
+                                            "timeOutDialogButton": "Try again",
+                                            "timeOutMessage": "Connection Timeout expired.",
+                                            "onTimeOut": "pendingDownloads",
+                                            "blockSuccess": [
                                                 {
-                                                    "openScreen": {
-                                                        "screenName": "vwTeacherSchedules",
-                                                        "variables": []
-                                                    }
-                                                }
-                                            ],
-                                            "else": [
-                                                {
-                                                    "alertDialog": {
-                                                        "title": "Information",
-                                                        "message": "No Search Results",
-                                                        "closeButton": {
-                                                            "title": "Ok",
-                                                            "onClick": ""
-                                                        }
+                                                    "getData": {
+                                                        "tableName": "schedule_details",
+                                                        "requestType": "s",
+                                                        "requestParams": "fk_schedule in (select _id from schedules where CAST(DATE_FORMAT(date, '%Y%m%d') as UNSIGNED) BETWEEN {{dtFrom}} and {{dtTo}})",
+                                                        "clearAll": true,
+                                                        "userExclusive": false,
+                                                        "loadingMessage": "Searching schedules...",
+                                                        "displayTimeOutDialog": true,
+                                                        "timeOutDialogButton": "Try again",
+                                                        "timeOutMessage": "Connection Timeout expired.",
+                                                        "onTimeOut": "pendingDownloads",
+                                                        "blockSuccess": [
+                                                            {
+                                                                "query": {
+                                                                    "statement": "SELECT schedules._id as _id, (UPPER(users.name) || ' / ' || UPPER(companies.name)) as teacher_company, (strftime('%d/%m/%Y', date) || ' - ' || countries.currency || ' ' || CAST(user_disciplines.price_company as text)) as date_price FROM schedules INNER JOIN user_disciplines ON schedules.fk_user = user_disciplines.fk_user INNER JOIN users ON user_disciplines.fk_user = users._id INNER JOIN companies ON users.fk_company = companies._id INNER JOIN clients ON clients.fk_country = companies.fk_country INNER JOIN countries ON companies.fk_country = countries._id WHERE user_disciplines.fk_discipline = {{vwDisciplines__listDisciplines__selectedValue}} and users.status = 1 companies.status = 1 and clients.status = 1 and countries.status = 1",
+                                                                    "returnVar": "qryLstTeacSche"
+                                                                }
+                                                            },
+                                                            {
+                                                                "queryNumRows": {
+                                                                    "queryVar": "qryLstTeacSche",
+                                                                    "returnVar": "numTeacSche"
+                                                                }
+                                                            },
+                                                            {
+                                                                "if": {
+                                                                    "condition": "{{numTeacSche}} > 0",
+                                                                    "block": [
+                                                                        {
+                                                                            "openScreen": {
+                                                                                "screenName": "vwTeacherSchedules",
+                                                                                "variables": []
+                                                                            }
+                                                                        }
+                                                                    ],
+                                                                    "else": [
+                                                                        {
+                                                                            "alertDialog": {
+                                                                                "title": "Information",
+                                                                                "message": "No Search Results",
+                                                                                "closeButton": {
+                                                                                    "title": "Ok",
+                                                                                    "onClick": ""
+                                                                                }
+                                                                            }
+                                                                        }
+                                                                    ]
+                                                                }
+                                                            }
+                                                        ]
                                                     }
                                                 }
                                             ]
@@ -481,8 +491,36 @@
             },
             {
                 "query": {
-                    "statement": "SELECT schedule_details._id as _id, (schedule_details.start || ' - ' || schedule_details.end) as hours FROM schedule_details WHERE schedule_details.fk_schedule = {{vwTeacherSchedules__listTeacherSchedules__selectedValue}}",
+                    "statement": "SELECT schedules.fk_user as fk_user, schedules.date as date, schedule_details._id as _id, (schedule_details.start || ' - ' || schedule_details.end) as hours FROM schedule_details WHERE schedule_details.fk_schedule = {{vwTeacherSchedules__listTeacherSchedules__selectedValue}}",
                     "returnVar": "qryLstTeacScheDet"
+                }
+            },
+            {
+                "queryValue": {
+                    "queryVar": "qryLstTeacScheDet",
+                    "fieldName": "date",
+                    "position": 0,
+                    "returnVar": "dtSchedule"
+                }
+            },
+            {
+                "queryValue": {
+                    "queryVar": "qryLstTeacScheDet",
+                    "fieldName": "fk_user",
+                    "position": 0,
+                    "returnVar": "vIdTeacher"
+                }
+            },
+            {
+                "tableUpdate": {
+                    "tableName": "lessons_tmp",
+                    "values": [
+                        {
+                            "date": "{{dtSchedule}}",
+                            "fk_user": "{{vIdTeacher}}",
+                            "_id": "{{idLessonsTmp}}"
+                        }
+                    ]
                 }
             },
             {
@@ -539,12 +577,36 @@
                                         }
                                     },
                                     {
+                                        "query": {
+                                            "statement": "SELECT schedule_details.start as start, schedule_details.end as end FROM schedule_details WHERE schedule_details._id = {{idScheDetsTmp}}",
+                                            "returnVar": "qryScheDets"
+                                        }
+                                    },
+                                    {
+                                        "queryValue": {
+                                            "queryVar": "qryScheDets",
+                                            "fieldName": "start",
+                                            "position": 0,
+                                            "returnVar": "hrStart"
+                                        }
+                                    },
+                                    {
+                                        "queryValue": {
+                                            "queryVar": "qryScheDets",
+                                            "fieldName": "end",
+                                            "position": 0,
+                                            "returnVar": "hrEnd"
+                                        }
+                                    },
+                                    {
                                         "tableInsert": {
                                             "tableName": "lesson_details_tmp",
                                             "values": [
                                                 {
                                                     "fk_lesson": "{{idLessonsTmp}}",
-                                                    "fk_sche_det": "{{idScheDetsTmp}}"
+                                                    "fk_sche_det": "{{idScheDetsTmp}}",
+                                                    "start": "{{hrStart}}",
+                                                    "end": "{{hrEnd}}"
                                                 }
                                             ]
                                         }
@@ -584,8 +646,9 @@
                     "tableName": "lessons_tmp",
                     "values": [
                         {
-                            "value_wo_discount": "{{vTotal}}",
-                            "value_total": "{{vTotal}}",
+                            "value_wo_discount": "{{vTotalCompany}}",
+                            "value_total_comp": "{{vTotalCompany}}",
+                            "value_total_user": "{{vTotalUser}}",
                             "_id": "{{idLessonsTmp}}"
                         }
                     ]
@@ -624,6 +687,14 @@
             {
                 "queryValue": {
                     "queryVar": "qryDoLessonsTmp",
+                    "fieldName": "fk_client",
+                    "position": "0",
+                    "returnVar": "clieDoLessonsTmp"
+                }
+            },
+            {
+                "queryValue": {
+                    "queryVar": "qryDoLessonsTmp",
                     "fieldName": "fk_company",
                     "position": "0",
                     "returnVar": "compDoLessonsTmp"
@@ -632,9 +703,9 @@
             {
                 "queryValue": {
                     "queryVar": "qryDoLessonsTmp",
-                    "fieldName": "fk_client",
+                    "fieldName": "fk_user",
                     "position": "0",
-                    "returnVar": "clieDoLessonsTmp"
+                    "returnVar": "userDoLessonsTmp"
                 }
             },
             {
@@ -672,6 +743,14 @@
             {
                 "queryValue": {
                     "queryVar": "qryDoLessonsTmp",
+                    "fieldName": "date",
+                    "position": "0",
+                    "returnVar": "dateDoLessonsTmp"
+                }
+            },
+            {
+                "queryValue": {
+                    "queryVar": "qryDoLessonsTmp",
                     "fieldName": "hours",
                     "position": "0",
                     "returnVar": "hoursDoLessonsTmp"
@@ -680,9 +759,17 @@
             {
                 "queryValue": {
                     "queryVar": "qryDoLessonsTmp",
-                    "fieldName": "price_hour",
+                    "fieldName": "price_hour_comp",
                     "position": "0",
-                    "returnVar": "pricHourDoLessonsTmp"
+                    "returnVar": "pricHourCompDoLessonsTmp"
+                }
+            },
+            {
+                "queryValue": {
+                    "queryVar": "qryDoLessonsTmp",
+                    "fieldName": "price_hour_user",
+                    "position": "0",
+                    "returnVar": "pricHourUserDoLessonsTmp"
                 }
             },
             {
@@ -728,9 +815,17 @@
             {
                 "queryValue": {
                     "queryVar": "qryDoLessonsTmp",
-                    "fieldName": "value_total",
+                    "fieldName": "value_total_comp",
                     "position": "0",
-                    "returnVar": "valTotDoLessonsTmp"
+                    "returnVar": "valTotCompDoLessonsTmp"
+                }
+            },
+            {
+                "queryValue": {
+                    "queryVar": "qryDoLessonsTmp",
+                    "fieldName": "value_total_user",
+                    "position": "0",
+                    "returnVar": "valTotUserDoLessonsTmp"
                 }
             },
             {
@@ -738,34 +833,38 @@
                     "tableName": "lessons",
                     "values": [
                         {
-                            "fk_company": "{{compDoLessonsTmp}}",
                             "fk_client": "{{clieDoLessonsTmp}}",
+                            "fk_company": "{{compDoLessonsTmp}}",
+                            "fk_user": "{{userDoLessonsTmp}}",
                             "fk_schedule": "{{scheDoLessonsTmp}}",
                             "fk_disc_type": "{{discTypeDoLessonsTmp}}",
                             "fk_discipline": "{{idDisciDoLessonsTmp}}",
                             "fk_less_stat": "{{lessStatDoLessonsTmp}}",
+                            "date": "{{dateDoLessonsTmp}}",
                             "hours": "{{hoursDoLessonsTmp}}",
-                            "price_hour": "{{pricHourDoLessonsTmp}}",
+                            "price_hour_comp": "{{pricHourCompDoLessonsTmp}}",
+                            "price_hour_user": "{{pricHourUserDoLessonsTmp}}",
                             "discount": "{{discDoLessonsTmp}}",
                             "fk_discount": "{{idDiscDoLessonsTmp}}",
                             "currency": "{{currDoLessonsTmp}}",
                             "value_discount": "{{valDiscDoLessonsTmp}}",
                             "value_wo_discount": "{{valWoDiscDoLessonsTmp}}",
-                            "value_total": "{{valTotDoLessonsTmp}}"
+                            "value_total_comp": "{{valTotCompDoLessonsTmp}}",
+                            "value_total_user": "{{valTotUserDoLessonsTmp}}"
                         }
                     ]
                 }
             },
             {
                 "query": {
-                    "statement": "SELECT _id FROM lessons ORDER BY _id DESC LIMIT 1",
+                    "statement": "SELECT fk_mobile FROM lessons ORDER BY _id DESC LIMIT 1",
                     "returnVar": "qryLesson"
                 }
             },
             {
                 "queryValue": {
                     "queryVar": "qryLesson",
-                    "fieldName": "_id",
+                    "fieldName": "fk_mobile",
                     "position": "0",
                     "returnVar": "vIdLesson"
                 }
@@ -792,12 +891,31 @@
                             }
                         },
                         {
+                            "queryValue": {
+                                "queryVar": "qryDoLessonDetTmp",
+                                "fieldName": "start",
+                                "position": "{{i}}",
+                                "returnVar": "startDoLessonDetTmp"
+                            }
+                        },
+                        {
+                            "queryValue": {
+                                "queryVar": "qryDoLessonDetTmp",
+                                "fieldName": "end",
+                                "position": "{{i}}",
+                                "returnVar": "endDoLessonDetTmp"
+                            }
+                        },
+                        {
                             "tableInsert": {
                                 "tableName": "lesson_details",
                                 "values": [
                                     {
+                                        "fk_client": "{{clieDoLessonsTmp}}",
                                         "fk_lesson": "{{vIdLesson}}",
-                                        "fk_sche_det": "{{scheDetDoLessonDetTmp}}"
+                                        "fk_sche_det": "{{scheDetDoLessonDetTmp}}",
+                                        "start": "{{startDoLessonDetTmp}}",
+                                        "end": "{{endDoLessonDetTmp}}"
                                     }
                                 ]
                             }
@@ -915,7 +1033,7 @@
         "code": [
             {
                 "query": {
-                    "statement": "SELECT discounts._id as _id, discounts.percent as percent, discounts.condition_start as condition_start, discounts.condition_end as condition_end FROM discounts INNER JOIN companies ON discounts.fk_company = companies._id WHERE discounts.code = '{{vwDiscountCode__txtCode__text}}' AND (discounts.condition_start <= (CAST('{{vTotal}}' as decimal)) AND discounts.condition_end >= (CAST('{{vTotal}}' as decimal)))",
+                    "statement": "SELECT discounts._id as _id, discounts.percent as percent, discounts.condition_start as condition_start, discounts.condition_end as condition_end FROM discounts INNER JOIN companies ON discounts.fk_company = companies._id WHERE discounts.code = '{{vwDiscountCode__txtCode__text}}' AND (discounts.condition_start <= (CAST('{{vTotalCompany}}' as decimal)) AND discounts.condition_end >= (CAST('{{vTotalCompany}}' as decimal)))",
                     "returnVar": "qryInfoDiscount"
                 }
             },
@@ -939,7 +1057,7 @@
                         },
                         {
                             "calc": {
-                                "expression": "{{pHour}} * {{qtd_sche_det}} * {{vPerc}}",
+                                "expression": "{{pHourCompany}} * {{qtd_sche_det}} * {{vPerc}}",
                                 "returnType": "float",
                                 "decimals": 2,
                                 "returnVar": "vDisc"
@@ -947,7 +1065,7 @@
                         },
                         {
                             "calc": {
-                                "expression": "({{pHour}} * {{qtd_sche_det}}) - ({{pHour}} * {{qtd_sche_det}} * {{vPerc}})",
+                                "expression": "({{pHourCompany}} * {{qtd_sche_det}}) - ({{pHourCompany}} * {{qtd_sche_det}} * {{vPerc}})",
                                 "returnType": "float",
                                 "decimals": 2,
                                 "returnVar": "vTotalwDisc"
@@ -969,7 +1087,7 @@
                                         "discount": "1",
                                         "fk_discount": "{{id_discount}}",
                                         "value_discount": "{{vDisc}}",
-                                        "value_total": "{{vTotalwDisc}}",
+                                        "value_total_comp": "{{vTotalwDisc}}",
                                         "_id": "{{idLessonsTmp}}"
                                     }
                                 ]
@@ -980,7 +1098,7 @@
                                 "componentName": "vwDiscountCode__lblValwoDiscount",
                                 "property": "text",
                                 "transform": 1,
-                                "value": "{{vTotal}}"
+                                "value": "{{vTotalCompany}}"
                             }
                         },
                         {
@@ -1022,7 +1140,7 @@
         "code": [
             {
                 "query": {
-                    "statement": "SELECT discipline_types._id as _id, UPPER(discipline_types.description) as description FROM discipline_types order by discipline_types.description",
+                    "statement": "SELECT discipline_types._id as _id, UPPER(discipline_types.description) as description FROM discipline_types where status = 1 order by discipline_types.description",
                     "returnVar": "qryLstDiscTypes"
                 }
             }
@@ -1034,7 +1152,7 @@
         "code": [
             {
                 "query": {
-                    "statement": "SELECT disciplines._id as _id, UPPER(disciplines.description) as description FROM disciplines WHERE disciplines.fk_disc_type = {{vwDisciplineTypes__listDisciplineTypes__selectedValue}} ORDER BY disciplines.description",
+                    "statement": "SELECT disciplines._id as _id, UPPER(disciplines.description) as description FROM disciplines WHERE disciplines.fk_disc_type = {{vwDisciplineTypes__listDisciplineTypes__selectedValue}} and status = 1 ORDER BY disciplines.description",
                     "returnVar": "qryLstDiscs"
                 }
             }
@@ -1046,7 +1164,7 @@
         "code": [
             {
                 "query": {
-                    "statement": "SELECT users.fk_company as fk_company, strftime('%d/%m/%Y',schedules.date) as date, users.name as name, user_disciplines.price as price, countries.currency as currency FROM user_disciplines INNER JOIN users ON user_disciplines.fk_user = users._id INNER JOIN companies ON users.fk_company = companies._id INNER JOIN countries ON companies.fk_country = countries._id INNER JOIN schedules ON user_disciplines.fk_user = schedules.fk_user WHERE schedules._id = {{vwTeacherSchedules__listTeacherSchedules__selectedValue}} and user_disciplines.fk_discipline = {{vwDisciplines__listDisciplines__selectedValue}}",
+                    "statement": "SELECT users.fk_company as fk_company, strftime('%d/%m/%Y',schedules.date) as date, users.name as name, user_disciplines.price_company as price_company, user_disciplines.price_user as price_user, countries.currency as currency FROM user_disciplines INNER JOIN users ON user_disciplines.fk_user = users._id INNER JOIN companies ON users.fk_company = companies._id INNER JOIN countries ON companies.fk_country = countries._id INNER JOIN schedules ON user_disciplines.fk_user = schedules.fk_user WHERE schedules._id = {{vwTeacherSchedules__listTeacherSchedules__selectedValue}} and user_disciplines.fk_discipline = {{vwDisciplines__listDisciplines__selectedValue}}",
                     "returnVar": "qryInfoPrice"
                 }
             },
@@ -1077,9 +1195,17 @@
             {
                 "queryValue": {
                     "queryVar": "qryInfoPrice",
-                    "fieldName": "price",
+                    "fieldName": "price_company",
                     "position": "0",
-                    "returnVar": "pHour"
+                    "returnVar": "pHourCompany"
+                }
+            },
+            {
+                "queryValue": {
+                    "queryVar": "qryInfoPrice",
+                    "fieldName": "price_user",
+                    "position": "0",
+                    "returnVar": "pHourUser"
                 }
             },
             {
@@ -1092,10 +1218,18 @@
             },
             {
                 "calc": {
-                    "expression": "{{pHour}} * {{qtd_sche_det}}",
+                    "expression": "{{pHourCompany}} * {{qtd_sche_det}}",
                     "returnType": "float",
                     "decimals": 2,
-                    "returnVar": "vTotal"
+                    "returnVar": "vTotalCompany"
+                }
+            },
+            {
+                "calc": {
+                    "expression": "{{pHourUser}} * {{qtd_sche_det}}",
+                    "returnType": "float",
+                    "decimals": 2,
+                    "returnVar": "vTotalUser"
                 }
             },
             {
@@ -1104,7 +1238,8 @@
                     "values": [
                         {
                             "fk_company": "{{vCompany}}",
-                            "price_hour": "{{pHour}}",
+                            "price_hour_comp": "{{pHourCompany}}",
+                            "price_hour_user": "{{pHourUser}}",
                             "currency": "{{vCurrency}}",
                             "_id": "{{idLessonsTmp}}"
                         }
@@ -1162,7 +1297,7 @@
                     "componentName": "vwLessonSummary__lblSPriceHour",
                     "property": "text",
                     "transform": 1,
-                    "value": "PRICE FOR HOUR: {{vCurrency}} {{pHour}}"
+                    "value": "PRICE FOR HOUR: {{vCurrency}} {{pHourCompany}}"
                 }
             },
             {
@@ -1170,7 +1305,7 @@
                     "componentName": "vwLessonSummary__lblSTotalValue",
                     "property": "text",
                     "transform": 1,
-                    "value": "TOTAL VALUE: {{vCurrency}} {{vTotal}}"
+                    "value": "TOTAL VALUE: {{vCurrency}} {{vTotalCompany}}"
                 }
             }
         ]
@@ -1184,7 +1319,7 @@
                     "componentName": "vwDiscountCode__lblValwoDiscount",
                     "property": "text",
                     "transform": 1,
-                    "value": "{{vTotal}}"
+                    "value": "{{vTotalCompany}}"
                 }
             },
             {
@@ -1200,7 +1335,7 @@
                     "componentName": "vwDiscountCode__lblValTotal",
                     "property": "text",
                     "transform": 1,
-                    "value": "{{vTotal}}"
+                    "value": "{{vTotalCompany}}"
                 }
             }
         ]
@@ -1211,7 +1346,7 @@
         "code": [
             {
                 "query": {
-                    "statement": "SELECT lesson_statuses._id as _id, UPPER(lesson_statuses.description) as description FROM lesson_statuses order by lesson_statuses.description",
+                    "statement": "SELECT lesson_statuses._id as _id, UPPER(lesson_statuses.description) as description FROM lesson_statuses WHERE status = 1 order by lesson_statuses.description",
                     "returnVar": "qryLstLessStat"
                 }
             }
@@ -1274,7 +1409,7 @@
         "code": [
             {
                 "if": {
-                    "condition": "{{vwLessonStatuses__listLessonStatuses__selectedValue}} == '1' || {{vwLessonStatuses__listLessonStatuses__selectedValue}} == '3'",
+                    "condition": "{{vwLessonStatuses__listLessonStatuses__selectedValue}} == '1'",
                     "block": [
                         {
                             "openScreen": {
@@ -1309,9 +1444,24 @@
                                             ],
                                             "else": [
                                                 {
-                                                    "openScreen": {
-                                                        "screenName": "vwLessonDetailsDone",
-                                                        "variables": []
+                                                    "if": {
+                                                        "condition": "{{vwLessonStatuses__listLessonStatuses__selectedValue}} == '3'",
+                                                        "block": [
+                                                            {
+                                                                "openScreen": {
+                                                                    "screenName": "vwLessonDetailsReject",
+                                                                    "variables": []
+                                                                }
+                                                            }
+                                                        ],
+                                                        "else": [
+                                                            {
+                                                                "openScreen": {
+                                                                    "screenName": "vwLessonDetailsDone",
+                                                                    "variables": []
+                                                                }
+                                                            }
+                                                        ]
                                                     }
                                                 }
                                             ]
@@ -1331,13 +1481,13 @@
         "code": [
             {
                 "query": {
-                    "statement": "SELECT discipline_types.description as disc_type, disciplines.description as discipline, strftime('%d/%m/%Y',schedules.date) as date, users.name as teacher, lessons.hours as hours, lessons.currency as currency, lessons.price_hour as price_hour, lessons.value_discount as value_discount, lessons.value_wo_discount as value_wo_discount, lessons.value_total as value_total, IFNULL(lesson_ratings.description,'rating') as rating, IFNULL(lesson_reasons.description,'reason') as reason, IFNULL(lesson_evaluations.observations,'obs') as obs FROM lessons INNER JOIN discipline_types ON lessons.fk_disc_type = discipline_types._id INNER JOIN disciplines ON lessons.fk_discipline = disciplines._id INNER JOIN schedules ON lessons.fk_schedule = schedules._id INNER JOIN users ON schedules.fk_user = users._id LEFT JOIN lesson_evaluations ON lessons._id = lesson_evaluations.fk_lesson LEFT JOIN lesson_ratings ON lesson_evaluations.fk_rating = lesson_ratings._id LEFT JOIN lesson_reasons ON lesson_evaluations.fk_reason = lesson_reasons._id WHERE lessons._id = {{vwLessons__listLessons__selectedValue}}",
+                    "statement": "SELECT discipline_types.description as disc_type, disciplines.description as discipline, strftime('%d/%m/%Y',lessons.date) as date, users.name as teacher, lessons.hours as hours, lessons.currency as currency, lessons.price_hour_comp as price_hour_comp, lessons.value_discount as value_discount, lessons.value_wo_discount as value_wo_discount, lessons.value_total_comp as value_total_comp, lessons.observations as observations, IFNULL(lesson_ratings.description,'rating') as rating, IFNULL(lesson_reasons.description,'reason') as reason, IFNULL(lesson_evaluations.observations,'obs') as obs FROM lessons INNER JOIN discipline_types ON lessons.fk_disc_type = discipline_types._id INNER JOIN disciplines ON lessons.fk_discipline = disciplines._id INNER JOIN users ON schedules.fk_user = users._id LEFT JOIN lesson_evaluations ON lessons._id = lesson_evaluations.fk_lesson LEFT JOIN lesson_ratings ON lesson_evaluations.fk_rating = lesson_ratings._id LEFT JOIN lesson_reasons ON lesson_evaluations.fk_reason = lesson_reasons._id WHERE lessons._id = {{vwLessons__listLessons__selectedValue}}",
                     "returnVar": "qryInfoLesson"
                 }
             },
             {
                 "query": {
-                    "statement": "SELECT lesson_details._id as _id, (schedule_details.start || ' - ' || schedule_details.end) as hours FROM lesson_details INNER JOIN schedule_details ON lesson_details.fk_sche_det = schedule_details._id WHERE lesson_details.fk_lesson = {{vwLessons__listLessons__selectedValue}}",
+                    "statement": "SELECT lesson_details._id as _id, (lesson_details.start || ' - ' || lesson_details.end) as hours FROM lesson_details WHERE lesson_details.fk_lesson = {{vwLessons__listLessons__selectedValue}}",
                     "returnVar": "qryInfoLessonDet"
                 }
             },
@@ -1392,7 +1542,7 @@
             {
                 "queryValue": {
                     "queryVar": "qryInfoLesson",
-                    "fieldName": "price_hour",
+                    "fieldName": "price_hour_comp",
                     "position": "0",
                     "returnVar": "vPriceHour"
                 }
@@ -1416,9 +1566,17 @@
             {
                 "queryValue": {
                     "queryVar": "qryInfoLesson",
-                    "fieldName": "value_total",
+                    "fieldName": "value_total_comp",
                     "position": "0",
                     "returnVar": "vValTotal"
+                }
+            },
+            {
+                "queryValue": {
+                    "queryVar": "qryInfoLesson",
+                    "fieldName": "observations",
+                    "position": "0",
+                    "returnVar": "vObsHeader"
                 }
             },
             {
@@ -1599,6 +1757,92 @@
                     "property": "text",
                     "transform": 1,
                     "value": "TOTAL VALUE: {{vCurrency}} {{vValTotal}}"
+                }
+            }
+        ]
+    },
+    {
+        "name": "showLessonDetailsReject",
+        "params": [],
+        "code": [
+            {
+                "setProperty": {
+                    "componentName": "vwLessonDetailsReject__lblDDisciplineType",
+                    "property": "text",
+                    "transform": 1,
+                    "value": "{{vDiscType}}"
+                }
+            },
+            {
+                "setProperty": {
+                    "componentName": "vwLessonDetailsReject__lblDDiscipline",
+                    "property": "text",
+                    "transform": 1,
+                    "value": "{{vDiscipline}}"
+                }
+            },
+            {
+                "setProperty": {
+                    "componentName": "vwLessonDetailsReject__lblDDate",
+                    "property": "text",
+                    "transform": 1,
+                    "value": "{{vDate}}"
+                }
+            },
+            {
+                "setProperty": {
+                    "componentName": "vwLessonDetailsReject__lblDTeacher",
+                    "property": "text",
+                    "transform": 1,
+                    "value": "{{vTeacher}}"
+                }
+            },
+            {
+                "setProperty": {
+                    "componentName": "vwLessonDetailsReject__lblDQtdHours",
+                    "property": "text",
+                    "transform": 1,
+                    "value": "QUANTITY HOURS: {{vHours}}"
+                }
+            },
+            {
+                "setProperty": {
+                    "componentName": "vwLessonDetailsReject__lblDPriceHour",
+                    "property": "text",
+                    "transform": 1,
+                    "value": "PRICE FOR HOUR: {{vCurrency}} {{vPriceHour}}"
+                }
+            },
+            {
+                "setProperty": {
+                    "componentName": "vwLessonDetailsReject__lblDDiscountValue",
+                    "property": "text",
+                    "transform": 1,
+                    "value": "DISCOUNT VALUE: {{vCurrency}} {{vValDiscount}}"
+                }
+            },
+            {
+                "setProperty": {
+                    "componentName": "vwLessonDetailsReject__lblDValuewoDiscount",
+                    "property": "text",
+                    "transform": 1,
+                    "value": "VALUE WITHOUT DISCOUNT: {{vCurrency}} {{vValwoDiscount}}"
+                }
+            },
+            {
+                "setProperty": {
+                    "componentName": "vwLessonDetailsReject__lblDTotalValue",
+                    "property": "text",
+                    "transform": 1,
+                    "value": "TOTAL VALUE: {{vCurrency}} {{vValTotal}}"
+                }
+            },
+            {
+                "setProperty": {
+                    "componentName": "vwLessonDetailsReject__lblDObs",
+                    "property": "text",
+                    "transform": 1,
+                    "value": "{{vObsHeader}}"
                 }
             }
         ]
@@ -1817,7 +2061,7 @@
         "code": [
             {
                 "query": {
-                    "statement": "SELECT lesson_ratings._id as _id, lesson_ratings.description as description FROM lesson_ratings ORDER BY lesson_ratings._id",
+                    "statement": "SELECT lesson_ratings._id as _id, lesson_ratings.description as description FROM lesson_ratings WHERE status = 1 ORDER BY lesson_ratings._id",
                     "returnVar": "qryLstLessRati"
                 }
             },
@@ -1835,7 +2079,7 @@
         "code": [
             {
                 "query": {
-                    "statement": "SELECT lesson_reasons._id as _id, lesson_reasons.description as description FROM lesson_reasons ORDER BY lesson_reasons._id",
+                    "statement": "SELECT lesson_reasons._id as _id, lesson_reasons.description as description FROM lesson_reasons WHERE status = 1 ORDER BY lesson_reasons._id",
                     "returnVar": "qryLstLessReas"
                 }
             },
@@ -1865,7 +2109,7 @@
                     "values": [
                         {
                             "fk_less_stat": "4",
-                            "_id": "{{vwLessons__listLessons__selectedValue}}"
+                            "fk_mobile": "{{vwLessons__listLessons__selectedValue}}"
                         }
                     ]
                 }
@@ -1915,7 +2159,7 @@
                     "values": [
                         {
                             "fk_less_stat": "5",
-                            "_id": "{{vwLessons__listLessons__selectedValue}}"
+                            "fk_mobile": "{{vwLessons__listLessons__selectedValue}}"
                         }
                     ]
                 }
@@ -1979,7 +2223,7 @@
         "code": [
             {
                 "query": {
-                    "statement": "SELECT _id FROM client_favorites WHERE client_favorites.fk_client = {{__user_id}} AND client_favorites.fk_user = {{vIdTeacher}}",
+                    "statement": "SELECT _id FROM client_favorites WHERE client_favorites.fk_client = {{__user_id}} AND client_favorites.fk_user = {{vIdTeacher}} AND status = 1",
                     "returnVar": "qryInfoFavorites"
                 }
             },
@@ -2011,7 +2255,8 @@
                                 "values": [
                                     {
                                         "fk_client": "{{__user_id}}",
-                                        "fk_user": "{{vIdTeacher}}"
+                                        "fk_user": "{{vIdTeacher}}",
+                                        "status": "1"
                                     }
                                 ]
                             }
@@ -2112,11 +2357,22 @@
                 }
             },
             {
+                "tableDelete": {
+                    "tableName": "schedules"
+                }
+            },
+            {
+                "tableDelete": {
+                    "tableName": "schedule_details"
+                }
+            },
+            {
                 "tableInsert": {
                     "tableName": "lessons_tmp",
                     "values": [
                         {
                             "fk_client": "{{__user_id}}",
+                            "fk_user": "{{vwFavoriteTeachers__listFavoriteTeachers__selectedValue}}",
                             "fk_less_stat": "1",
                             "discount": "0",
                             "fk_discount": "0",
@@ -2153,7 +2409,7 @@
         "code": [
             {
                 "query": {
-                    "statement": "SELECT DISTINCT discipline_types._id as _id, UPPER(discipline_types.description) as disc_type FROM users INNER JOIN user_disciplines ON users._id = user_disciplines.fk_user INNER JOIN disciplines ON user_disciplines.fk_discipline = disciplines._id INNER JOIN discipline_types ON disciplines.fk_disc_type = discipline_types._id WHERE users._id = {{vwFavoriteTeachers__listFavoriteTeachers__selectedValue}}  order by discipline_types.description",
+                    "statement": "SELECT DISTINCT discipline_types._id as _id, UPPER(discipline_types.description) as disc_type FROM users INNER JOIN user_disciplines ON users._id = user_disciplines.fk_user INNER JOIN disciplines ON user_disciplines.fk_discipline = disciplines._id INNER JOIN discipline_types ON disciplines.fk_disc_type = discipline_types._id WHERE users._id = {{vwFavoriteTeachers__listFavoriteTeachers__selectedValue}} and discipline_types.status = 1 order by discipline_types.description",
                     "returnVar": "qryLstFavoDiscTypes"
                 }
             }
@@ -2188,7 +2444,7 @@
         "code": [
             {
                 "query": {
-                    "statement": "SELECT disciplines._id as _id, UPPER(disciplines.description) as disc FROM disciplines WHERE disciplines.fk_disc_type = {{vwFavoDiscTypes__listFavoDiscTypes__selectedValue}} order by disciplines.description",
+                    "statement": "SELECT disciplines._id as _id, UPPER(disciplines.description) as disc FROM disciplines WHERE disciplines.fk_disc_type = {{vwFavoDiscTypes__listFavoDiscTypes__selectedValue}} and disciplines.status = 1 order by disciplines.description",
                     "returnVar": "qryLstFavoDiscs"
                 }
             }
@@ -2268,37 +2524,69 @@
                                 ],
                                 "else": [
                                     {
-                                        "query": {
-                                            "statement": "SELECT schedules._id as _id, strftime('%d/%m/%Y', date) as date, (countries.currency || ' ' || CAST(user_disciplines.price as text)) as price FROM schedules INNER JOIN user_disciplines ON schedules.fk_user = user_disciplines.fk_user INNER JOIN users ON user_disciplines.fk_user = users._id INNER JOIN companies ON users.fk_company = companies._id INNER JOIN clients ON clients.fk_country = companies.fk_country INNER JOIN countries ON companies.fk_country = countries._id WHERE user_disciplines.fk_discipline = {{vwFavoDiscs__listFavoDiscs__selectedValue}} and user_disciplines.fk_user = {{vwFavoriteTeachers__listFavoriteTeachers__selectedValue}} and schedules.status = 1 and (CAST(strftime('%Y%m%d', date) as integer) BETWEEN {{dtFrom}} and {{dtTo}})",
-                                            "returnVar": "qryLstFavoTeacDates"
-                                        }
-                                    },
-                                    {
-                                        "queryNumRows": {
-                                            "queryVar": "qryLstFavoTeacDates",
-                                            "returnVar": "numFavoTeacDates"
-                                        }
-                                    },
-                                    {
-                                        "if": {
-                                            "condition": "{{numFavoTeacDates}} > 0",
-                                            "block": [
+                                        "getData": {
+                                            "tableName": "schedules",
+                                            "requestType": "s",
+                                            "requestParams": "fk_user = {{vwFavoriteTeachers__listFavoriteTeachers__selectedValue}} AND (CAST(DATE_FORMAT(date, '%Y%m%d') as UNSIGNED) BETWEEN {{dtFrom}} and {{dtTo}})",
+                                            "clearAll": true,
+                                            "userExclusive": false,
+                                            "loadingMessage": "Searching schedules...",
+                                            "displayTimeOutDialog": true,
+                                            "timeOutDialogButton": "Try again",
+                                            "timeOutMessage": "Connection Timeout expired.",
+                                            "onTimeOut": "pendingDownloads",
+                                            "blockSuccess": [
                                                 {
-                                                    "openScreen": {
-                                                        "screenName": "vwFavoTeacDates",
-                                                        "variables": []
-                                                    }
-                                                }
-                                            ],
-                                            "else": [
-                                                {
-                                                    "alertDialog": {
-                                                        "title": "Information",
-                                                        "message": "No Search Results",
-                                                        "closeButton": {
-                                                            "title": "Ok",
-                                                            "onClick": ""
-                                                        }
+                                                    "getData": {
+                                                        "tableName": "schedule_details",
+                                                        "requestType": "s",
+                                                        "requestParams": "fk_schedule in (select _id from schedules where fk_user = {{vwFavoriteTeachers__listFavoriteTeachers__selectedValue}} AND (CAST(DATE_FORMAT(date, '%Y%m%d') as UNSIGNED) BETWEEN {{dtFrom}} and {{dtTo}}))",
+                                                        "clearAll": true,
+                                                        "userExclusive": false,
+                                                        "loadingMessage": "Searching schedules...",
+                                                        "displayTimeOutDialog": true,
+                                                        "timeOutDialogButton": "Try again",
+                                                        "timeOutMessage": "Connection Timeout expired.",
+                                                        "onTimeOut": "pendingDownloads",
+                                                        "blockSuccess": [
+                                                            {
+                                                                "query": {
+                                                                    "statement": "SELECT schedules._id as _id, strftime('%d/%m/%Y', date) as date, (countries.currency || ' ' || CAST(user_disciplines.price_company as text)) as price FROM schedules INNER JOIN user_disciplines ON schedules.fk_user = user_disciplines.fk_user INNER JOIN users ON user_disciplines.fk_user = users._id INNER JOIN companies ON users.fk_company = companies._id INNER JOIN clients ON clients.fk_country = companies.fk_country INNER JOIN countries ON companies.fk_country = countries._id WHERE user_disciplines.fk_discipline = {{vwFavoDiscs__listFavoDiscs__selectedValue}} and users.status = 1 companies.status = 1 and clients.status = 1 and countries.status = 1",
+                                                                    "returnVar": "qryLstFavoTeacDates"
+                                                                }
+                                                            },
+                                                            {
+                                                                "queryNumRows": {
+                                                                    "queryVar": "qryLstFavoTeacDates",
+                                                                    "returnVar": "numFavoTeacDates"
+                                                                }
+                                                            },
+                                                            {
+                                                                "if": {
+                                                                    "condition": "{{numFavoTeacDates}} > 0",
+                                                                    "block": [
+                                                                        {
+                                                                            "openScreen": {
+                                                                                "screenName": "vwFavoTeacDates",
+                                                                                "variables": []
+                                                                            }
+                                                                        }
+                                                                    ],
+                                                                    "else": [
+                                                                        {
+                                                                            "alertDialog": {
+                                                                                "title": "Information",
+                                                                                "message": "No Search Results",
+                                                                                "closeButton": {
+                                                                                    "title": "Ok",
+                                                                                    "onClick": ""
+                                                                                }
+                                                                            }
+                                                                        }
+                                                                    ]
+                                                                }
+                                                            }
+                                                        ]
                                                     }
                                                 }
                                             ]
@@ -2429,7 +2717,7 @@
         "code": [
             {
                 "query": {
-                    "statement": "SELECT users.fk_company as fk_company, strftime('%d/%m/%Y',schedules.date) as date, users.name as name, user_disciplines.price as price, countries.currency as currency FROM user_disciplines INNER JOIN users ON user_disciplines.fk_user = users._id INNER JOIN companies ON users.fk_company = companies._id INNER JOIN countries ON companies.fk_country = countries._id INNER JOIN schedules ON user_disciplines.fk_user = schedules.fk_user WHERE schedules._id = {{vwFavoTeacDates__listFavoTeacDates__selectedValue}} and user_disciplines.fk_discipline = {{vwFavoDiscs__listFavoDiscs__selectedValue}}",
+                    "statement": "SELECT users.fk_company as fk_company, strftime('%d/%m/%Y',schedules.date) as date, users.name as name, user_disciplines.price_user as price_user, user_disciplines.price_company as price_company, countries.currency as currency FROM user_disciplines INNER JOIN users ON user_disciplines.fk_user = users._id INNER JOIN companies ON users.fk_company = companies._id INNER JOIN countries ON companies.fk_country = countries._id INNER JOIN schedules ON user_disciplines.fk_user = schedules.fk_user WHERE schedules._id = {{vwFavoTeacDates__listFavoTeacDates__selectedValue}} and user_disciplines.fk_discipline = {{vwFavoDiscs__listFavoDiscs__selectedValue}}",
                     "returnVar": "qryInfoPrice"
                 }
             },
@@ -2460,9 +2748,17 @@
             {
                 "queryValue": {
                     "queryVar": "qryInfoPrice",
-                    "fieldName": "price",
+                    "fieldName": "price_company",
                     "position": "0",
-                    "returnVar": "pHour"
+                    "returnVar": "pHourCompany"
+                }
+            },
+            {
+                "queryValue": {
+                    "queryVar": "qryInfoPrice",
+                    "fieldName": "price_user",
+                    "position": "0",
+                    "returnVar": "pHourUser"
                 }
             },
             {
@@ -2475,10 +2771,18 @@
             },
             {
                 "calc": {
-                    "expression": "{{pHour}} * {{qtd_sche_det}}",
+                    "expression": "{{pHourCompany}} * {{qtd_sche_det}}",
                     "returnType": "float",
                     "decimals": 2,
-                    "returnVar": "vTotal"
+                    "returnVar": "vTotalCompany"
+                }
+            },
+            {
+                "calc": {
+                    "expression": "{{pHourUser}} * {{qtd_sche_det}}",
+                    "returnType": "float",
+                    "decimals": 2,
+                    "returnVar": "vTotalUser"
                 }
             },
             {
@@ -2487,7 +2791,8 @@
                     "values": [
                         {
                             "fk_company": "{{vCompany}}",
-                            "price_hour": "{{pHour}}",
+                            "price_hour_comp": "{{pHourCompany}}",
+                            "price_hour_user": "{{pHourUser}}",
                             "currency": "{{vCurrency}}",
                             "_id": "{{idLessonsTmp}}"
                         }
@@ -2545,7 +2850,7 @@
                     "componentName": "vwFavoLessSummary__lblFPriceHour",
                     "property": "text",
                     "transform": 1,
-                    "value": "PRICE FOR HOUR: {{vCurrency}} {{pHour}}"
+                    "value": "PRICE FOR HOUR: {{vCurrency}} {{pHourCompany}}"
                 }
             },
             {
@@ -2553,7 +2858,7 @@
                     "componentName": "vwFavoLessSummary__lblFTotalValue",
                     "property": "text",
                     "transform": 1,
-                    "value": "TOTAL VALUE: {{vCurrency}} {{vTotal}}"
+                    "value": "TOTAL VALUE: {{vCurrency}} {{vTotalCompany}}"
                 }
             }
         ]
@@ -2564,7 +2869,7 @@
         "code": [
             {
                 "query": {
-                    "statement": "SELECT companies._id as _id, UPPER(companies.name) as name FROM companies INNER JOIN clients ON companies.fk_country = clients.fk_country order by companies.name",
+                    "statement": "SELECT companies._id as _id, UPPER(companies.name) as name FROM companies INNER JOIN clients ON companies.fk_country = clients.fk_country WHERE companies.status = 1 order by companies.name",
                     "returnVar": "qryLstCompDiscs"
                 }
             }
@@ -2576,7 +2881,7 @@
         "code": [
             {
                 "query": {
-                    "statement": "SELECT discounts._id as _id, UPPER(discounts.code) as code, ('-' || CAST((discounts.percent*100) as text) || '%') as percent, (countries.currency || ' ' || CAST(discounts.condition_start as text) || ' AND ' || countries.currency || ' ' || CAST(discounts.condition_end as text)) as condition FROM discounts INNER JOIN companies ON discounts.fk_company = companies._id INNER JOIN countries ON companies.fk_country = countries._id WHERE discounts.fk_company = {{vwCompanyDiscounts__listCompanyDiscounts__selectedValue}} order by discounts.code",
+                    "statement": "SELECT discounts._id as _id, UPPER(discounts.code) as code, ('-' || CAST((discounts.percent*100) as text) || '%') as percent, (countries.currency || ' ' || CAST(discounts.condition_start as text) || ' AND ' || countries.currency || ' ' || CAST(discounts.condition_end as text)) as condition FROM discounts INNER JOIN companies ON discounts.fk_company = companies._id INNER JOIN countries ON companies.fk_country = countries._id WHERE discounts.fk_company = {{vwCompanyDiscounts__listCompanyDiscounts__selectedValue}} AND discounts.status = 1 order by discounts.code",
                     "returnVar": "qryLstDiscountCodes"
                 }
             },
