@@ -66,8 +66,7 @@ public class AppDBModel {
         ContentValues values = new ContentValues();
         try
         {
-            if(!db.isOpen())
-                db = dbHelper.getWritableDatabase();
+            openDB();
             Cursor cursor = db.rawQuery("SELECT * FROM "+ appTableName+" WHERE _ID="+id, null);
             if (cursor.moveToFirst())
             {
@@ -81,8 +80,7 @@ public class AppDBModel {
                 } while (cursor.moveToNext());
             }
             cursor.close();
-            if(db.isOpen())
-                db.close();
+            closeDB();
         }
         catch (SQLiteException e)
         {
@@ -118,8 +116,7 @@ public class AppDBModel {
 
     public synchronized void beginTransaction()
     {
-        if(!db.isOpen())
-            db  = dbHelper.getWritableDatabase();
+        openDB();
         db.beginTransaction();
         String sql = this.addStatement();
 
@@ -133,8 +130,7 @@ public class AppDBModel {
         }
         finally
         {
-            if(!db.isOpen())
-                db  = dbHelper.getWritableDatabase();
+            openDB();
             statement = db.compileStatement(sql);
         }
 
@@ -144,8 +140,7 @@ public class AppDBModel {
     {
             db.setTransactionSuccessful();
             db.endTransaction();
-            if(db.isOpen())
-                db.close();
+            closeDB();
     }
     public synchronized void add(ContentValues values)
     {
@@ -153,11 +148,9 @@ public class AppDBModel {
         {
 /*            values.put("_date_time_created", FoHeart.dateTime());
             values.put("_date_time_updated", FoHeart.dateTime());*/
-            if(!db.isOpen())
-                db = dbHelper.getWritableDatabase();
+            openDB();
             db.insert(this.appTableName, null, values);
-            if(db.isOpen())
-                db.close();
+            closeDB();
         }
     }
     public synchronized void update(ContentValues values)
@@ -167,11 +160,9 @@ public class AppDBModel {
         if (null!=values && id > 0)
         {
         /*    values.put("_date_time_updated", FoHeart.dateTime()); */
-            if(!db.isOpen())
-                db = dbHelper.getWritableDatabase();
+            openDB();
             db.update(this.appTableName, values, "_id=" + id, null);
-            if(db.isOpen())
-                db.close();
+            closeDB();
         }
     }
     public synchronized void save(ContentValues values)
@@ -294,8 +285,7 @@ public class AppDBModel {
     }
     public synchronized List<ContentValues> list()
     {
-        if(!db.isOpen())
-            db = dbHelper.getWritableDatabase();
+        openDB();
         List<ContentValues> list = new ArrayList<ContentValues>();
         String selectQuery = "SELECT  * FROM " + appTableName;
 
@@ -312,8 +302,7 @@ public class AppDBModel {
         }
 
         curApp.close();
-        if(db.isOpen())
-            db.close();
+        closeDB();
 
         return list;
     }
@@ -321,11 +310,9 @@ public class AppDBModel {
     {
         try
         {
-            if(!db.isOpen())
-                db = dbHelper.getWritableDatabase();
+            openDB();
             db.delete(this.appTableName, "_id="+_id, null);
-            if(db.isOpen())
-                db.close();
+            closeDB();
         }
         catch (Exception e)
         {
@@ -336,11 +323,9 @@ public class AppDBModel {
     {
         try
         {
-            if(!db.isOpen())
-                db = dbHelper.getWritableDatabase();
+            openDB();
             db.delete(this.appTableName, condition, null);
-            if(db.isOpen())
-                db.close();
+            closeDB();
         }
         catch (Exception e)
         {
@@ -351,15 +336,9 @@ public class AppDBModel {
     {
         try
         {
-            if(db == null){
-                db = dbHelper.getWritableDatabase();
-            }else{
-                if(!db.isOpen())
-                    db = dbHelper.getWritableDatabase();
-            }
+            openDB();
             db.delete(this.appTableName, null, null);
-            if(db.isOpen())
-                db.close();
+            closeDB();
         }
         catch (Exception e)
         {
@@ -372,8 +351,7 @@ public class AppDBModel {
         List<ContentValues> list = new ArrayList<ContentValues>();
         try
         {
-            if(!db.isOpen())
-                db = dbHelper.getWritableDatabase();
+            openDB();
             Cursor cursor = db.rawQuery(selectQuery, null);
             if (cursor.moveToFirst())
             {
@@ -389,8 +367,7 @@ public class AppDBModel {
                 } while (cursor.moveToNext());
             }
             cursor.close();
-            if(db.isOpen())
-                db.close();
+            closeDB();
         }
         catch (SQLiteException e)
         {
@@ -442,5 +419,19 @@ public class AppDBModel {
         this.appTableName = tb;
         fieldDatas = TableFieldModel.get_model().list(TableModel.get_model().get_data(idApp,tb)._id);
         sizeFields = this.fieldDatas.size();
+    }
+
+    private void openDB(){
+        if(db == null){
+            db = dbHelper.getWritableDatabase();
+        }else{
+            if(!db.isOpen())
+                db = dbHelper.getWritableDatabase();
+        }
+    }
+
+    private void closeDB(){
+        if(db.isOpen())
+            db.close();
     }
 }
