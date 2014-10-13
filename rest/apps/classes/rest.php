@@ -11,7 +11,7 @@ class rest extends superRest {
    /**
     * @var array os métodos que podem ser chamados por URL
     */		
-	protected $permitidos = array('login','logout','applicence','getapp','location','location_imei','location_track','location_user','submit_apps', 'reset_apps','get_apps', 'send_data', 'get_data','post_data','is_logged','add_hash','get_hash','is_hash_used','send_pessoa','list_pessoas','v2_send_data','check_version');
+	protected $permitidos = array('login','logout','applicence','getapp','location','location_imei','location_track','location_user','submit_apps', 'reset_apps','get_apps', 'send_data', 'get_data','post_data','is_logged','add_hash','get_hash','is_hash_used','send_pessoa','list_pessoas','v2_send_data','check_version_master','check_version_transaction','get_data_transaction','updateVersion');
 	
 
 	// Teste para o lucas
@@ -200,87 +200,67 @@ class rest extends superRest {
 
 
 	public function v2_send_data() {
-		// valida se foram enviados todos os dados obrigatórios para a função
-		{
+		if (!$this->vars['coduser']
+			or !$this->vars['coduser']
+			or !$this->vars['password']
+			or !$this->vars['user']
+			or !$this->vars['pass']
+			or !$this->vars['request']
+			or !$this->vars['response']
+			or !$this->vars['appName']) {
+			$this->retorno["status"] = false;
+			$this->retorno["error"] = "106";
+			$this->retorno["message"] = "Please send all the 9 parameters to execute this function.";
+		} else {
 			$sql_insert = "";
-			//echo "-->1 \n";
-			// ok, os dados foram enviados via get... posso tentar logar
+
 			$logado = $this->doLogin($this->vars['coduser'],$this->vars['password']);
 			if(!$logado) {
-				//echo "---->1.0 \n";
-				// se não conseguiu logar, pare por aqui
 				$this->retorno['status'] = false;
 				$this->retorno["error"] = "116";
-				$this->retorno["message"] = "Invalid user";
-			
+				$this->retorno["message"] = "Invalid user";			
 			} else {
-				//echo "-->1.1 \n";
-				// ok, é um usuário logado!
-		
-				// vamos verificar se os parâmetros estão de acordo
+
 				$erro = false;
-				
+		
 				if (!$erro) 
 				{
 					$superModel = new superModel();
-
 					$superModel->changedBd($this->vars['user'], $this->vars['pass'], $this->vars['appName']);
-					// desserializa o json
 
 					$rawJson = urldecode(utf8_decode($this->vars['record']));
-					//echo $rawJson."\n";
 					$jsonRecord = json_decode($rawJson, true);
-					if (!$this->vars['thekey']) $thekey = "_id"; 
-					else
-					{
+					if (!$this->vars['thekey']) {
+						$thekey = "_id"; 
+					} else {
 						unset($jsonRecord['_id']);
 						$thekey = $this->vars['thekey'];
 					}
-					//echo "-->1.2 \n";
-					//unset($jsonRecord['_id']);
+
 					unset($jsonRecord['_sync']);
-					//echo $jsonRecord." \n";
-					// pega o nome da table
 					$table = $this->vars['tablename'];
 					$sql_init = "insert ignore into ".$table. " set ";
 					$sql_end = "";
 					
-					echo "--> ".$jsonRecord." \n";
-					// monta a string sql
-					foreach ($jsonRecord as $key => $value) 
-					{
-						if ($thekey == $key)
-						{
-							$response = $superModel->genericQuery("select * from ".$table." where fk_user=".$this->vars['coduser']." and ".$thekey."='".$value."'");
+					foreach ($jsonRecord as $key => $value) {
+						if ($thekey == $key) {
+							$response = $superModel->genericQuery("select * from ".$table." where fk_client = '".$this->vars['request']."' and fk_user= '".$this->vars['response']."' and ".$thekey."='".$value."'");
 
-							if (count($response)>0)
-							{
+							if (count($response)>0) {
 								$sql_init = "UPDATE ".$table. " set ";
 								$sql_end = " WHERE ".$thekey."=".$value;
 							}
 						}
-						//echo "-->1.3 ".$key."='".$value."', "."\n";
 						$sql_insert.=$key."='".$value."', ";
 					}
-					//echo "-->1.4 \n";
 					$user = $this->vars['coduser'];
-					$sql_insert .= "mobile_date='$user', ";
-
-					$dt = $this->vars['datetime'];
-					$date = addslashes(substr($dt,0,4)."-".substr($dt,4,2)."-".substr($dt,6,2)." ".substr($dt,8,2).":".substr($dt,10,2).":".substr($dt,12,2));
-
-					$sql_insert .= "sync_date='$date'";
-
-//echo $sql_init.$sql_insert.$sql_end;					
-					echo "-->1.5 ".$sql_init.$sql_insert.$sql_end."\n";
+					$sql_insert .= "date_sync=now() ";
 
 					$res = $superModel->genericQuery($sql_init.$sql_insert.$sql_end);
-					// se deu certo, retorna true com o id
-					// senão, retorna false com o id
+
+					//echo $sql_init.$sql_insert.$sql_end;
 					if ($res===false)
 					{
-						//echo "-->1.5.0 \n";
-						//printf("Erro: %s\n", $superModel->db->error);
 						$this->retorno['status'] = false;
 						$this->retorno['rowid'] = $this->vars['rowid'];
 						$this->retorno['table'] = $this->vars['tablename'];
@@ -290,52 +270,70 @@ class rest extends superRest {
 					}
 					else
 					{
-						//echo "-->1.5.1 \n";
 						$this->retorno['status'] = true;
 						$this->retorno['rowid'] = $this->vars['rowid'];
 						$this->retorno['table'] = $this->vars['tablename'];
-						$this->retorno['json'] = $jsonRecord;
-						$this->retorno['rawJson'] = $rawJson;
-						
-
-
-						//echo "-->1.5.2 \n";
-						// Inclui nas tabelas do integrador
-						$sql_app = "SELECT * FROM application WHERE lk ='".$this->vars['codapp']."'";
-						$res_app = $superModel->genericQuery($sql_app);
-
-						$_fk_application = $res_app[0]['_id'];
-						$_fk_user = $this->vars['coduser'];
-						$_table_name = $this->vars['tablename'];
-						$_app_version ="1.1";// $this->vars['appversion'];
-						$_capture_version = "1.1";// $this->vars['baseversion'];
-						$_app_version = "1";
-						$_capture_version = "2.52";
-						$_datetime = $date;
-						$_record = $rawJson;
-						$_record_index = $this->vars['rowid'];
-						//echo "-->1.5.3 \n";
-						$res = $superModel->genericQuery("insert ignore into inserts set fk_application='$_fk_application', 
-							fk_user='$_fk_user', 
-							table_name='$_table_name', 
-							app_version='$_app_version', 
-							capture_version='$_capture_version', 
-							datetime='$_datetime', 
-							record='$_record', 
-							record_index='$_record_index'");
-						//echo "-->1.5.4 \n";
 					}
-					
 				} else {
-					// deu erro de validação, apenas sete status complementar como false
 					$this->retorno['status'] = false;
 					$this->retorno['rowid'] = $this->vars['rowid'];
 					$this->retorno['table'] = $this->vars['tablename'];
 				}
 			}
 		}
-	
 	}
+
+	public function updateVersion(){
+		if (!$this->vars['request']
+			or !$this->vars['response']
+			or !$this->vars['tablename']
+			or !$this->vars['coduser']
+			or !$this->vars['password']
+			or !$this->vars['user']
+			or !$this->vars['pass']
+			or !$this->vars['appName']) {
+			$this->retorno["status"] = false;
+			$this->retorno["error"] = "106";
+			$this->retorno["message"] = "Please send all the 5 parameters to execute this function.";
+		} else {
+			$logado = $this->doLogin($this->vars['coduser'],$this->vars['password']);
+			if(!$logado) {
+				$this->retorno['status'] = false;
+				$this->retorno["error"] = "116";
+				$this->retorno["message"] = "Invalid user";	
+			} else {
+
+				$_table_name = $this->vars['tablename'];
+				$_fk_request = $this->vars['request'];
+				$_fk_response = $this->vars['response'];
+
+				$superModel = new superModel();
+				$superModel->changedBd($this->vars['user'], $this->vars['pass'], $this->vars['appName']);
+
+				$version = $superModel->genericQuery("select 1 from version_transactions where table_name = '".$_table_name."' and fk_request = '".$_fk_request."' and fk_response = '".$_fk_response."'");
+
+				if(!$version){
+					$res = $superModel->genericQuery("insert ignore into version_transactions set  
+							table_name = '$_table_name',
+							fk_request = '$_fk_request',
+							fk_response = '$_fk_response',
+							version = 1 ");
+					$this->retorno['version'] = "1";
+				}else{
+					$res = $superModel->genericQuery("update version_transactions 
+							set version= version + 1
+							where fk_request='$_fk_request' and fk_response='$_fk_response'
+							");
+					
+					$version = $superModel->genericQuery("select version from version_transactions where table_name = '".$_table_name."' and fk_request = '".$_fk_request."' and fk_response = '".$_fk_response."'");
+					
+					$this->retorno['version'] = $version[0]['version'];
+				}
+				$this->retorno['status'] = true;
+			}
+		}
+	}
+
 
 	public function get_data() {
 		// valida se foram enviados todos os dados obrigatórios para a função
@@ -426,47 +424,13 @@ class rest extends superRest {
 
 					$this->retorno['status'] = true;
 
-					// Insere os dados no integrador
-
-						$sql_app = "SELECT * FROM application WHERE lk ='".$this->vars['codapp']."'";
-						$res_app = $superModel->genericQuery($sql_app);
-
-						$_fk_application = $res_app[0]['_id'];
-						$_fk_user = $this->vars['coduser'];
-						$_request_type = $this->vars['requesttype'];
-						$_request_name = $this->vars['tablename'];
-						$_request_param = $request_param;
-						$_datetime = date("Y-m-d G:i:s");
-
-						if ($_request_param=="null" && $this->vars["userexclusive"]=="true")
-						{
-							if ($this->vars['requesttype']=="p")
-								$_request_param = $_fk_user;
-							else
-								$_request_param = "[fk_user]=".$_fk_user;
-						}
-						elseif ($_request_param!="null" && $this->vars["userexclusive"]=="true")
-						{
-							if ($this->vars['requesttype']=="p")
-								$_request_param .= ";".$_fk_user;
-							else
-								$_request_param .= " AND [fk_user]=".$_fk_user;
-						}
-						
-						$res = $superModel->genericQuery("insert ignore into request set 
-							fk_application='$_fk_application', 
-							fk_user='$_fk_user', 
-							request_type='$_request_type', 
-							request_name='$_request_name', 
-							request_param='$_request_param', 
-							datetime='$_datetime'");
-/*
-						echo "insert into request set 
-							fk_application='$_fk_application', 
-							fk_user='$_fk_user', 
-							request_type='$_request_type', 
-							request_param='$_request_param', 
-							datetime='$_datetime'";*/
+					$newVersion = $superModel->genericQuery("select version from version_masters where table_name = '".$this->vars['tablename']."'");
+					
+					if (!$newVersion) {
+						$this->retorno['version'] = "1";
+					} else {
+						$this->retorno['version'] = $newVersion[0]['version'];
+					}
 
 				} else {
 					// deu erro de validação, apenas sete status complementar como false
@@ -474,7 +438,90 @@ class rest extends superRest {
 				}
 			}
 		}
-	
+	}
+
+	public function get_data_transaction() {
+		// valida se foram enviados todos os dados obrigatórios para a função
+		if (!$this->vars['coduser']
+			 or !$this->vars['password']
+			 or !$this->vars['codapp']
+			 or !$this->vars['tablename']
+			 or !$this->vars['request']
+			 or !$this->vars['response']
+			 or !$this->vars['requesttype']) {
+				 
+			// se os dados não foram passados, informe o erro
+			$this->retorno["status"] = false;
+			$this->retorno["error"] = "106";
+			$this->retorno["message"] = "Please send all the 6 parameters to execute this function.";
+		} else {
+			// ok, os dados foram enviados via get... posso tentar logar
+			$logado = $this->doLogin($this->vars['coduser'],$this->vars['password']);
+			if(!$logado) {
+				// se não conseguiu logar, pare por aqui
+				$this->retorno['status'] = false;
+				$this->retorno["error"] = "116";
+				$this->retorno["message"] = "Invalid user";
+			
+			} else {
+				// ok, é um usuário logado!
+		
+				// vamos verificar se os parâmetros estão de acordo
+				$erro = false;
+				
+				if (!$erro) 
+				{
+					//$request_param_san  = str_replace($request_param_san, "]", "");
+					
+					$superModel = new superModel();
+					$superModel->changedBd($this->vars['user'], $this->vars['pass'], $this->vars['appName']);
+
+					if (strtolower($this->vars["requesttype"])=="s")
+					{
+						$arrTables = explode(";;", $this->vars["tablename"]);
+						$varRequest = $this->vars["request"];
+						$varResponse = $this->vars["response"];
+
+						$counter = 0;
+						foreach ($arrTables as $tablename) 
+						{
+							$sql = "SELECT * FROM ".$tablename." WHERE 1=1 ";
+
+							if ($varRequest != "" && $varResponse != ""){
+								$sql .="AND fk_client = '".$varRequest."' ";
+								$sql .="AND fk_user = '".$varResponse."' ";
+							}
+
+						$res = $superModel->genericQuery($sql);
+
+						$this->retorno['results'][$counter][$tablename] = $res;
+						$this->retorno['count'] = count($res);
+							$counter++;
+						}
+					}
+
+					$this->retorno['status'] = true;
+
+					$_table_name = $this->vars['tablename'];
+					$_fk_request = $this->vars['request'];
+					$_fk_response = $this->vars['response'];
+
+					$newVersion = $superModel->genericQuery("select version from version_transactions where table_name = '".$_table_name."' and fk_request = '".$_fk_request."' and fk_response = '".$_fk_response."'");
+
+					if (!$newVersion) {
+						$this->retorno['version'] = "1";
+					} else {
+						$this->retorno['version'] = $newVersion[0]['version'];
+					}
+						$this->retorno['request'] = $_fk_request;
+						$this->retorno['response'] = $_fk_response;
+
+				} else {
+					// deu erro de validação, apenas sete status complementar como false
+					$this->retorno['status'] = false;
+				}
+			}
+		}
 	}
 
 	public function post_data() 
@@ -1374,13 +1421,12 @@ class rest extends superRest {
 		}*/
 	}
 
-
-	public function check_version(){
+	public function check_version_master(){
 
 		if (!$this->vars['coduser']
 			 or !$this->vars['password']
 			 or !$this->vars['tablename']
-			 or !$this->vars['version']
+			 //or !$this->vars['version']
 			 or !$this->vars['user']
 			 or !$this->vars['pass']
 			 or !$this->vars['appName']) {
@@ -1415,6 +1461,47 @@ class rest extends superRest {
 		}
 	}
 
+	public function check_version_transaction(){
+
+		if (!$this->vars['coduser']
+			 or !$this->vars['password']
+			 or !$this->vars['tablename']
+			 //or !$this->vars['version']
+			 or !$this->vars['request']
+			 or !$this->vars['response']
+			 or !$this->vars['user']
+			 or !$this->vars['pass']
+			 or !$this->vars['appName']) {
+			// se os dados não foram passados, informe o erro
+			$this->retorno["status"] = false;
+			$this->retorno["error"] = "106";
+			$this->retorno["message"] = "Please send all the 5 parameters to execute this function.";
+		} else {
+			$logado = $this->doLogin($this->vars['coduser'],$this->vars['password']);
+			if(!$logado) {
+				// se não conseguiu logar, pare por aqui
+				$this->retorno['status'] = false;
+				$this->retorno["error"] = "116";
+				$this->retorno["message"] = "Invalid user";
+			
+			} else {
+
+				$versionMaster = new versionMaster();
+
+				$superModel = new superModel();
+				$superModel->changedBd($this->vars['user'], $this->vars['pass'], $this->vars['appName']);
+
+				$newVersion = $superModel->genericQuery("select version from version_transactions where table_name = '".$this->vars['tablename']."' and version > ".$this->vars['version']." and fk_response = ".$this->vars['response']." and fk_request = ".$this->vars['request']);
+				
+				if (!$newVersion) {
+					$this->retorno['status'] = false;
+				} else {
+					$this->retorno['status'] = true;
+					$this->retorno['version'] = $newVersion[0]['version'];
+				}
+			}
+		}
+	}
 
 }
 ?>
