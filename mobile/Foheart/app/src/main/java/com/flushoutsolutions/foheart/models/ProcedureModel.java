@@ -17,7 +17,7 @@ import java.util.List;
  */
 public class ProcedureModel {
     private static ProcedureModel instance = null;
-
+    public SQLiteDatabase db = null;
     private DatabaseHelper dbHelper = DatabaseHelper.getHelper(FoHeart.getAppContext());
 
     public static ProcedureModel get_model()
@@ -35,7 +35,7 @@ public class ProcedureModel {
 
     public synchronized ProcedureData get_data(int id)
     {
-        SQLiteDatabase db = dbHelper.getWritableDatabase();
+        openDB();
         Cursor curApp = db.rawQuery("SELECT * FROM "+ DatabaseContract.ProcedureSchema.TABLE_NAME+" WHERE "+DatabaseContract.ProcedureSchema._ID+ "=" +id, null);
 
         ProcedureData appData = null;
@@ -59,14 +59,14 @@ public class ProcedureModel {
             );
         }
         curApp.close();
-        db.close();
+        closeDB();
 
         return appData;
     }
 
     public synchronized ProcedureData get_data(int fk_app, String name)
     {
-        SQLiteDatabase db = dbHelper.getWritableDatabase();
+        openDB();
         Cursor curApp = db.rawQuery("SELECT * FROM "+DatabaseContract.ProcedureSchema.TABLE_NAME+
                                     " WHERE "+DatabaseContract.ProcedureSchema.COLUMN_NAME_FK_APPLICATION+ "=" +fk_app +
                                     " AND "+DatabaseContract.ProcedureSchema.COLUMN_NAME_NAME+ "='" +name+"'", null);
@@ -92,7 +92,7 @@ public class ProcedureModel {
             );
         }
         curApp.close();
-        db.close();
+        closeDB();
 
         return appData;
     }
@@ -102,7 +102,7 @@ public class ProcedureModel {
         long lastRowId = 0;
         if (null!=data)
         {
-            SQLiteDatabase db = dbHelper.getWritableDatabase();
+            openDB();
 
             ContentValues values = new ContentValues();
             values.put(DatabaseContract.ProcedureSchema.COLUMN_NAME_FK_APPLICATION, data.fk_application);
@@ -112,7 +112,7 @@ public class ProcedureModel {
             values.put(DatabaseContract.ProcedureSchema.COLUMN_NAME_RETURN, data.retur);
 
             lastRowId = db.insert(DatabaseContract.ProcedureSchema.TABLE_NAME, null, values);
-            db.close();
+            closeDB();
         }
         return lastRowId;
     }
@@ -122,7 +122,7 @@ public class ProcedureModel {
         int rowsAffected = 0;
         if (null!=data)
         {
-            SQLiteDatabase db = dbHelper.getWritableDatabase();
+            openDB();
 
             ContentValues values = new ContentValues();
             values.put(DatabaseContract.ProcedureSchema.COLUMN_NAME_FK_APPLICATION, data.fk_application);
@@ -132,7 +132,7 @@ public class ProcedureModel {
             values.put(DatabaseContract.ProcedureSchema.COLUMN_NAME_RETURN, data.retur);
 
             rowsAffected = db.update(DatabaseContract.ProcedureSchema.TABLE_NAME, values, DatabaseContract.ProcedureSchema._ID + "=" + data._id, null);
-            db.close();
+            closeDB();
         }
         return rowsAffected;
     }
@@ -152,7 +152,7 @@ public class ProcedureModel {
 
     public synchronized List<ProcedureData> list()
     {
-        SQLiteDatabase db = dbHelper.getWritableDatabase();
+        openDB();
 
         List<ProcedureData> list = new ArrayList<ProcedureData>();
         String selectQuery = "SELECT  * FROM " + DatabaseContract.ProcedureSchema.TABLE_NAME;
@@ -170,19 +170,19 @@ public class ProcedureModel {
         }
 
         curApp.close();
-        db.close();
+        closeDB();
 
         return list;
     }
 
     public synchronized void delete(ProcedureData data)
     {
-        SQLiteDatabase db = dbHelper.getWritableDatabase();
+        openDB();
 
         try
         {
             db.delete(DatabaseContract.ProcedureSchema.TABLE_NAME, DatabaseContract.ProcedureSchema._ID +"="+data._id, null);
-            db.close();
+            closeDB();
         }
         catch (Exception e)
         {
@@ -192,16 +192,30 @@ public class ProcedureModel {
 
     public synchronized void delete_all()
     {
-        SQLiteDatabase db = dbHelper.getWritableDatabase();
+        openDB();
 
         try
         {
             db.delete(DatabaseContract.ProcedureSchema.TABLE_NAME, null, null);
-            db.close();
+            closeDB();
         }
         catch (Exception e)
         {
             e.printStackTrace();
         }
+    }
+
+    private void openDB(){
+        if(db == null){
+            db = dbHelper.getWritableDatabase();
+        }else{
+            if(!db.isOpen())
+                db = dbHelper.getWritableDatabase();
+        }
+    }
+
+    private void closeDB(){
+        if(db != null && db.isOpen())
+            db.close();
     }
 }

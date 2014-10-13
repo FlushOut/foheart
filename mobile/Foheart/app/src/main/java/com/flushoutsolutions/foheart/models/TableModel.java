@@ -18,7 +18,7 @@ import java.util.List;
 public class TableModel {
 
     private static TableModel instance = null;
-
+    public SQLiteDatabase db = null;
     private DatabaseHelper dbHelper = DatabaseHelper.getHelper(FoHeart.getAppContext());
 
     public static TableModel get_model()
@@ -36,7 +36,7 @@ public class TableModel {
 
     public synchronized TableData get_data(int id)
     {
-        SQLiteDatabase db = dbHelper.getWritableDatabase();
+        openDB();
         Cursor curApp = db.rawQuery("SELECT * FROM "+ DatabaseContract.TableSchema.TABLE_NAME+" WHERE "+DatabaseContract.TableSchema._ID+ "=" +id, null);
 
         TableData appData = null;
@@ -47,11 +47,9 @@ public class TableModel {
             int fk_application = curApp.getInt(1);
             int model_version = curApp.getInt(2);
             String name = curApp.getString(3);
-            int auto_sync = curApp.getInt(4);
-            String key = curApp.getString(5);
-            int version_local = curApp.getInt(6);
-            int version_server = curApp.getInt(7);
-            String requestParams = curApp.getString(8);
+            String key = curApp.getString(4);
+            int auto_sync = curApp.getInt(5);
+            String requestParams = curApp.getString(6);
 
             appData = new TableData(
                     _id,
@@ -60,13 +58,11 @@ public class TableModel {
                     name,
                     auto_sync,
                     key,
-                    version_local,
-                    version_server,
                     requestParams
             );
         }
         curApp.close();
-        db.close();
+        closeDB();
 
         return appData;
     }
@@ -74,7 +70,7 @@ public class TableModel {
 
     public synchronized TableData get_data(int fk_app, String name)
     {
-        SQLiteDatabase db = dbHelper.getWritableDatabase();
+        openDB();
         Cursor curApp = db.rawQuery("SELECT * FROM "+DatabaseContract.TableSchema.TABLE_NAME+
                                     " WHERE " + DatabaseContract.TableSchema.COLUMN_NAME_FK_APPLICATION+ "=" +fk_app+
                                     " AND " + DatabaseContract.TableSchema.COLUMN_NAME_NAME+"='"+name+"'", null);
@@ -87,11 +83,9 @@ public class TableModel {
             int fk_application = curApp.getInt(1);
             int model_version = curApp.getInt(2);
             String name_ = curApp.getString(3);
-            int auto_sync = curApp.getInt(4);
-            String key = curApp.getString(5);
-            int version_local = curApp.getInt(6);
-            int version_server = curApp.getInt(7);
-            String requestParams = curApp.getString(8);
+            String key = curApp.getString(4);
+            int auto_sync = curApp.getInt(5);
+            String requestParams = curApp.getString(6);
 
             appData = new TableData(
                     _id,
@@ -100,20 +94,18 @@ public class TableModel {
                     name_,
                     auto_sync,
                     key,
-                    version_local,
-                    version_server,
                     requestParams
             );
         }
         curApp.close();
-        db.close();
+        closeDB();
 
         return appData;
     }
 
     public synchronized int get_model_version(int fk_app)
     {
-        SQLiteDatabase db = dbHelper.getWritableDatabase();
+        openDB();
         Cursor curApp = db.rawQuery("SELECT * FROM "+ DatabaseContract.TableSchema.TABLE_NAME+" WHERE "+DatabaseContract.TableSchema.COLUMN_NAME_FK_APPLICATION+ "=" +fk_app + " LIMIT 1", null);
 
         TableData appData = null;
@@ -124,11 +116,9 @@ public class TableModel {
             int fk_application = curApp.getInt(1);
             int model_version = curApp.getInt(2);
             String name = curApp.getString(3);
-            int auto_sync = curApp.getInt(4);
-            String key = curApp.getString(5);
-            int version_local = curApp.getInt(6);
-            int version_server = curApp.getInt(7);
-            String requestParams = curApp.getString(8);
+            String key = curApp.getString(4);
+            int auto_sync = curApp.getInt(5);
+            String requestParams = curApp.getString(6);
 
             appData = new TableData(
                     _id,
@@ -137,13 +127,11 @@ public class TableModel {
                     name,
                     auto_sync,
                     key,
-                    version_local,
-                    version_server,
                     requestParams
             );
         }
         curApp.close();
-        db.close();
+        closeDB();
 
         return appData.model_version;
     }
@@ -153,7 +141,7 @@ public class TableModel {
         long lastRowId = 0;
         if (null!=data)
         {
-            SQLiteDatabase db = dbHelper.getWritableDatabase();
+            openDB();
 
             ContentValues values = new ContentValues();
             values.put(DatabaseContract.TableSchema.COLUMN_NAME_FK_APPLICATION, data.fk_application);
@@ -161,12 +149,10 @@ public class TableModel {
             values.put(DatabaseContract.TableSchema.COLUMN_NAME_NAME, data.name);
             values.put(DatabaseContract.TableSchema.COLUMN_NAME_AUTO_SYNC, String.valueOf(data.auto_sync));
             values.put(DatabaseContract.TableSchema.COLUMN_NAME_KEY, data.key);
-            values.put(DatabaseContract.TableSchema.COLUMN_NAME_VERSION_LOCAL, data.version_local);
-            values.put(DatabaseContract.TableSchema.COLUMN_NAME_VERSION_SERVER, data.version_server);
             values.put(DatabaseContract.TableSchema.COLUMN_NAME_REQUESTPARAMS, data.requestParams);
 
             lastRowId = db.insert(DatabaseContract.TableSchema.TABLE_NAME, null, values);
-            db.close();
+            closeDB();
         }
         return lastRowId;
     }
@@ -176,7 +162,7 @@ public class TableModel {
         int rowsAffected = 0;
         if (null!=data)
         {
-            SQLiteDatabase db = dbHelper.getWritableDatabase();
+            openDB();
 
             ContentValues values = new ContentValues();
             values.put(DatabaseContract.TableSchema.COLUMN_NAME_FK_APPLICATION, data.fk_application);
@@ -184,12 +170,10 @@ public class TableModel {
             values.put(DatabaseContract.TableSchema.COLUMN_NAME_NAME, data.name);
             values.put(DatabaseContract.TableSchema.COLUMN_NAME_AUTO_SYNC, String.valueOf(data.auto_sync));
             values.put(DatabaseContract.TableSchema.COLUMN_NAME_KEY, data.key);
-            values.put(DatabaseContract.TableSchema.COLUMN_NAME_VERSION_LOCAL, data.version_local);
-            values.put(DatabaseContract.TableSchema.COLUMN_NAME_VERSION_SERVER, data.version_server);
             values.put(DatabaseContract.TableSchema.COLUMN_NAME_REQUESTPARAMS, data.requestParams);
 
             rowsAffected = db.update(DatabaseContract.TableSchema.TABLE_NAME, values, DatabaseContract.TableSchema._ID + "=" + data._id, null);
-            db.close();
+            closeDB();
         }
         return rowsAffected;
     }
@@ -209,7 +193,7 @@ public class TableModel {
 
     public synchronized List<TableData> list()
     {
-        SQLiteDatabase db = dbHelper.getWritableDatabase();
+        openDB();
 
         List<TableData> list = new ArrayList<TableData>();
         String selectQuery = "SELECT  * FROM " + DatabaseContract.TableSchema.TABLE_NAME;
@@ -227,14 +211,14 @@ public class TableModel {
         }
 
         curApp.close();
-        db.close();
+        closeDB();
 
         return list;
     }
 
     public synchronized List<TableData> listSyncable()
     {
-        SQLiteDatabase db = dbHelper.getWritableDatabase();
+        openDB();
 
         List<TableData> list = new ArrayList<TableData>();
         String selectQuery = "SELECT  * FROM " + DatabaseContract.TableSchema.TABLE_NAME + " WHERE "+DatabaseContract.TableSchema.COLUMN_NAME_AUTO_SYNC+"=1";
@@ -252,19 +236,44 @@ public class TableModel {
         }
 
         curApp.close();
-        db.close();
+        closeDB();
+
+        return list;
+    }
+
+    public synchronized List<TableData> listTableMaster()
+    {
+        openDB();
+
+        List<TableData> list = new ArrayList<TableData>();
+        String selectQuery = "SELECT  * FROM " + DatabaseContract.TableSchema.TABLE_NAME + " WHERE "+DatabaseContract.TableSchema.COLUMN_NAME_AUTO_SYNC+"=0";
+
+        Cursor curApp = db.rawQuery(selectQuery, null);
+
+        if (curApp.moveToFirst())
+        {
+            do
+            {
+                TableData appData = get_data(curApp.getInt(0));
+                list.add(appData);
+            }
+            while (curApp.moveToNext());
+        }
+
+        curApp.close();
+        closeDB();
 
         return list;
     }
 
     public synchronized void delete(TableData data)
     {
-        SQLiteDatabase db = dbHelper.getWritableDatabase();
+        openDB();
 
         try
         {
             db.delete(DatabaseContract.TableSchema.TABLE_NAME, DatabaseContract.TableSchema._ID +"="+data._id, null);
-            db.close();
+            closeDB();
         }
         catch (Exception e)
         {
@@ -274,16 +283,30 @@ public class TableModel {
 
     public synchronized void delete_all()
     {
-        SQLiteDatabase db = dbHelper.getWritableDatabase();
+        openDB();
 
         try
         {
             db.delete(DatabaseContract.TableSchema.TABLE_NAME, null, null);
-            db.close();
+            closeDB();
         }
         catch (Exception e)
         {
             e.printStackTrace();
         }
+    }
+
+    private void openDB(){
+        if(db == null){
+            db = dbHelper.getWritableDatabase();
+        }else{
+            if(!db.isOpen())
+                db = dbHelper.getWritableDatabase();
+        }
+    }
+
+    private void closeDB(){
+        if(db != null && db.isOpen())
+            db.close();
     }
 }

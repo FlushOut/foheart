@@ -10,6 +10,7 @@ import android.database.sqlite.SQLiteStatement;
 
 import com.flushoutsolutions.foheart.application.FoHeart;
 import com.flushoutsolutions.foheart.data.ApplicationData;
+import com.flushoutsolutions.foheart.data.TableData;
 import com.flushoutsolutions.foheart.data.TableFieldData;
 import com.flushoutsolutions.foheart.globals.Variables;
 import com.flushoutsolutions.foheart.models.ApplicationModel;
@@ -146,8 +147,6 @@ public class AppDBModel {
     {
         if (null!=values)
         {
-/*            values.put("_date_time_created", FoHeart.dateTime());
-            values.put("_date_time_updated", FoHeart.dateTime());*/
             openDB();
             db.insert(this.appTableName, null, values);
             closeDB();
@@ -159,7 +158,17 @@ public class AppDBModel {
 
         if (null!=values && id > 0)
         {
-        /*    values.put("_date_time_updated", FoHeart.dateTime()); */
+            openDB();
+            db.update(this.appTableName, values, "_id=" + id, null);
+            closeDB();
+        }
+    }
+    public synchronized void updateSyncTransaction(ContentValues values)
+    {
+        int id = values.getAsInteger("_id");
+
+        if (null!=values && id > 0)
+        {
             openDB();
             db.update(this.appTableName, values, "_id=" + id, null);
             closeDB();
@@ -168,12 +177,12 @@ public class AppDBModel {
     public synchronized void save(ContentValues values)
     {
         ContentValues value = get_data(values.getAsInteger("_id"));
-
         if (value.size()==0)
             add(values);
         else
             update(values);
     }
+
     public  String addStatement()
     {
         String returnSQL = "INSERT INTO "+this.appTableName +" ";
@@ -431,7 +440,7 @@ public class AppDBModel {
     }
 
     private void closeDB(){
-        if(db.isOpen())
+        if(db != null && db.isOpen())
             db.close();
     }
 }

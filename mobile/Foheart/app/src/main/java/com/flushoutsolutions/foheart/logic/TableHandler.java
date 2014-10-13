@@ -8,10 +8,14 @@ import android.database.sqlite.SQLiteDatabase;
 import com.flushoutsolutions.foheart.appDataBase.AppDBModel;
 import com.flushoutsolutions.foheart.appDataBase.AppDatabaseHelper;
 import com.flushoutsolutions.foheart.application.FoHeart;
+import com.flushoutsolutions.foheart.data.InternetStatus;
 import com.flushoutsolutions.foheart.data.TableData;
+import com.flushoutsolutions.foheart.data.TableMastersData;
+import com.flushoutsolutions.foheart.data.TableTransactionsData;
 import com.flushoutsolutions.foheart.globals.Variables;
 import com.flushoutsolutions.foheart.models.ApplicationModel;
 import com.flushoutsolutions.foheart.models.TableModel;
+import com.flushoutsolutions.foheart.models.TableTransactionsModel;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -48,6 +52,8 @@ public class TableHandler {
         {
             ContentValues contentValues = new ContentValues();
             JSONArray jsonValues = new JSONArray(values);
+            int fk_response = 0;
+            int fk_request = 0;
             for (int v=0; v<jsonValues.length(); v++)
             {
                 JSONObject jsonValue = jsonValues.getJSONObject(v);
@@ -59,6 +65,26 @@ public class TableHandler {
                     String record = Variables.parse_vars(jsonValue.getString(fieldName), false).replaceAll("\t", " ");
 
                     contentValues.put(fieldName, record.trim());
+
+                    if(fieldName.equals("fk_user")) fk_response = Integer.parseInt(record.trim());
+                    if(fieldName.equals("fk_client")) fk_request = Integer.parseInt(record.trim());
+
+                }
+            }
+            TableData tbData = TableModel.get_model().get_data(idApp,tableName);
+
+            if(tbData.auto_sync == 1){
+                TableTransactionsModel entityTransactionModel = TableTransactionsModel.get_model();
+                TableTransactionsData tbTransactionData = entityTransactionModel.getBy(tbData._id,fk_response);
+                if(tbTransactionData == null){
+                    contentValues.put("_version_local", 1);
+                    contentValues.put("_version_server", 0);
+
+                    tbTransactionData = new TableTransactionsData(tbData._id,1,0,fk_request,fk_response);
+                    entityTransactionModel.save(tbTransactionData);
+                }else{
+                    contentValues.put("_version_local", tbTransactionData.version_server + 1);
+                    contentValues.put("_version_server", tbTransactionData.version_server);
                 }
             }
             appDBModel.setAppTableName(tableName);
@@ -74,8 +100,11 @@ public class TableHandler {
         {
             ContentValues contentValues = new ContentValues();
             JSONArray jsonValues = new JSONArray(values);
+            int fk_response = 0;
+            int fk_request = 0;
             for (int v=0; v<jsonValues.length(); v++)
             {
+                appDBModel.setAppTableName(tableName);
                 JSONObject jsonValue = jsonValues.getJSONObject(v);
                 @SuppressWarnings("unchecked")
                 Iterator<Object> keys = (Iterator)jsonValue.keys();
@@ -88,10 +117,34 @@ public class TableHandler {
                         String record = Variables.parse_vars(jsonValue.getString(fieldName), false).replaceAll("\t", " ");
                         contentValues.put(fieldName, record.trim());
                     }
+                }
+                TableData tbData = TableModel.get_model().get_data(idApp,tableName);
+                if(tbData.auto_sync == 1){
+                    ContentValues value = appDBModel.get_data(id);
 
+                    if(value.get("fk_user") != null) fk_response = Integer.parseInt(value.get("fk_user").toString());
+                    if(value.get("fk_client") != null) fk_request = Integer.parseInt(value.get("fk_client").toString());
+
+                    if(fk_request > 0 && fk_response > 0){
+                        TableTransactionsModel entityTransactionModel = TableTransactionsModel.get_model();
+                        TableTransactionsData tbTransactionData = entityTransactionModel.getBy(tbData._id,fk_response);
+                        if(tbTransactionData != null){
+                            contentValues.put("_version_local", tbTransactionData.version_server + 1);
+                            contentValues.put("_version_server", tbTransactionData.version_server);
+
+                            tbTransactionData.version_local = tbTransactionData.version_server + 1;
+                            entityTransactionModel.save(tbTransactionData);
+                        }else{
+                            contentValues.put("_version_local", 1);
+                            contentValues.put("_version_server", 0);
+
+                            tbTransactionData = new TableTransactionsData(tbData._id,1,0,fk_request,fk_response);
+                            entityTransactionModel.save(tbTransactionData);
+                        }
+                    }
                 }
                 contentValues.put("_id", id);
-                appDBModel.setAppTableName(tableName);
+
                 appDBModel.save(contentValues);
             }
         } catch (JSONException e) {

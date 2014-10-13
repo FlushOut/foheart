@@ -14,9 +14,11 @@ import com.flushoutsolutions.foheart.data.ApplicationData;
 import com.flushoutsolutions.foheart.data.InternetStatus;
 import com.flushoutsolutions.foheart.data.SendDataData;
 import com.flushoutsolutions.foheart.data.TableData;
+import com.flushoutsolutions.foheart.data.TableMastersData;
 import com.flushoutsolutions.foheart.logic.GetData;
 import com.flushoutsolutions.foheart.models.ApplicationModel;
 import com.flushoutsolutions.foheart.models.SendDataModel;
+import com.flushoutsolutions.foheart.models.TableMastersModel;
 import com.flushoutsolutions.foheart.models.TableModel;
 
 import org.apache.http.NameValuePair;
@@ -47,7 +49,7 @@ public class SyncMaster {
 
     private int versionDB = TableModel.get_model().get_model_version(idApp);
     AppDBModel appDBModel = new AppDBModel(appContext, codeApp, versionDB).get_model();
-    TableModel entityModel = TableModel.get_model();
+
 
     private AppDatabaseHelper dbHelper = new AppDatabaseHelper(appContext,codeApp,versionDB).getHelper();
 
@@ -62,13 +64,14 @@ public class SyncMaster {
         {
             try
             {
-                List<TableData> listTables = TableModel.get_model().listSyncable();
+                List<TableMastersData> listTablesMasters = TableMastersModel.get_model().list();
 
-                for (int tt=0; tt<listTables.size(); tt++)
+                for (int tt=0; tt<listTablesMasters.size(); tt++)
                 {
-                    TableData thisTable = listTables.get(tt);
+                    TableMastersData thisTable = listTablesMasters.get(tt);
+                    TableData td = TableModel.get_model().get_data(thisTable.fk_table);
 
-                    final String url = settings.getString("REST_APPS",Connection.REST_APPS)+"check_version/coduser/"+String.valueOf(settings.getInt("user_id", 0))+"/password/"+settings.getString("user_pass", "")+"/tablename/"+thisTable.name+"/version/"+thisTable.version_local+"/appName/" + dbAppName + "/user/" + dbUser + "/pass/" + dbPass;
+                    final String url = settings.getString("REST_APPS",Connection.REST_APPS)+"check_version_master/coduser/"+String.valueOf(settings.getInt("user_id", 0))+"/password/"+settings.getString("user_pass", "")+"/tablename/"+td.name+"/version/"+thisTable.version_server+"/appName/" + dbAppName + "/user/" + dbUser + "/pass/" + dbPass;
 
                     System.out.println("url " + url);
 
@@ -97,15 +100,16 @@ public class SyncMaster {
                                     String onTimeOut = "";
                                     String ifRepeats = "ignore";
 
+                                    /* Update record sync ok*/
+/*                                    TableData entityData = new TableData(idApp,thisTable.model_version,thisTable.name,thisTable.auto_sync, thisTable.key,responseJSON.getInt("version"),responseJSON.getInt("version"),thisTable.requestParams);
+                                    entityData._id = thisTable._id;
+                                    TableModel entityModel = TableModel.get_model();
+                                    entityModel.save(entityData);*/
+
                                     GetData getData = new GetData();
-                                    getData.initialize(thisTable.name, "s", thisTable.requestParams, update_set, user_exclusive, clear_all, block_success, loadingMessage, displayTimeOutDialog,timeOutDialogTitle,timeOutMessage, timeOutDialogButton, onTimeOut, ifRepeats);
+                                    getData.initialize(td.name, "s", td.requestParams, update_set, user_exclusive, clear_all, block_success, loadingMessage, displayTimeOutDialog,timeOutDialogTitle,timeOutMessage, timeOutDialogButton, onTimeOut, ifRepeats);
                                     getData.loadingMessage = "";
                                     getData.executeQuery();
-
-                                    /* Update record sync ok*/
-                                    TableData entityData = new TableData(idApp,thisTable.model_version,thisTable.name,thisTable.auto_sync, thisTable.key,thisTable.version_local,responseJSON.getInt("version"),thisTable.requestParams);
-                                    entityData._id = thisTable._id;
-                                    entityModel.save(entityData);
                                 }
                             }
                         }

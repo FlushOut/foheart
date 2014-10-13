@@ -7,6 +7,7 @@ import com.flushoutsolutions.foheart.data.ApplicationData;
 import com.flushoutsolutions.foheart.data.ProcedureData;
 import com.flushoutsolutions.foheart.data.TableData;
 import com.flushoutsolutions.foheart.data.TableFieldData;
+import com.flushoutsolutions.foheart.data.TableMastersData;
 import com.flushoutsolutions.foheart.data.ViewData;
 import com.flushoutsolutions.foheart.data.ViewModuleData;
 import com.flushoutsolutions.foheart.json.ConfigJson;
@@ -16,7 +17,9 @@ import com.flushoutsolutions.foheart.json.ViewsJson;
 import com.flushoutsolutions.foheart.models.ApplicationModel;
 import com.flushoutsolutions.foheart.models.ProcedureModel;
 import com.flushoutsolutions.foheart.models.TableFieldModel;
+import com.flushoutsolutions.foheart.models.TableMastersModel;
 import com.flushoutsolutions.foheart.models.TableModel;
+import com.flushoutsolutions.foheart.models.TableTransactionsModel;
 import com.flushoutsolutions.foheart.models.ViewModel;
 import com.flushoutsolutions.foheart.models.ViewModuleModel;
 
@@ -58,6 +61,8 @@ public class Install {
 
     private void deleteAllTables() {
         TableModel.get_model().delete_all();
+        TableMastersModel.get_model().delete_all();
+        TableTransactionsModel.get_model().delete_all();
         TableFieldModel.get_model().delete_all();
     }
 
@@ -83,9 +88,9 @@ public class Install {
         DatamodelJson datamodelJson = new DatamodelJson(appCode);
         JSONArray tablesJsonArray = datamodelJson.get_json_array_tables();
         TableModel entityModel = TableModel.get_model();
+        TableMastersModel entityMasterModel = TableMastersModel.get_model();
 
         int model_version = datamodelJson.version();
-        int version_local = 1;
         int version_server = 1;
 
         for (int x=0; x<tablesJsonArray.length(); x++)
@@ -98,10 +103,15 @@ public class Install {
             String key = "_id";
             if (!jsonObject.isNull("key")) key = jsonObject.getString("key");
 
-            TableData entityData = new TableData(idApp,model_version,name,auto_sync, key,version_local,version_server,requestParams);
+            TableData entityData = new TableData(idApp,model_version,name,auto_sync, key,requestParams);
             entityModel.save(entityData);
 
             int id_table = entityModel.get_data(idApp, name)._id;
+
+            if(auto_sync == 0){
+                TableMastersData entityMasterData = new TableMastersData(id_table,version_server);
+                entityMasterModel.save(entityMasterData);
+            }
 
             JSONArray jsonArrayFields = new JSONArray(jsonObject.getString("fields"));
             TableFieldModel entityFieldModel = TableFieldModel.get_model();

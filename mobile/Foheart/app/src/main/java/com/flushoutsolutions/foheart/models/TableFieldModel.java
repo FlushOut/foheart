@@ -18,7 +18,7 @@ import java.util.List;
 public class TableFieldModel {
 
     private static TableFieldModel instance = null;
-
+    public SQLiteDatabase db = null;
     private DatabaseHelper dbHelper = DatabaseHelper.getHelper(FoHeart.getAppContext());
 
     public static TableFieldModel get_model()
@@ -36,7 +36,7 @@ public class TableFieldModel {
 
     public synchronized TableFieldData get_data(int id)
     {
-        SQLiteDatabase db = dbHelper.getWritableDatabase();
+        openDB();
         Cursor curApp = db.rawQuery("SELECT * FROM "+ DatabaseContract.TableFieldSchema.TABLE_NAME+" WHERE "+DatabaseContract.TableFieldSchema._ID+ "=" +id, null);
 
         TableFieldData appData = null;
@@ -66,14 +66,14 @@ public class TableFieldModel {
             );
         }
         curApp.close();
-        db.close();
+        closeDB();
 
         return appData;
     }
 
     public synchronized TableFieldData get_data(int fk_table, String fieldname)
     {
-        SQLiteDatabase db = dbHelper.getWritableDatabase();
+        openDB();
         Cursor curApp = db.rawQuery("SELECT * FROM "+DatabaseContract.TableFieldSchema.TABLE_NAME+" WHERE fk_table="+fk_table+" AND "+DatabaseContract.TableFieldSchema.COLUMN_NAME_NAME+"='"+fieldname+"'", null);
 
         TableFieldData appData = null;
@@ -103,7 +103,7 @@ public class TableFieldModel {
             );
         }
         curApp.close();
-        db.close();
+        closeDB();
 
         return appData;
     }
@@ -114,7 +114,7 @@ public class TableFieldModel {
         long lastRowId = 0;
         if (null!=data)
         {
-            SQLiteDatabase db = dbHelper.getWritableDatabase();
+            openDB();
 
             ContentValues values = new ContentValues();
             values.put(DatabaseContract.TableFieldSchema.COLUMN_NAME_FK_TABLE, data.fk_table);
@@ -126,7 +126,7 @@ public class TableFieldModel {
             values.put(DatabaseContract.TableFieldSchema.COLUMN_NAME_PRIMARY_KEY, data.primary_key);
 
             lastRowId = db.insert(DatabaseContract.TableFieldSchema.TABLE_NAME, null, values);
-            db.close();
+            closeDB();
         }
         return lastRowId;
     }
@@ -136,7 +136,7 @@ public class TableFieldModel {
         int rowsAffected = 0;
         if (null!=data)
         {
-            SQLiteDatabase db = dbHelper.getWritableDatabase();
+            openDB();
 
             ContentValues values = new ContentValues();
             values.put(DatabaseContract.TableFieldSchema.COLUMN_NAME_FK_TABLE, data.fk_table);
@@ -148,7 +148,7 @@ public class TableFieldModel {
             values.put(DatabaseContract.TableFieldSchema.COLUMN_NAME_PRIMARY_KEY, data.primary_key);
 
             rowsAffected = db.update(DatabaseContract.TableFieldSchema.TABLE_NAME, values, DatabaseContract.TableFieldSchema._ID + "=" + data._id, null);
-            db.close();
+            closeDB();
         }
         return rowsAffected;
     }
@@ -168,7 +168,7 @@ public class TableFieldModel {
 
     public synchronized List<TableFieldData> list()
     {
-        SQLiteDatabase db = dbHelper.getWritableDatabase();
+        openDB();
 
         List<TableFieldData> list = new ArrayList<TableFieldData>();
         String selectQuery = "SELECT  * FROM " + DatabaseContract.TableFieldSchema.TABLE_NAME;
@@ -186,14 +186,14 @@ public class TableFieldModel {
         }
 
         curApp.close();
-        db.close();
+        closeDB();
 
         return list;
     }
 
     public synchronized List<TableFieldData> list(int fk)
     {
-        SQLiteDatabase db = dbHelper.getWritableDatabase();
+        openDB();
 
         List<TableFieldData> list = new ArrayList<TableFieldData>();
         String selectQuery = "SELECT  * FROM " + DatabaseContract.TableFieldSchema.TABLE_NAME + " WHERE "+DatabaseContract.TableFieldSchema.COLUMN_NAME_FK_TABLE+"="+fk;
@@ -211,19 +211,19 @@ public class TableFieldModel {
         }
 
         curApp.close();
-        db.close();
+        closeDB();
 
         return list;
     }
 
     public synchronized void delete(TableFieldData data)
     {
-        SQLiteDatabase db = dbHelper.getWritableDatabase();
+        openDB();
 
         try
         {
             db.delete(DatabaseContract.TableFieldSchema.TABLE_NAME, DatabaseContract.TableFieldSchema._ID +"="+data._id, null);
-            db.close();
+            closeDB();
         }
         catch (Exception e)
         {
@@ -233,12 +233,26 @@ public class TableFieldModel {
 
     public synchronized void delete_all()
     {
-        SQLiteDatabase db = dbHelper.getWritableDatabase();
+        openDB();
         try{
             db.delete(DatabaseContract.TableFieldSchema.TABLE_NAME, null, null);
-            db.close();
+            closeDB();
         }catch (Exception e){
             e.printStackTrace();
         }
+    }
+
+    private void openDB(){
+        if(db == null){
+            db = dbHelper.getWritableDatabase();
+        }else{
+            if(!db.isOpen())
+                db = dbHelper.getWritableDatabase();
+        }
+    }
+
+    private void closeDB(){
+        if(db != null && db.isOpen())
+            db.close();
     }
 }

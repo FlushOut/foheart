@@ -44,6 +44,9 @@ public class GetData {
     public String timeOutDialogButton;
     public String onTimeOut;
 
+    public int request;
+    public int response;
+
     String rest_url;
 
     private ProgressDialog dialog;
@@ -145,14 +148,14 @@ public class GetData {
         }
     }
 
-    public void executeQuerySyncMaster()
+    public void syncTransaction()
     {
         String request_params_64 = URLEncoder.encode(this.request_params);
 
         SharedPreferences settings = FoHeart.getAppContext().getSharedPreferences("userconfigs", 0);
         ApplicationData applicationData = ApplicationModel.get_model().get_data(settings.getString("idApplication", ""));
 
-        String stringUrl = rest_url+"get_data/coduser/"+settings.getInt("user_id", 0)+"/password/"+settings.getString("user_pass", "")+"/codapp/"+settings.getString("idApplication", "")+"/tablename/"+this.table_name+"/captureversion/1.0.1/appversion/1.0.0/requesttype/"+this.request_type+"/requestparam/"+request_params_64+"/userexclusive/"+String.valueOf(this.getUserExclusive())+"/appName/" + applicationData.description + "/user/" + applicationData.db_user + "/pass/" + applicationData.db_pass;
+        String stringUrl = rest_url+"get_data_transaction/coduser/"+settings.getInt("user_id", 0)+"/password/"+settings.getString("user_pass", "")+"/codapp/"+settings.getString("idApplication", "")+"/tablename/"+this.table_name+"/request/"+this.request+"/response/"+this.response+"/requesttype/"+this.request_type+"/requestparam/"+request_params_64+"/appName/" + applicationData.description + "/user/" + applicationData.db_user + "/pass/" + applicationData.db_pass;
 
         String update_set_64 = URLEncoder.encode(this.update_set);
 
@@ -171,7 +174,7 @@ public class GetData {
                 dialog.setCancelable(false);
             }
             Connection.sync_locked = true;
-            Connection.get("sync_master", stringUrl);
+            Connection.get("sync_transaction", stringUrl);
         }
     }
 

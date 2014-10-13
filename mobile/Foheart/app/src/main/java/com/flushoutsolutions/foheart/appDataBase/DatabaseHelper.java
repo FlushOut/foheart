@@ -92,9 +92,24 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                     DatabaseContract.TableSchema.COLUMN_NAME_NAME + TEXT_TYPE + COMMA_SEP +
                     DatabaseContract.TableSchema.COLUMN_NAME_KEY + TEXT_TYPE + COMMA_SEP +
                     DatabaseContract.TableSchema.COLUMN_NAME_AUTO_SYNC + INT_TYPE + COMMA_SEP +
-                    DatabaseContract.TableSchema.COLUMN_NAME_VERSION_LOCAL + INT_TYPE + COMMA_SEP +
-                    DatabaseContract.TableSchema.COLUMN_NAME_VERSION_SERVER + INT_TYPE + COMMA_SEP +
                     DatabaseContract.TableSchema.COLUMN_NAME_REQUESTPARAMS + TEXT_TYPE +
+                    " )";
+
+    private static final String SQL_CREATE_ENTRIES_TABLE_MASTER =
+            "CREATE TABLE " + DatabaseContract.TableMasterSchema.TABLE_NAME + " (" +
+                    DatabaseContract.TableMasterSchema._ID + " INTEGER PRIMARY KEY," +
+                    DatabaseContract.TableMasterSchema.COLUMN_NAME_FK_TABLE + INT_TYPE + COMMA_SEP +
+                    DatabaseContract.TableMasterSchema.COLUMN_NAME_VERSION_SERVER + INT_TYPE +
+                    " )";
+
+    private static final String SQL_CREATE_ENTRIES_TABLE_TRANSACTION =
+            "CREATE TABLE " + DatabaseContract.TableTransactionSchema.TABLE_NAME + " (" +
+                    DatabaseContract.TableTransactionSchema._ID + " INTEGER PRIMARY KEY," +
+                    DatabaseContract.TableTransactionSchema.COLUMN_NAME_FK_TABLE + INT_TYPE + COMMA_SEP +
+                    DatabaseContract.TableTransactionSchema.COLUMN_NAME_VERSION_LOCAL + INT_TYPE + COMMA_SEP +
+                    DatabaseContract.TableTransactionSchema.COLUMN_NAME_VERSION_SERVER + INT_TYPE + COMMA_SEP +
+                    DatabaseContract.TableTransactionSchema.COLUMN_NAME_FK_REQUEST + INT_TYPE + COMMA_SEP +
+                    DatabaseContract.TableTransactionSchema.COLUMN_NAME_FK_RESPONSE + INT_TYPE +
                     " )";
 
     private static final String SQL_CREATE_ENTRIES_TABLE_FIELD =
@@ -146,6 +161,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     private static final String SQL_DELETE_ENTRIES_VIEW_MODULE = "DROP TABLE IF EXISTS " + DatabaseContract.ViewModuleSchema.TABLE_NAME;
     private static final String SQL_DELETE_ENTRIES_PROCEDURE = "DROP TABLE IF EXISTS " + DatabaseContract.ProcedureSchema.TABLE_NAME;
     private static final String SQL_DELETE_ENTRIES_TABLE = "DROP TABLE IF EXISTS " + DatabaseContract.TableSchema.TABLE_NAME;
+    private static final String SQL_DELETE_ENTRIES_TABLE_MASTER = "DROP TABLE IF EXISTS " + DatabaseContract.TableMasterSchema.TABLE_NAME;
+    private static final String SQL_DELETE_ENTRIES_TABLE_TRANSACTION = "DROP TABLE IF EXISTS " + DatabaseContract.TableTransactionSchema.TABLE_NAME;
     private static final String SQL_DELETE_ENTRIES_TABLE_FIELD = "DROP TABLE IF EXISTS " + DatabaseContract.TableFieldSchema.TABLE_NAME;
     private static final String SQL_DELETE_ENTRIES_SEND_DATA = "DROP TABLE IF EXISTS " + DatabaseContract.SendDataSchema.TABLE_NAME;
     private static final String SQL_DELETE_ENTRIES_LOCATION = "DROP TABLE IF EXISTS " + DatabaseContract.LocationSchema.TABLE_NAME;
@@ -165,6 +182,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db.execSQL(SQL_CREATE_ENTRIES_VIEW_MODULE);
         db.execSQL(SQL_CREATE_ENTRIES_PROCEDURE);
         db.execSQL(SQL_CREATE_ENTRIES_TABLE);
+        db.execSQL(SQL_CREATE_ENTRIES_TABLE_MASTER);
+        db.execSQL(SQL_CREATE_ENTRIES_TABLE_TRANSACTION);
         db.execSQL(SQL_CREATE_ENTRIES_TABLE_FIELD);
         db.execSQL(SQL_CREATE_ENTRIES_SEND_DATA);
         db.execSQL(SQL_CREATE_ENTRIES_LOCATION);
@@ -179,6 +198,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db.execSQL(SQL_DELETE_ENTRIES_VIEW_MODULE);
         db.execSQL(SQL_DELETE_ENTRIES_PROCEDURE);
         db.execSQL(SQL_DELETE_ENTRIES_TABLE);
+        db.execSQL(SQL_DELETE_ENTRIES_TABLE_MASTER);
+        db.execSQL(SQL_DELETE_ENTRIES_TABLE_TRANSACTION);
         db.execSQL(SQL_DELETE_ENTRIES_TABLE_FIELD);
         db.execSQL(SQL_DELETE_ENTRIES_SEND_DATA);
         db.execSQL(SQL_DELETE_ENTRIES_LOCATION);

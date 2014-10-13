@@ -18,7 +18,7 @@ import java.util.List;
 public class SendDataModel {
 
     private static SendDataModel instance = null;
-
+    public SQLiteDatabase db = null;
     private DatabaseHelper dbHelper = DatabaseHelper.getHelper(FoHeart.getAppContext());
 
     public static SendDataModel get_model()
@@ -36,7 +36,7 @@ public class SendDataModel {
 
     public synchronized SendDataData get_data(int id)
     {
-        SQLiteDatabase db = dbHelper.getWritableDatabase();
+        openDB();
         Cursor curApp = db.rawQuery("SELECT * FROM "+ DatabaseContract.SendDataSchema.TABLE_NAME+" WHERE "+DatabaseContract.SendDataSchema._ID+ "=" +id, null);
 
         SendDataData appData = null;
@@ -64,14 +64,14 @@ public class SendDataModel {
             );
         }
         curApp.close();
-        db.close();
+        closeDB();
 
         return appData;
     }
 
     public synchronized SendDataData get_data(int rowid, String tablename)
     {
-        SQLiteDatabase db = dbHelper.getWritableDatabase();
+        openDB();
         Cursor curApp = db.rawQuery("SELECT * FROM "+DatabaseContract.SendDataSchema.TABLE_NAME+" WHERE "+DatabaseContract.SendDataSchema._ID+ "=" +rowid+" AND "+DatabaseContract.SendDataSchema.COLUMN_NAME_TABLE_NAME+"='"+tablename+"'",null);
 
         SendDataData appData = null;
@@ -99,7 +99,7 @@ public class SendDataModel {
             );
         }
         curApp.close();
-        db.close();
+        closeDB();
 
         return appData;
     }
@@ -109,7 +109,7 @@ public class SendDataModel {
         long lastRowId = 0;
         if (null!=data)
         {
-            SQLiteDatabase db = dbHelper.getWritableDatabase();
+            openDB();
 
             ContentValues values = new ContentValues();
             values.put(DatabaseContract.SendDataSchema.COLUMN_NAME_FK_APPLICATION, data.fk_application);
@@ -121,7 +121,7 @@ public class SendDataModel {
             values.put(DatabaseContract.SendDataSchema.COLUMN_NAME_DATETIME, data.datetime);
 
             lastRowId = db.insert(DatabaseContract.SendDataSchema.TABLE_NAME, null, values);
-            db.close();
+            closeDB();
         }
         return lastRowId;
     }
@@ -132,7 +132,7 @@ public class SendDataModel {
         int rowsAffected = 0;
         if (null!=data)
         {
-            SQLiteDatabase db = dbHelper.getWritableDatabase();
+            openDB();
 
             ContentValues values = new ContentValues();
             values.put(DatabaseContract.SendDataSchema.COLUMN_NAME_FK_APPLICATION, data.fk_application);
@@ -144,7 +144,7 @@ public class SendDataModel {
             values.put(DatabaseContract.SendDataSchema.COLUMN_NAME_DATETIME, data.datetime);
 
             rowsAffected = db.update(DatabaseContract.SendDataSchema.TABLE_NAME, values, DatabaseContract.SendDataSchema._ID + "=" + data._id, null);
-            db.close();
+            closeDB();
         }
         return rowsAffected;
     }
@@ -165,7 +165,7 @@ public class SendDataModel {
 
     public synchronized List<SendDataData> list()
     {
-        SQLiteDatabase db = dbHelper.getWritableDatabase();
+        openDB();
 
         List<SendDataData> list = new ArrayList<SendDataData>();
         String selectQuery = "SELECT  * FROM " + DatabaseContract.SendDataSchema.TABLE_NAME;
@@ -183,14 +183,14 @@ public class SendDataModel {
         }
 
         curApp.close();
-        db.close();
+        closeDB();
 
         return list;
     }
 
     public synchronized List<SendDataData> listUnsync()
     {
-        SQLiteDatabase db = dbHelper.getWritableDatabase();
+        openDB();
 
         List<SendDataData> list = new ArrayList<SendDataData>();
         String selectQuery = "SELECT  * FROM " + DatabaseContract.SendDataSchema.TABLE_NAME +" WHERE "+DatabaseContract.SendDataSchema.COLUMN_NAME_SENT+"=0";
@@ -208,23 +208,37 @@ public class SendDataModel {
         }
 
         curApp.close();
-        db.close();
+        closeDB();
 
         return list;
     }
 
     public synchronized void delete(SendDataData data)
     {
-        SQLiteDatabase db = dbHelper.getWritableDatabase();
+        openDB();
 
         try
         {
             db.delete(DatabaseContract.SendDataSchema.TABLE_NAME, DatabaseContract.SendDataSchema._ID +"="+data._id, null);
-            db.close();
+            closeDB();
         }
         catch (Exception e)
         {
             e.printStackTrace();
         }
+    }
+
+    private void openDB(){
+        if(db == null){
+            db = dbHelper.getWritableDatabase();
+        }else{
+            if(!db.isOpen())
+                db = dbHelper.getWritableDatabase();
+        }
+    }
+
+    private void closeDB(){
+        if(db != null && db.isOpen())
+            db.close();
     }
 }

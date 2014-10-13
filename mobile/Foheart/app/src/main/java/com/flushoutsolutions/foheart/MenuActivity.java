@@ -33,6 +33,7 @@ import com.flushoutsolutions.foheart.application.FoHeart;
 import com.flushoutsolutions.foheart.communication.Connection;
 import com.flushoutsolutions.foheart.communication.Sync;
 import com.flushoutsolutions.foheart.communication.SyncMaster;
+import com.flushoutsolutions.foheart.communication.SyncTransaction;
 import com.flushoutsolutions.foheart.data.ApplicationData;
 import com.flushoutsolutions.foheart.data.ViewData;
 import com.flushoutsolutions.foheart.design.ButtonMenuAdapter;
@@ -121,7 +122,8 @@ public class MenuActivity extends ActionBarActivity {
 
         //Sync Information
         //syncInformation();
-        syncInformationBase();
+        //syncMaster();
+        syncTransaction();
         /*
          0 - Initialize database
          1 - Create menu
@@ -246,7 +248,7 @@ public class MenuActivity extends ActionBarActivity {
         );
     }
 
-    private void syncInformationBase() {
+    private void syncMaster() {
         final SharedPreferences settings = FoHeart.getAppContext().getSharedPreferences("userconfigs", 0);
         ApplicationData applicationData = ApplicationModel.get_model().get_data(settings.getString("idApplication", ""));
 
@@ -261,6 +263,24 @@ public class MenuActivity extends ActionBarActivity {
                         }
                     }
                 }, 60, 60, TimeUnit.SECONDS
+        );
+    }
+
+    private void syncTransaction() {
+        final SharedPreferences settings = FoHeart.getAppContext().getSharedPreferences("userconfigs", 0);
+        ApplicationData applicationData = ApplicationModel.get_model().get_data(settings.getString("idApplication", ""));
+
+        scheduledExecutorService = Executors.newScheduledThreadPool(5);
+        final SyncTransaction sync = new SyncTransaction();
+        scheduledFuture = scheduledExecutorService.scheduleWithFixedDelay(
+                new Runnable() {
+                    @Override
+                    public void run() {
+                        if (Connection.sync_locked == false) {
+                            sync.run();
+                        }
+                    }
+                }, 120, 120, TimeUnit.SECONDS
         );
     }
 
@@ -431,8 +451,14 @@ public class MenuActivity extends ActionBarActivity {
         System.out.println("inicando backup");
         SharedPreferences settings = FoHeart.getAppContext().getSharedPreferences("userconfigs", 0);
         String dbname = "db"+ settings.getString("idApplication","")+".db";
+        String dbname2 = "Foheart.db";
 
         if (DataBaseDebug.exportDatabase(dbname))
+            Toast.makeText(getBaseContext(), "Saved on the Memory Card", Toast.LENGTH_LONG).show();
+        else
+            System.out.println("Unsaved");
+
+        if (DataBaseDebug.exportDatabase(dbname2))
             Toast.makeText(getBaseContext(), "Saved on the Memory Card", Toast.LENGTH_LONG).show();
         else
             System.out.println("Unsaved");

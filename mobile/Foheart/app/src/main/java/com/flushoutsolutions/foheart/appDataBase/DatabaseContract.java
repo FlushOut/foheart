@@ -79,9 +79,24 @@ public class DatabaseContract {
         public static final String COLUMN_NAME_NAME= "name";
         public static final String COLUMN_NAME_AUTO_SYNC = "auto_sync";
         public static final String COLUMN_NAME_KEY = "key";
+        public static final String COLUMN_NAME_REQUESTPARAMS = "requestParams";
+    }
+
+    public static abstract class TableMasterSchema implements BaseColumns
+    {
+        public static final String TABLE_NAME = "table_masters";
+        public static final String COLUMN_NAME_FK_TABLE = "fk_table";
+        public static final String COLUMN_NAME_VERSION_SERVER = "version__server";
+    }
+
+    public static abstract class TableTransactionSchema implements BaseColumns
+    {
+        public static final String TABLE_NAME = "table_transactions";
+        public static final String COLUMN_NAME_FK_TABLE = "fk_table";
         public static final String COLUMN_NAME_VERSION_LOCAL = "version_local";
         public static final String COLUMN_NAME_VERSION_SERVER = "version__server";
-        public static final String COLUMN_NAME_REQUESTPARAMS = "requestParams";
+        public static final String COLUMN_NAME_FK_REQUEST = "fk_request";
+        public static final String COLUMN_NAME_FK_RESPONSE = "fk_response";
     }
 
     public static abstract class TableFieldSchema implements BaseColumns

@@ -10,12 +10,16 @@ import com.flushoutsolutions.foheart.appDataBase.AppDBModel;
 import com.flushoutsolutions.foheart.application.FoHeart;
 import com.flushoutsolutions.foheart.data.TableData;
 import com.flushoutsolutions.foheart.data.TableFieldData;
+import com.flushoutsolutions.foheart.data.TableMastersData;
+import com.flushoutsolutions.foheart.data.TableTransactionsData;
 import com.flushoutsolutions.foheart.logic.GetData;
 import com.flushoutsolutions.foheart.logic.PostData;
 import com.flushoutsolutions.foheart.logic.Procedures;
 import com.flushoutsolutions.foheart.models.ApplicationModel;
 import com.flushoutsolutions.foheart.models.TableFieldModel;
+import com.flushoutsolutions.foheart.models.TableMastersModel;
 import com.flushoutsolutions.foheart.models.TableModel;
+import com.flushoutsolutions.foheart.models.TableTransactionsModel;
 
 import org.apache.http.HttpResponse;
 import org.apache.http.NameValuePair;
@@ -167,7 +171,7 @@ public class Connection {
 
                                     if (num_results>0)
                                     {
-
+                                        int newVersion = responseJSON.getInt("version");
                                         for (int y=0; y<num_results; y++)
                                         {
                                             JSONObject obj = resultArray.getJSONObject(y);
@@ -193,7 +197,6 @@ public class Connection {
                                             {
                                                 appDBModel.deleteAll();
                                             }
-
 
                                             appDBModel.beginTransaction();
                                             for (int w=0; w<rows.length(); w++)
@@ -237,6 +240,12 @@ public class Connection {
                                                 }
                                             }
                                             appDBModel.endTransaction();
+
+                                            if(tbData.auto_sync == 0){
+                                                TableMastersData tbMasterData = TableMastersModel.get_model().getBy(tbData._id);
+                                                tbMasterData.version_server = newVersion;
+                                                TableMastersModel.get_model().save(tbMasterData);
+                                            }
                                         }
                                     }
 
@@ -264,7 +273,7 @@ public class Connection {
                 {
                     e.printStackTrace();
                 }
-            }else if (this.type.equals("sync_master")) {
+            }else if (this.type.equals("sync_transaction")) {
                 try
                 {
                     Context appContext = FoHeart.getAppContext();
@@ -291,6 +300,8 @@ public class Connection {
 
                                     if (num_results>0)
                                     {
+                                        int newVersion = responseJSON.getInt("version");
+                                        int response = responseJSON.getInt("response");
                                         for (int y=0; y<num_results; y++)
                                         {
                                             JSONObject obj = resultArray.getJSONObject(y);
@@ -312,10 +323,10 @@ public class Connection {
                                                 arrLocalFieldsFinal.add(tbFieldData.get(v).name);
                                             }
 
-                                            if (clearAll[y].equals("true"))
+/*                                            if (clearAll[y].equals("true"))
                                             {
                                                 appDBModel.deleteAll();
-                                            }
+                                            }*/
 
                                             appDBModel.beginTransaction();
                                             for (int w=0; w<rows.length(); w++)
@@ -343,17 +354,17 @@ public class Connection {
                                                         values.put(fieldName, record);
                                                     }
                                                 }
-
-                                                if ("ignore".equals(ifRepeats) && count > 0)
-                                                {
-                                                    System.out.println("ignore in "+tablename+" at "+_id);
-                                                }
-                                                else
-                                                {
                                                     appDBModel.saveTransaction(values);
-                                                }
                                             }
                                             appDBModel.endTransaction();
+
+                                            if(tbData.auto_sync == 1){
+                                                TableTransactionsData tbTransactionsData = TableTransactionsModel.get_model().getBy(tbData._id,response);
+                                                if(tbTransactionsData != null){
+                                                    tbTransactionsData.version_server = newVersion;
+                                                    TableTransactionsModel.get_model().save(tbTransactionsData);
+                                                }
+                                            }
                                         }
                                     }
 

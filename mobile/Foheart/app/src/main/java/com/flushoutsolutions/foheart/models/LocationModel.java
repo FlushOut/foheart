@@ -18,7 +18,7 @@ import java.util.List;
 public class LocationModel {
     private DatabaseHelper dbHelper = DatabaseHelper.getHelper(FoHeart.getAppContext());
     private static LocationModel instance = null;
-
+    public SQLiteDatabase db = null;
     public static LocationModel get_model()
     {
         if (instance==null)
@@ -34,7 +34,7 @@ public class LocationModel {
 
     public synchronized LocationData get_data(int id)
     {
-        SQLiteDatabase db = dbHelper.getWritableDatabase();
+        openDB();
         Cursor curApp = db.rawQuery("SELECT * FROM "+DatabaseContract.LocationSchema.TABLE_NAME+" WHERE "+DatabaseContract.LocationSchema._ID + "=" +id, null);
 
         LocationData appData = null;
@@ -68,7 +68,7 @@ public class LocationModel {
             );
         }
         curApp.close();
-        db.close();
+        closeDB();
 
         return appData;
     }
@@ -78,7 +78,7 @@ public class LocationModel {
         long lastRowId = 0;
         if (null!=data)
         {
-            SQLiteDatabase db = dbHelper.getWritableDatabase();
+            openDB();
 
             ContentValues values = new ContentValues();
             values.put(DatabaseContract.LocationSchema.COLUMN_NAME_LAT, data.lat);
@@ -93,7 +93,7 @@ public class LocationModel {
             values.put(DatabaseContract.LocationSchema.COLUMN_NAME_DATETIME, data.date_time);
 
             lastRowId = db.insert(DatabaseContract.LocationSchema.TABLE_NAME, null, values);
-            db.close();
+            closeDB();
         }
         return lastRowId;
     }
@@ -104,7 +104,7 @@ public class LocationModel {
         int rowsAffected = 0;
         if (null!=data)
         {
-            SQLiteDatabase db = dbHelper.getWritableDatabase();
+            openDB();
 
             ContentValues values = new ContentValues();
             values.put(DatabaseContract.LocationSchema.COLUMN_NAME_LAT, data.lat);
@@ -119,7 +119,7 @@ public class LocationModel {
             values.put(DatabaseContract.LocationSchema.COLUMN_NAME_DATETIME, data.date_time);
 
             rowsAffected = db.update(DatabaseContract.LocationSchema.TABLE_NAME, values, DatabaseContract.LocationSchema._ID + "=" + data._id, null);
-            db.close();
+            closeDB();
         }
         return rowsAffected;
     }
@@ -140,7 +140,7 @@ public class LocationModel {
 
     public synchronized List<LocationData> list()
     {
-        SQLiteDatabase db = dbHelper.getWritableDatabase();
+        openDB();
 
         List<LocationData> list = new ArrayList<LocationData>();
         String selectQuery = "SELECT  * FROM " + DatabaseContract.LocationSchema.TABLE_NAME;
@@ -158,23 +158,37 @@ public class LocationModel {
         }
 
         curApp.close();
-        db.close();
+        closeDB();
 
         return list;
     }
 
     public synchronized void delete(LocationData data)
     {
-        SQLiteDatabase db = dbHelper.getWritableDatabase();
+        openDB();
 
         try
         {
             db.delete(DatabaseContract.LocationSchema.TABLE_NAME, DatabaseContract.LocationSchema._ID +"="+data._id, null);
-            db.close();
+            closeDB();
         }
         catch (Exception e)
         {
             e.printStackTrace();
         }
+    }
+
+    private void openDB(){
+        if(db == null){
+            db = dbHelper.getWritableDatabase();
+        }else{
+            if(!db.isOpen())
+                db = dbHelper.getWritableDatabase();
+        }
+    }
+
+    private void closeDB(){
+        if(db != null && db.isOpen())
+            db.close();
     }
 }

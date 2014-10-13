@@ -17,7 +17,7 @@ import java.util.List;
  */
 public class ViewModuleModel {
     private static ViewModuleModel instance = null;
-
+    public SQLiteDatabase db = null;
     private DatabaseHelper dbHelper = DatabaseHelper.getHelper(FoHeart.getAppContext());
 
     public static ViewModuleModel get_model()
@@ -35,7 +35,7 @@ public class ViewModuleModel {
 
     public synchronized ViewModuleData get_data(int id)
     {
-        SQLiteDatabase db = dbHelper.getWritableDatabase();
+        openDB();
         Cursor curApp = db.rawQuery("SELECT * FROM "+ DatabaseContract.ViewModuleSchema.TABLE_NAME+" WHERE "+DatabaseContract.ViewModuleSchema._ID+ "=" +id, null);
 
         ViewModuleData appData = null;
@@ -59,7 +59,7 @@ public class ViewModuleModel {
             );
         }
         curApp.close();
-        db.close();
+        closeDB();
 
         return appData;
     }
@@ -70,7 +70,7 @@ public class ViewModuleModel {
         long lastRowId = 0;
         if (null!=data)
         {
-            SQLiteDatabase db = dbHelper.getWritableDatabase();
+            openDB();
 
             ContentValues values = new ContentValues();
             values.put(DatabaseContract.ViewModuleSchema.COLUMN_NAME_FK_VIEW, String.valueOf(data.fk_view));
@@ -80,7 +80,7 @@ public class ViewModuleModel {
             values.put(DatabaseContract.ViewModuleSchema.COLUMN_NAME_EVENTS, data.events);
 
             lastRowId = db.insert(DatabaseContract.ViewModuleSchema.TABLE_NAME, null, values);
-            db.close();
+            closeDB();
         }
         return lastRowId;
     }
@@ -90,7 +90,7 @@ public class ViewModuleModel {
         int rowsAffected = 0;
         if (null!=data)
         {
-            SQLiteDatabase db = dbHelper.getWritableDatabase();
+            openDB();
 
             ContentValues values = new ContentValues();
             values.put(DatabaseContract.ViewModuleSchema.COLUMN_NAME_FK_VIEW, String.valueOf(data.fk_view));
@@ -100,7 +100,7 @@ public class ViewModuleModel {
             values.put(DatabaseContract.ViewModuleSchema.COLUMN_NAME_EVENTS, data.events);
 
             rowsAffected = db.update(DatabaseContract.ViewModuleSchema.TABLE_NAME, values, DatabaseContract.ViewModuleSchema._ID + "=" + data._id, null);
-            db.close();
+            closeDB();
         }
         return rowsAffected;
     }
@@ -120,7 +120,7 @@ public class ViewModuleModel {
 
     public synchronized List<ViewModuleData> list(int id)
     {
-        SQLiteDatabase db = dbHelper.getWritableDatabase();
+        openDB();
 
         List<ViewModuleData> list = new ArrayList<ViewModuleData>();
         String selectQuery = "SELECT  * FROM " + DatabaseContract.ViewModuleSchema.TABLE_NAME + " WHERE "+DatabaseContract.ViewModuleSchema.COLUMN_NAME_FK_VIEW+"="+id;
@@ -138,19 +138,19 @@ public class ViewModuleModel {
         }
 
         curApp.close();
-        db.close();
+        closeDB();
 
         return list;
     }
 
     public synchronized void delete(ViewModuleData data)
     {
-        SQLiteDatabase db = dbHelper.getWritableDatabase();
+        openDB();
 
         try
         {
             db.delete(DatabaseContract.ViewModuleSchema.TABLE_NAME, DatabaseContract.ViewModuleSchema._ID +"="+data._id, null);
-            db.close();
+            closeDB();
         }
         catch (Exception e)
         {
@@ -161,17 +161,31 @@ public class ViewModuleModel {
 
     public synchronized void delete_all()
     {
-        SQLiteDatabase db = dbHelper.getWritableDatabase();
+        openDB();
 
         try
         {
             db.delete(DatabaseContract.ViewModuleSchema.TABLE_NAME, null, null);
-            db.close();
+            closeDB();
         }
         catch (Exception e)
         {
             e.printStackTrace();
         }
 
+    }
+
+    private void openDB(){
+        if(db == null){
+            db = dbHelper.getWritableDatabase();
+        }else{
+            if(!db.isOpen())
+                db = dbHelper.getWritableDatabase();
+        }
+    }
+
+    private void closeDB(){
+        if(db != null && db.isOpen())
+            db.close();
     }
 }

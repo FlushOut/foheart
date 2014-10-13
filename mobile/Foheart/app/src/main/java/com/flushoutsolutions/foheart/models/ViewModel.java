@@ -18,7 +18,7 @@ import java.util.List;
 public class ViewModel {
 
     private static ViewModel instance = null;
-
+    public SQLiteDatabase db = null;
     private DatabaseHelper dbHelper = DatabaseHelper.getHelper(FoHeart.getAppContext());
 
     public static ViewModel get_model()
@@ -36,7 +36,7 @@ public class ViewModel {
 
     public synchronized ViewData get_data(int id)
     {
-        SQLiteDatabase db = dbHelper.getWritableDatabase();
+        openDB();
         Cursor curApp = db.rawQuery("SELECT * FROM "+ DatabaseContract.ViewSchema.TABLE_NAME+" WHERE "+DatabaseContract.ViewSchema._ID+ "=" +id, null);
 
         ViewData appData = null;
@@ -66,14 +66,14 @@ public class ViewModel {
             );
         }
         curApp.close();
-        db.close();
+        closeDB();
 
         return appData;
     }
 
     public synchronized ViewData get_data(int fk_app, String name)
     {
-        SQLiteDatabase db = dbHelper.getWritableDatabase();
+        openDB();
         Cursor curApp = db.rawQuery("SELECT * FROM "+DatabaseContract.ViewSchema.TABLE_NAME+
                                     " WHERE "+DatabaseContract.ViewSchema.COLUMN_NAME_FK_APPLICATION+ "=" +fk_app+
                                     " AND "+DatabaseContract.ViewSchema.COLUMN_NAME_NAME+"='"+name+"'", null);
@@ -105,7 +105,7 @@ public class ViewModel {
             );
         }
         curApp.close();
-        db.close();
+        closeDB();
 
         return appData;
     }
@@ -115,7 +115,7 @@ public class ViewModel {
         long lastRowId = 0;
         if (null!=data)
         {
-            SQLiteDatabase db = dbHelper.getWritableDatabase();
+            openDB();
 
             ContentValues values = new ContentValues();
             values.put(DatabaseContract.ViewSchema.COLUMN_NAME_FK_APPLICATION, String.valueOf(data.fk_application));
@@ -128,7 +128,7 @@ public class ViewModel {
             values.put(DatabaseContract.ViewSchema.COLUMN_NAME_EVENTS, data.events);
 
             lastRowId = db.insert(DatabaseContract.ViewSchema.TABLE_NAME, null, values);
-            db.close();
+            closeDB();
         }
         return lastRowId;
     }
@@ -138,7 +138,7 @@ public class ViewModel {
         int rowsAffected = 0;
         if (null!=data)
         {
-            SQLiteDatabase db = dbHelper.getWritableDatabase();
+            openDB();
 
             ContentValues values = new ContentValues();
             values.put(DatabaseContract.ViewSchema.COLUMN_NAME_FK_APPLICATION, String.valueOf(data.fk_application));
@@ -151,7 +151,7 @@ public class ViewModel {
             values.put(DatabaseContract.ViewSchema.COLUMN_NAME_EVENTS, data.events);
 
             rowsAffected = db.update(DatabaseContract.ViewSchema.TABLE_NAME, values, DatabaseContract.ViewSchema._ID + "=" + data._id, null);
-            db.close();
+            closeDB();
         }
         return rowsAffected;
     }
@@ -171,7 +171,7 @@ public class ViewModel {
 
     public synchronized List<ViewData> list()
     {
-        SQLiteDatabase db = dbHelper.getWritableDatabase();
+        openDB();
 
         List<ViewData> list = new ArrayList<ViewData>();
         String selectQuery = "SELECT  * FROM " + DatabaseContract.ViewSchema.TABLE_NAME;
@@ -189,19 +189,19 @@ public class ViewModel {
         }
 
         curApp.close();
-        db.close();
+        closeDB();
 
         return list;
     }
 
     public synchronized void delete(ViewData data)
     {
-        SQLiteDatabase db = dbHelper.getWritableDatabase();
+        openDB();
 
         try
         {
             db.delete(DatabaseContract.ViewSchema.TABLE_NAME, DatabaseContract.ViewSchema._ID +"="+data._id, null);
-            db.close();
+            closeDB();
         }
         catch (Exception e)
         {
@@ -211,16 +211,30 @@ public class ViewModel {
 
     public synchronized void delete_all()
     {
-        SQLiteDatabase db = dbHelper.getWritableDatabase();
+        openDB();
 
         try
         {
             db.delete(DatabaseContract.ViewSchema.TABLE_NAME, null, null);
-            db.close();
+            closeDB();
         }
         catch (Exception e)
         {
             e.printStackTrace();
         }
+    }
+
+    private void openDB(){
+        if(db == null){
+            db = dbHelper.getWritableDatabase();
+        }else{
+            if(!db.isOpen())
+                db = dbHelper.getWritableDatabase();
+        }
+    }
+
+    private void closeDB(){
+        if(db != null && db.isOpen())
+            db.close();
     }
 }

@@ -19,6 +19,7 @@ public class ApplicationModel {
 
     private DatabaseHelper dbHelper = DatabaseHelper.getHelper(FoHeart.getAppContext());
     private static ApplicationModel instance = null;
+    public SQLiteDatabase db = null;
 
     public static ApplicationModel get_model()
     {
@@ -35,7 +36,7 @@ public class ApplicationModel {
 
     public synchronized ApplicationData get_data(int id)
     {
-        SQLiteDatabase db = dbHelper.getWritableDatabase();
+        openDB();
         Cursor curApp = db.rawQuery("SELECT * FROM "+ DatabaseContract.ApplicationSchema.TABLE_NAME+" WHERE "+DatabaseContract.ApplicationSchema._ID+ "=" +id, null);
 
         ApplicationData appData = null;
@@ -71,7 +72,7 @@ public class ApplicationModel {
             );
         }
         curApp.close();
-        db.close();
+        closeDB();
 
         return appData;
     }
@@ -82,7 +83,7 @@ public class ApplicationModel {
         long lastRowId = 0;
         if (null!=data)
         {
-            SQLiteDatabase db = dbHelper.getWritableDatabase();
+            openDB();
 
             ContentValues values = new ContentValues();
             values.put(DatabaseContract.ApplicationSchema.COLUMN_NAME_APP_CODE, data.code);
@@ -100,7 +101,7 @@ public class ApplicationModel {
             values.put(DatabaseContract.ApplicationSchema.COLUMN_NAME_SYNC_TRANSACTION, data.sync_transaction);
 
             lastRowId = db.insert(DatabaseContract.ApplicationSchema.TABLE_NAME, null, values);
-            db.close();
+            closeDB();
         }
 
         return lastRowId;
@@ -111,7 +112,7 @@ public class ApplicationModel {
         int rowsAffected = 0;
         if (null!=data)
         {
-            SQLiteDatabase db = dbHelper.getWritableDatabase();
+            openDB();
 
             ContentValues values = new ContentValues();
             values.put(DatabaseContract.ApplicationSchema.COLUMN_NAME_APP_CODE, data.code);
@@ -129,7 +130,7 @@ public class ApplicationModel {
             values.put(DatabaseContract.ApplicationSchema.COLUMN_NAME_SYNC_TRANSACTION, data.sync_transaction);
 
             rowsAffected = db.update(DatabaseContract.ApplicationSchema.TABLE_NAME, values, DatabaseContract.ApplicationSchema._ID + "=" + data._id, null);
-            db.close();
+            closeDB();
         }
         return rowsAffected;
     }
@@ -148,7 +149,7 @@ public class ApplicationModel {
 
     public synchronized List<ApplicationData> list()
     {
-        SQLiteDatabase db = dbHelper.getWritableDatabase();
+        openDB();
 
         List<ApplicationData> list = new ArrayList<ApplicationData>();
         String selectQuery = "SELECT  * FROM " + DatabaseContract.ApplicationSchema.TABLE_NAME;
@@ -166,19 +167,19 @@ public class ApplicationModel {
         }
 
         curApp.close();
-        db.close();
+        closeDB();
 
         return list;
     }
 
     public synchronized void delete(ApplicationData data)
     {
-        SQLiteDatabase db = dbHelper.getWritableDatabase();
+        openDB();
 
         try
         {
             db.delete(DatabaseContract.ApplicationSchema.TABLE_NAME, DatabaseContract.ApplicationSchema._ID +"="+data._id, null);
-            db.close();
+            closeDB();
         }
         catch (Exception e)
         {
@@ -188,11 +189,11 @@ public class ApplicationModel {
 
     public synchronized void delete_all()
     {
-        SQLiteDatabase db = dbHelper.getWritableDatabase();
+        openDB();
         try
         {
             db.delete(DatabaseContract.ApplicationSchema.TABLE_NAME, null, null);
-            db.close();
+            closeDB();
         }
         catch (Exception e)
         {
@@ -202,7 +203,7 @@ public class ApplicationModel {
 
     public synchronized ApplicationData get_data(String appCode)
     {
-        SQLiteDatabase db = dbHelper.getWritableDatabase();
+        openDB();
         Cursor curApp = db.rawQuery("SELECT * FROM "+DatabaseContract.ApplicationSchema.TABLE_NAME+" WHERE "+DatabaseContract.ApplicationSchema.COLUMN_NAME_APP_CODE+"='"+appCode+"'", null);
 
         ApplicationData appData = null;
@@ -238,14 +239,14 @@ public class ApplicationModel {
             );
         }
         curApp.close();
-        db.close();
+        closeDB();
 
         return appData;
     }
 
     public synchronized ApplicationData get_data_by_desc(String desc)
     {
-        SQLiteDatabase db = dbHelper.getWritableDatabase();
+        openDB();
         Cursor curApp = db.rawQuery("SELECT * FROM "+DatabaseContract.ApplicationSchema.TABLE_NAME+" WHERE "+DatabaseContract.ApplicationSchema.COLUMN_NAME_APP_DESC+"='"+desc+"'", null);
 
         ApplicationData appData = null;
@@ -281,8 +282,23 @@ public class ApplicationModel {
             );
         }
         curApp.close();
-        db.close();
+        closeDB();
 
         return appData;
     }
+
+    private void openDB(){
+        if(db == null){
+            db = dbHelper.getWritableDatabase();
+        }else{
+            if(!db.isOpen())
+                db = dbHelper.getWritableDatabase();
+        }
+    }
+
+    private void closeDB(){
+        if(db != null && db.isOpen())
+            db.close();
+    }
+
 }
